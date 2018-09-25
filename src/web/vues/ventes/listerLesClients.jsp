@@ -25,7 +25,10 @@
                     <th>id</th>
                     <th>nom</th>
                     <th>prenomt</th>
-                    <th>pays</th>                
+                    <th>pays</th>  
+                    <th>Rue</th>
+                    <th>Ville</th>
+                    <th>Code Postal</th>
             <br>
             <br>
                 </tr>
@@ -41,8 +44,8 @@
                         out.println(unClient.getId());
                         out.println("</a></td>");
 
-                         out.println("<td>");
-                         out.println(unClient.getNom());
+                        out.println("<td>");
+                        out.println(unClient.getNom());
                         out.println("</td>");
 
                         out.println("<td>");
@@ -52,7 +55,18 @@
                         out.println("<td>");
                         out.println(unClient.getUnPays().getNom());
                         out.println("</td>");
-                               
+                            
+                        out.println("<td>");
+                        out.println(unClient.getRue());
+                        out.println("</td>");
+                        
+                        out.println("<td>");
+                        out.println(unClient.getVille());
+                        out.println("</td>");
+                        
+                        out.println("<td>");
+                        out.println(unClient.getCopos());
+                        out.println("</td>");
                     }
                     %>
                 </tr>

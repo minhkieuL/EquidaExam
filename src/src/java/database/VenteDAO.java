@@ -83,13 +83,13 @@ public class VenteDAO {
              
             //On hydrate l'objet métier Client avec les résultats de la requête
             while ( rs.next() ) {  
-                
-                
-                
                 Client unClient = new Client();
                 unClient.setId(rs.getInt("id"));
                 unClient.setNom(rs.getString("nom"));
                 unClient.setPrenom(rs.getString("prenom"));
+                unClient.setCopos(rs.getString("copos"));
+                unClient.setRue(rs.getString("rue"));
+                unClient.setVille(rs.getString("ville"));
                 
                 Pays p = new Pays();
                 p.setCode(rs.getString("codePays"));
