@@ -4,6 +4,7 @@
     Author     : Zakina
 --%>
 
+<%@page import="modele.CategVente"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modele.Vente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,7 +19,29 @@
         <h1>LISTE DES VENTES</h1>
          <%
         ArrayList<Vente> lesVentes = (ArrayList)request.getAttribute("pLesVentes");
-        %>
+        ArrayList<CategVente> lesCatVentes = (ArrayList)request.getAttribute("pLesCatVentes");
+                System.err.println(lesCatVentes.size());
+         %>
+         <form method="GET">
+            <select
+                name="catVente">
+                <%
+                    for(CategVente catVente : lesCatVentes) {
+                        String catCode = catVente.getCode();
+                        String catLib = catVente.getLibelle();
+                        
+                        String catVenteSelect = "";
+                        if(request.getParameter("catVente") != null)
+                            catVenteSelect = (request.getParameter("catVente").equals(catCode)) ? "selected" : "";
+                                
+                        out.println("<option value=\""+catCode+"\"" + catVenteSelect +">"+catLib+"</option>)");
+                    }
+                %>
+            </select>
+            
+            <input type="submit"/>
+        </form>
+            <a href="listerLesVentes"><button>Reset</button></a>
         <table  class="table table-bordered table-striped table-condensed">  
             <thead>
                 <tr>             

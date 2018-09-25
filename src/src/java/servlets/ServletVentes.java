@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modele.CategVente;
 import modele.Client;
 import modele.Vente;
 
@@ -86,9 +87,14 @@ public class ServletVentes extends HttpServlet {
         // Récup et affichage par date décroissante de toutes les ventes   
           
         if(url.equals("/EquidaWeb18/ServletVentes/listerLesVentes"))
-        {  
-            ArrayList<Vente> lesVentes = VenteDAO.getLesVentes(connection);
+        {              
+            ArrayList<CategVente> lesCatVentes = VenteDAO.getLesCatVentes(connection);
+            request.setAttribute("pLesCatVentes", lesCatVentes);
+            
+            String catVente = (String)request.getParameter("catVente");
+            ArrayList<Vente> lesVentes = VenteDAO.getLesVentes(connection, catVente);
             request.setAttribute("pLesVentes", lesVentes);
+            
             getServletContext().getRequestDispatcher("/vues/ventes/listerLesVentes.jsp").forward(request, response);
         }
         
@@ -103,9 +109,6 @@ public class ServletVentes extends HttpServlet {
             request.setAttribute("pLesClients", lesClients);
             getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
         }
-        
-        
-        
     }
 
     /**

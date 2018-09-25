@@ -23,7 +23,6 @@ import modele.Vente;
  * Classe faisant la liaison entre la table Vente et la classe Vente
  */
 public class VenteDAO {
-
     
     Connection connection=null;
     static PreparedStatement requete=null;
@@ -35,11 +34,16 @@ public class VenteDAO {
     /* La liste des vente est stockée dans une ArrayList
     */
     public static ArrayList<Vente>  getLesVentes(Connection connection){      
+        return getLesVentes(connection, null);
+    } 
+    
+    public static ArrayList<Vente> getLesVentes(Connection connection, String catVente) {
         ArrayList<Vente> lesVentes = new  ArrayList<Vente>();
         try
         {
+            String selectionCatVente = (catVente != null) ? "AND code='"+catVente+"'" : "";
             //preparation de la requete     
-            requete=connection.prepareStatement("select * from vente, CategVente where codeCategVente=code order by dateDebut desc");          
+            requete=connection.prepareStatement("select * from vente, CategVente where codeCategVente=code " + selectionCatVente + " order by dateDebut desc");          
             //executer la requete
             rs=requete.executeQuery();
             
@@ -62,8 +66,34 @@ public class VenteDAO {
         {
             e.printStackTrace();
         }
-        return lesVentes ;    
-    } 
+        return lesVentes ;   
+    }
+    
+    
+    public static ArrayList<CategVente> getLesCatVentes(Connection connection) {
+        ArrayList<CategVente> lesCatVentes = new  ArrayList<CategVente>();
+        try
+        {
+            //preparation de la requete     
+            requete=connection.prepareStatement("select * from categvente order by libelle");          
+            //executer la requete
+            rs=requete.executeQuery();
+            
+            //On hydrate l'objet métier Client avec les résultats de la requête
+            while ( rs.next() ) {  
+                CategVente catVente = new CategVente();
+                catVente.setCode(rs.getString("code"));
+                catVente.setLibelle(rs.getString("libelle"));
+                
+                lesCatVentes.add(catVente);
+            }
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return lesCatVentes; 
+    }
     
     /* @author Zakina - 22/06/2017
     /* Méthode permettant de lister les clients interessés par la catégorie de la vente selectionnée (passée en paramètre de la méthode)
