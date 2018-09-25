@@ -29,6 +29,7 @@
                     <th>Rue</th>
                     <th>Ville</th>
                     <th>Code Postal</th>
+                    <th>Mail</th>
             <br>
             <br>
                 </tr>
@@ -66,6 +67,10 @@
                         
                         out.println("<td>");
                         out.println(unClient.getCopos());
+                        out.println("</td>");
+                        
+                        out.println("<td>");
+                        out.println(unClient.getMail());
                         out.println("</td>");
                     }
                     %>

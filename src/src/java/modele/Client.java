@@ -20,6 +20,7 @@ public class Client {
     private String copos ;
     private String ville;
     private Pays unPays ;
+    private String mail;
     private ArrayList<CategVente> lesCategVentes ;
 
     public Client() {
@@ -100,5 +101,13 @@ public class Client {
             lesCategVentes = new ArrayList<CategVente>();
         }
         lesCategVentes.add(uneCategVente);
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 }

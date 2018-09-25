@@ -90,6 +90,7 @@ public class VenteDAO {
                 unClient.setCopos(rs.getString("copos"));
                 unClient.setRue(rs.getString("rue"));
                 unClient.setVille(rs.getString("ville"));
+                unClient.setMail(rs.getString("mail"));
                 
                 Pays p = new Pays();
                 p.setCode(rs.getString("codePays"));
