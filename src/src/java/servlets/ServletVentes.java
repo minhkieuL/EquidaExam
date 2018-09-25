@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
 import modele.Client;
+import modele.Courriel;
 import modele.Vente;
 
 /**
@@ -101,13 +102,21 @@ public class ServletVentes extends HttpServlet {
         // Récup et affichage des clients interessés par une certaine catégorie de ventes
         if(url.equals("/EquidaWeb18/ServletVentes/listerLesClients"))
         {  
-           System.out.println("DANS LISTER LES CLIENTS");
             String codeCat = (String)request.getParameter("codeCat");
            
-            
             ArrayList<Client> lesClients = VenteDAO.getLesClients(connection, codeCat);
             request.setAttribute("pLesClients", lesClients);
             getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
+        }
+        
+        if(url.equals("/EquidaWeb18/ServletVentes/listerLesCourriels"))
+        {  
+            String codeVente = (String)request.getParameter("codeVente");
+            
+            ArrayList<Courriel> lesCourriels = VenteDAO.getLesCourriels(connection, codeVente);
+            request.setAttribute("pLesCourriels", lesCourriels);
+            
+            getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
         }
     }
 

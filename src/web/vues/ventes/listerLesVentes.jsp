@@ -20,7 +20,6 @@
          <%
         ArrayList<Vente> lesVentes = (ArrayList)request.getAttribute("pLesVentes");
         ArrayList<CategVente> lesCatVentes = (ArrayList)request.getAttribute("pLesCatVentes");
-                System.err.println(lesCatVentes.size());
          %>
          <form method="GET">
             <select
@@ -81,7 +80,10 @@
                         out.println("Lister les clients interessés");
                         out.println("</td>");
                         
-                               
+                        out.println("<td><a href ='../ServletVentes/listerLesCourriels?codeVente="+ uneVente.getId() + "'>");
+                        out.println("Lister les courriels");
+                        out.println("</td>");
+                             
                     }
                     %>
                 </tr>

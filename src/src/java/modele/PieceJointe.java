@@ -21,6 +21,10 @@ public class PieceJointe {
         if(this.listeCourriels == null) 
             this.listeCourriels = new ArrayList<>();
     }
+
+    public PieceJointe() {
+        
+    }
     
     public int getId() {
         return id;
