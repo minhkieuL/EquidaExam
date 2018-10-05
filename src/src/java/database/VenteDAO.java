@@ -144,43 +144,4 @@ public class VenteDAO {
         return lesClients ;    
     } 
     
-    public static ArrayList<Courriel> getLesCourriels(Connection connection, String codeVente) {
-        ArrayList<Courriel> lesCourriels = new  ArrayList<Courriel>();
-        try
-        {
-            requete=connection.prepareStatement("SELECT courriel.*, vente.* FROM courriel, vente WHERE courriel.vente=vente.id AND vente.id=?");
-            requete.setString(1, codeVente);
-            rs=requete.executeQuery();
-             
-            //On hydrate l'objet métier Client avec les résultats de la requête
-            while ( rs.next() ) {  
-                Courriel courriel = new Courriel();
-                courriel.setId(rs.getInt("id"));
-                courriel.setDate(rs.getString("date"));
-                courriel.setObjet(rs.getString("objet"));
-                courriel.setCorps(rs.getString("corps"));
-                
-                requete=connection.prepareStatement("SELECT piecejointe.* FROM joint, piecejointe WHERE piecejointe.id=joint.pieceJointe AND joint.courriel=?");
-                requete.setInt(1, courriel.getId());
-                ResultSet rsPieceJointe=requete.executeQuery();
- 
-                while(rsPieceJointe.next()) {
-                    PieceJointe p = new PieceJointe();
-                    p.setId(rsPieceJointe.getInt("id"));
-                    p.setChemin(rsPieceJointe.getString("chemin"));
-                    p.setDescription(rsPieceJointe.getString("description"));
-                    
-                    courriel.addPieceJointe(p);
-                }
-
-                lesCourriels.add(courriel);
-            }
-        }   
-        catch (SQLException e) 
-        {
-            e.printStackTrace();
-            //out.println("Erreur lors de l’établissement de la connexion");
-        }
-        return lesCourriels;
-    }   
 }

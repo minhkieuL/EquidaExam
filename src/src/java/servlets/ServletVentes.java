@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import database.CourrielDAO;
 import database.Utilitaire;
 import database.VenteDAO;
 import java.io.IOException;
@@ -113,7 +114,7 @@ public class ServletVentes extends HttpServlet {
         {  
             String codeVente = (String)request.getParameter("codeVente");
             
-            ArrayList<Courriel> lesCourriels = VenteDAO.getLesCourriels(connection, codeVente);
+            ArrayList<Courriel> lesCourriels = CourrielDAO.getLesCourriels(connection, codeVente);
             request.setAttribute("pLesCourriels", lesCourriels);
             
             getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
