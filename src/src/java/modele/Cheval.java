@@ -5,21 +5,21 @@ import java.util.ArrayList;
 public class Cheval {
     private int id;
     private String nom;
-    private boolean sexe;
+    private boolean male;
     private String sire;
-    private TypeCheval cheval;
+    private TypeCheval typeCheval;
     private ArrayList<Lot> lots;
 
     public Cheval() {
         this(0, "", false, "", null, null);
     }
     
-    public Cheval(int id, String nom, boolean sexe, String sire, TypeCheval cheval, ArrayList<Lot> lots) {
+    public Cheval(int id, String nom, boolean male, String sire, TypeCheval typeCheval, ArrayList<Lot> lots) {
         this.id = id;
         this.nom = nom;
-        this.sexe = sexe;
+        this.male = male;
         this.sire = sire;
-        this.cheval = cheval;
+        this.typeCheval = typeCheval;
         this.lots = lots;
         
         if(this.lots == null)
@@ -50,12 +50,12 @@ public class Cheval {
         this.sire = sire;
     }
 
-    public TypeCheval getCheval() {
-        return cheval;
+    public TypeCheval getTypeCheval() {
+        return typeCheval;
     }
 
-    public void setCheval(TypeCheval cheval) {
-        this.cheval = cheval;
+    public void setTypeCheval(TypeCheval typeCheval) {
+        this.typeCheval = typeCheval;
     }
 
     public ArrayList<Lot> getLots() {
@@ -71,10 +71,10 @@ public class Cheval {
     }
 
     public boolean estMale() {
-        return this.sexe;
+        return this.male;
     }
     
-    public void setSexe(boolean sexe) {
-        this.sexe = sexe;
+    public void setMale(boolean male) {
+        this.male = male;
     }
 }

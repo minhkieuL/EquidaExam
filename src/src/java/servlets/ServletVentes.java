@@ -6,6 +6,7 @@
 package servlets;
 
 import database.CourrielDAO;
+import database.LotDAO;
 import database.Utilitaire;
 import database.VenteDAO;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
 import modele.Client;
 import modele.Courriel;
+import modele.Lot;
 import modele.Vente;
 
 /**
@@ -118,6 +120,16 @@ public class ServletVentes extends HttpServlet {
             request.setAttribute("pLesCourriels", lesCourriels);
             
             getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
+        }
+        
+        if(url.equals("/EquidaWeb18/ServletVentes/listerLesChevauxParVentes"))
+        {  
+            String idVente = (String)request.getParameter("idVente");
+            
+            ArrayList<Lot> lesLots = LotDAO.getLesLotPourVente(connection, idVente);
+            request.setAttribute("pLesLots", lesLots);
+            
+            getServletContext().getRequestDispatcher("/vues/ventes/listerLesChevauxParVentes.jsp").forward(request, response);
         }
     }
 

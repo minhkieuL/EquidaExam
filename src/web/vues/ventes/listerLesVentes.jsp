@@ -48,7 +48,6 @@
                     <th>nom</th>
                     <th>date début</th>
                     <th>catégorie</th>  
-                    <th></th>
             <br>
             <br>
                 </tr>
@@ -82,6 +81,10 @@
                         
                         out.println("<td><a href ='../ServletVentes/listerLesCourriels?codeVente="+ uneVente.getId() + "'>");
                         out.println("Lister les courriels");
+                        out.println("</td>");
+                        
+                        out.println("<td><a href ='../ServletVentes/listerLesChevauxParVentes?idVente="+ uneVente.getId() + "'>");
+                        out.println("Lister les chevaux");
                         out.println("</td>");
                              
                     }
