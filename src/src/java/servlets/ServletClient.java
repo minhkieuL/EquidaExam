@@ -70,7 +70,6 @@ public class ServletClient extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -113,7 +112,7 @@ public class ServletClient extends HttpServlet {
         ClientForm form = new ClientForm();
 		
         /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-        Client unClient = form.ajouterClient(request);
+        Client unClient = form.getClient(request);
         
         /* Stockage du formulaire et de l'objet dans l'objet request */
         request.setAttribute( "form", form );
