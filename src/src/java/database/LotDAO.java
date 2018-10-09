@@ -46,7 +46,7 @@ public class LotDAO {
                 cheval.setId(rs.getInt("idCheval"));
                 cheval.setMale(rs.getBoolean("sexe"));
                 cheval.setNom(rs.getString("nomCheval"));
-                cheval.setSire("sire");
+                cheval.setSire(rs.getString("sire"));
                 cheval.setTypeCheval(typeCheval);                
                 lot.setCheval(cheval);
                 
