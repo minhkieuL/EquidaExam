@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modele;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Zakina
- */
 public class Vente {
     private int id;
     private String nom;
@@ -18,25 +9,30 @@ public class Vente {
     private CategVente uneCategVente;
     private Lieu lieu;
     private ArrayList<Courriel> listeCourriels;
+    private ArrayList<Lot> lots;
 
     public Vente() {
         this(0, "", "");
     }
 
     public Vente(int id, String nom, String dateDebutVente) {
-        this(0, "", "", null, null, null); 
+        this(0, "", "", null, null, null, null); 
     }
     
-    public Vente(int id, String nom, String dateDebutVente, CategVente catVente, Lieu lieu, ArrayList<Courriel> listeCourriels) {
+    public Vente(int id, String nom, String dateDebutVente, CategVente catVente, Lieu lieu, ArrayList<Courriel> listeCourriels, ArrayList<Lot> lots) {
         this.id = id;
         this.nom = nom;
         this.dateDebutVente = dateDebutVente;
         this.uneCategVente = catVente;
         this.lieu = lieu;
         this.listeCourriels = listeCourriels;
+        this.lots = lots;
         
         if(this.listeCourriels == null)
             this.listeCourriels = new ArrayList<>();
+        
+        if(this.lots == null)
+            this.lots = new ArrayList<>();
     }
 
     public int getId() {
@@ -89,5 +85,17 @@ public class Vente {
 
     public void addCourriel(Courriel courriel) {
         listeCourriels.add(courriel);
+    }
+
+    public ArrayList<Lot> getLots() {
+        return lots;
+    }
+
+    public void setLots(ArrayList<Lot> lots) {
+        this.lots = lots;
+    }
+    
+    public void addLot(Lot lot) {
+        this.lots.add(lot);
     }
 }
