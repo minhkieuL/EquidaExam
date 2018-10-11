@@ -1,14 +1,3 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 INSERT INTO `lieu` (`id`, `ville`, `nbBoxes`, `commentaire`) VALUES (NULL, 'Caen', '5', 'Hippodrome de caen'), (NULL, 'Vire', '10', 'Hippodrome de vire');
 
 UPDATE `vente` SET `lieu` = '1' WHERE `vente`.`id` = 30917;
@@ -25,9 +14,3 @@ INSERT INTO `courriel` (`id`, `date`, `objet`, `corps`, `vente`) VALUES (NULL, '
 
 INSERT INTO `joint` (`courriel`, `pieceJointe`) VALUES ('2', '1'), ('2', '2');
 INSERT INTO `joint` (`courriel`, `pieceJointe`) VALUES ('3', '3'), ('1', '4');
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-

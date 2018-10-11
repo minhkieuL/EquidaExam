@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `typecheval` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(50) NOT NULL,
-  `description` varchar(255) NULL
+  `description` varchar(255) NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
