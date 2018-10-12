@@ -19,7 +19,7 @@ public class CourrielTest {
         vente.setLieu(new Lieu(1, "ville", 10, "commentaire", null));
         vente.setListeCourriels(new ArrayList<Courriel>(Arrays.asList(new Courriel())));
         vente.setNom("nom");
-        vente.setUneCategVente(new CategVente("code", "libelle"));
+        vente.setUneCategVente(new CategVente("code", "libelle", null, null));
         
         System.out.println("Date debut : " + vente.getDateDebut());
         System.out.println("Id : " + vente.getId());
