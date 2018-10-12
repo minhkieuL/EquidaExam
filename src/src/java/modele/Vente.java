@@ -5,24 +5,24 @@ import java.util.ArrayList;
 public class Vente {
     private int id;
     private String nom;
-    private String dateDebutVente;
+    private String dateDebut;
+    private String dateFin;
+    private String dateDebutInscription;
     private CategVente uneCategVente;
     private Lieu lieu;
     private ArrayList<Courriel> listeCourriels;
     private ArrayList<Lot> lots;
 
     public Vente() {
-        this(0, "", "");
-    }
-
-    public Vente(int id, String nom, String dateDebutVente) {
-        this(0, "", "", null, null, null, null); 
+        this(0, "", "", "", "", null, null, null, null);
     }
     
-    public Vente(int id, String nom, String dateDebutVente, CategVente catVente, Lieu lieu, ArrayList<Courriel> listeCourriels, ArrayList<Lot> lots) {
+    public Vente(int id, String nom, String dateDebut, String dateFin, String datedebutInscription, CategVente catVente, Lieu lieu, ArrayList<Courriel> listeCourriels, ArrayList<Lot> lots) {
         this.id = id;
         this.nom = nom;
-        this.dateDebutVente = dateDebutVente;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.dateDebutInscription = datedebutInscription;
         this.uneCategVente = catVente;
         this.lieu = lieu;
         this.listeCourriels = listeCourriels;
@@ -51,14 +51,30 @@ public class Vente {
         this.nom = nom;
     }
 
-    public String getDateDebutVente() {
-        return dateDebutVente;
+    public String getDateDebut() {
+        return dateDebut;
     }
 
-    public void setDateDebutVente(String dateDebutVente) {
-        this.dateDebutVente = dateDebutVente;
+    public void setDateDebut(String dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
+    public String getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(String dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public String getDateDebutInscription() {
+        return dateDebutInscription;
+    }
+
+    public void setDateDebutInscription(String dateDebutInscription) {
+        this.dateDebutInscription = dateDebutInscription;
+    }
+    
     public CategVente getUneCategVente() {
         return uneCategVente;
     }
