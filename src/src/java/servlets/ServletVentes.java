@@ -90,7 +90,7 @@ public class ServletVentes extends HttpServlet {
         
         // Récup et affichage par date décroissante de toutes les ventes   
           
-        if(url.equals("/EquidaWeb18/ServletVentes/listerLesVentes"))
+        if(url.equals("/EquidaWebG2/ServletVentes/listerLesVentes"))
         {              
             ArrayList<CategVente> lesCatVentes = VenteDAO.getLesCatVentes(connection);
             request.setAttribute("pLesCatVentes", lesCatVentes);
@@ -103,7 +103,7 @@ public class ServletVentes extends HttpServlet {
         }
         
         // Récup et affichage des clients interessés par une certaine catégorie de ventes
-        if(url.equals("/EquidaWeb18/ServletVentes/listerLesClients"))
+        if(url.equals("/EquidaWebG2/ServletVentes/listerLesClients"))
         {  
             String codeCat = (String)request.getParameter("codeCat");
            
@@ -112,7 +112,7 @@ public class ServletVentes extends HttpServlet {
             getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
         }
         
-        if(url.equals("/EquidaWeb18/ServletVentes/listerLesCourriels"))
+        if(url.equals("/EquidaWebG2/ServletVentes/listerLesCourriels"))
         {  
             String codeVente = (String)request.getParameter("codeVente");
             
@@ -122,7 +122,7 @@ public class ServletVentes extends HttpServlet {
             getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
         }
         
-        if(url.equals("/EquidaWeb18/ServletVentes/listerLesChevauxParVentes"))
+        if(url.equals("/EquidaWebG2/ServletVentes/listerLesChevauxParVentes"))
         {  
             String idVente = (String)request.getParameter("idVente");
             
