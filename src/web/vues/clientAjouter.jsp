@@ -74,7 +74,7 @@
                 
                 
                 
-                <%-- Cases à cocher permettant de choisir les différentes catégories de vente auxquelles le client souhaite s'inscrire 
+                 <%--Cases à cocher permettant de choisir les différentes catégories de vente auxquelles le client souhaite s'inscrire 
                 <label for="categVente">Categories de vente : </label></br>
                  <%
                         ArrayList<CategVente> lesCategVente = (ArrayList)request.getAttribute("pLesCategVente");
@@ -84,9 +84,9 @@
                             out.println(cv.getLibelle()); 
                             out.println("</label></br>");
                         }
-                    %>
+%>--%>
                     </br>
-                    --%>
+                    
                  
                 
             <input type="submit" name="valider" id="valider" value="Valider"/>
