@@ -14,14 +14,14 @@ public class CourrielTest {
     
     public static void main(String[] args) {
         Vente vente = new Vente();
-        vente.setDateDebutVente("dateDebut");
+        vente.setDateDebut("dateDebut");
         vente.setId(1);
         vente.setLieu(new Lieu(1, "ville", 10, "commentaire", null));
         vente.setListeCourriels(new ArrayList<Courriel>(Arrays.asList(new Courriel())));
         vente.setNom("nom");
         vente.setUneCategVente(new CategVente("code", "libelle"));
         
-        System.out.println("Date debut : " + vente.getDateDebutVente());
+        System.out.println("Date debut : " + vente.getDateDebut());
         System.out.println("Id : " + vente.getId());
         System.out.println("Lieu : " + vente.getLieu());
         System.out.println("Liste Courriels: " + vente.getListeCourriels().size());

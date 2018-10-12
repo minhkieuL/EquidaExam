@@ -33,7 +33,7 @@ public class LotDAO {
                 lot.setPrixDepart(rs.getFloat("prixDepart"));
                 
                 Vente vente = new Vente();
-                vente.setDateDebutVente("dateDebut");
+                vente.setDateDebut("dateDebut");
                 vente.setId(Integer.valueOf(idVente));
                 vente.setNom("nomVente");
                 lot.setVente(vente);
