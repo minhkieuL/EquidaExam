@@ -85,7 +85,7 @@ public class ServletClient extends HttpServlet {
         
        String url = request.getRequestURI();
        
-       if(url.equals("/EquidaWeb18/ServletClient/ajouterClient"))
+       if(url.equals("/EquidaWebG2/ServletClient/ajouterClient"))
         {                   
             ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
             request.setAttribute("pLesPays", lesPays);
