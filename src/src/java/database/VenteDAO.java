@@ -45,7 +45,7 @@ public class VenteDAO {
         {
             String selectionCatVente = (catVente != null) ? "AND code='"+catVente+"'" : "";
             //preparation de la requete     
-            requete=connection.prepareStatement("select * from vente, CategVente where codeCategVente=code " + selectionCatVente + " order by dateDebut desc");          
+            requete=connection.prepareStatement("SELECT * FROM vente, CategVente WHERE codeCategVente=code " + selectionCatVente + " ORDER BY dateDebut DESC");          
             //executer la requete
             rs=requete.executeQuery();
             
@@ -77,7 +77,7 @@ public class VenteDAO {
         try
         {
             //preparation de la requete     
-            requete=connection.prepareStatement("select * from categvente order by libelle");          
+            requete=connection.prepareStatement("SELECT * FROM categvente ORDER BY libelle");          
             //executer la requete
             rs=requete.executeQuery();
             
@@ -108,7 +108,7 @@ public class VenteDAO {
         {
             //preparation de la requete     
             //codeCateg="ETE";
-            requete=connection.prepareStatement("SELECT c.*, p.nom as nomPays, cv.libelle FROM client c, pays p, clientcategvente cc, categVente cv where c.codePays=p.code and cc.codeClient=c.id and cv.code=cc.codeCategVente and codeCategVente= ? ");
+            requete=connection.prepareStatement("SELECT c.*, p.nom AS nomPays, cv.libelle FROM client c, pays p, clientcategvente cc, categVente cv, utilisateur u WHERE u.id = c.id AND u.codePays=p.code AND cc.codeClient=c.id AND cv.code=cc.codeCategVente AND codeCategVente= ? ");
             requete.setString(1, codeCateg);
             //executer la requete
             rs=requete.executeQuery();

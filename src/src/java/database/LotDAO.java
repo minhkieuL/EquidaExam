@@ -22,7 +22,7 @@ public class LotDAO {
         try
         {
             //preparation de la requete     
-            requete=connection.prepareStatement("SELECT lot.id as lotId, lot.idCheval, lot.idVente, lot.prixDepart, vente.nom as nomVente, vente.dateDebut, cheval.nom as nomCheval, cheval.sexe, cheval.sire, typeCheval.libelle as libelleTypeCheval, typecheval.description as descTypeCheval FROM lot, vente, cheval, typecheval WHERE lot.idVente=vente.id AND lot.idCheval=cheval.id AND typecheval.id = cheval.typeCheval AND lot.idVente = '" + idVente + "';");          
+            requete=connection.prepareStatement("SELECT lot.id AS lotId, lot.idCheval, lot.idVente, lot.prixDepart, vente.nom AS nomVente, vente.dateDebut, cheval.nom AS nomCheval, cheval.sexe, cheval.sire, typeCheval.libelle AS libelleTypeCheval, typecheval.description AS descTypeCheval FROM lot, vente, cheval, typecheval WHERE lot.idVente=vente.id AND lot.idCheval=cheval.id AND typecheval.id = cheval.typeCheval AND lot.idVente = '" + idVente + "';");          
             //executer la requete
             rs=requete.executeQuery();
             

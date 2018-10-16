@@ -30,7 +30,7 @@ public class PaysDAO {
         try
         {
             //preparation de la requete     
-            requete=connection.prepareStatement("select * from pays");
+            requete=connection.prepareStatement("SELECT * FROM pays");
             
             //executer la requete
             rs=requete.executeQuery();
