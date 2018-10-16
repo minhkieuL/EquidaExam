@@ -6,7 +6,7 @@
     </context-param>
     <context-param>
         <param-name>urlconnexionjdbc</param-name>
-        <param-value>jdbc:mysql://localhost:3306/equidaG2</param-value>
+        <param-value>jdbc:mysql://localhost:3306/equidag2</param-value>
     </context-param>
     <context-param>
         <param-name>utilisateurjdbc</param-name>
@@ -27,6 +27,10 @@
     <servlet>
         <servlet-name>ServletClient</servlet-name>
         <servlet-class>servlets.ServletClient</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletDirecteur</servlet-name>
+        <servlet-class>servlets.ServletDirecteur</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletVentes</servlet-name>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>ServletClient</servlet-name>
         <url-pattern>/ServletClient/ajouterClient</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDirecteur</servlet-name>
+        <url-pattern>/ServletDirecteur/categorieVenteAjouter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
