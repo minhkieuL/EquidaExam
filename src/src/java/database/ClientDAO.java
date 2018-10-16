@@ -42,7 +42,7 @@ public class ClientDAO {
             requete.setString(3, unClient.getRue());
             requete.setString(4, unClient.getCopos());
             requete.setString(5, unClient.getVille());
-            requete.setString(6, unClient.getUnPays().getCode());
+            requete.setString(6, unClient.getPays().getCode());
 
            /* Exécution de la requête */
             requete.executeUpdate();

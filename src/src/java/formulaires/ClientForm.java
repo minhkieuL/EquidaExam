@@ -56,7 +56,7 @@ public class ClientForm extends Form {
         unClient.setRue(rue);
         unClient.setCopos(copos);
         unClient.setVille(ville);
-        unClient.setUnPays(new Pays(pays));
+        unClient.setPays(new Pays(pays));
                
         return unClient ;
     }

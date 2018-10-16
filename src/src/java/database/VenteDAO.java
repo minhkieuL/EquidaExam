@@ -125,7 +125,7 @@ public class VenteDAO {
                 p.setCode(rs.getString("codePays"));
                 p.setNom(rs.getString("nomPays"));
                 
-                unClient.setUnPays(p);
+                unClient.setPays(p);
                 /*CategVente uneCateg = new CategVente();
                 uneCateg.setCode(rs.getString("code"));  // on aurait aussi pu prendre CodeCateg
                 uneCateg.setLibelle(rs.getString("libelle"));*/
