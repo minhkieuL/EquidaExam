@@ -54,7 +54,7 @@
                         out.println("</td>");
 
                         out.println("<td>");
-                        out.println(unClient.getUnPays().getNom());
+                        out.println(unClient.getPays().getNom());
                         out.println("</td>");
                             
                         out.println("<td>");
