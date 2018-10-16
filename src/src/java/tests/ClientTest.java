@@ -17,7 +17,7 @@ public class ClientTest {
     public static void main(String[] args) {
         
         Client unClient = new Client(1, "dupont", "luc");
-        unClient.setUnPays(new Pays("FRA", "FRANCE"));     
+        unClient.setUnPays(new Pays("FRA", "FRANCE", null));     
         System.out.println(unClient.getNom() + "  " + unClient.getUnPays().getNom());
         
         
