@@ -1,7 +1,6 @@
 package modele;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -80,7 +79,7 @@ public class Courriel {
     }
     
     public void addPieceJointe(PieceJointe pieceJointe) {
-        listePiecesJointes.add(pieceJointe);
+        this.listePiecesJointes.add(pieceJointe);
     }
 }
 

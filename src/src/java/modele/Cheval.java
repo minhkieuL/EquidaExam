@@ -7,20 +7,26 @@ public class Cheval {
     private String nom;
     private boolean male;
     private String sire;
+    private boolean valider;
     private TypeCheval typeCheval;
     private ArrayList<Lot> lots;
+    private Cheval pere;
+    private Cheval mere;
 
     public Cheval() {
-        this(0, "", false, "", null, null);
+        this(0, "", false, "", false, null, null, null, null);
     }
     
-    public Cheval(int id, String nom, boolean male, String sire, TypeCheval typeCheval, ArrayList<Lot> lots) {
+    public Cheval(int id, String nom, boolean male, String sire, boolean valider, TypeCheval typeCheval, ArrayList<Lot> lots, Cheval pere, Cheval mere) {
         this.id = id;
         this.nom = nom;
         this.male = male;
         this.sire = sire;
+        this.valider = valider;
         this.typeCheval = typeCheval;
         this.lots = lots;
+        this.pere = pere;
+        this.mere = mere;
         
         if(this.lots == null)
             this.lots = new ArrayList<>();
@@ -50,6 +56,14 @@ public class Cheval {
         this.sire = sire;
     }
 
+    public boolean getValider() {
+        return valider;
+    }
+
+    public void setValider(boolean valider) {
+        this.valider = valider;
+    }
+    
     public TypeCheval getTypeCheval() {
         return typeCheval;
     }
@@ -70,11 +84,27 @@ public class Cheval {
         this.lots.add(lot);
     }
 
-    public boolean estMale() {
+    public boolean getMale() {
         return this.male;
     }
     
     public void setMale(boolean male) {
         this.male = male;
+    }
+
+    public Cheval getPere() {
+        return pere;
+    }
+
+    public void setPere(Cheval pere) {
+        this.pere = pere;
+    }
+
+    public Cheval getMere() {
+        return mere;
+    }
+
+    public void setMere(Cheval mere) {
+        this.mere = mere;
     }
 }

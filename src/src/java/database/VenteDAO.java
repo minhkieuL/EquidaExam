@@ -8,14 +8,11 @@ package database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modele.CategVente;
 import modele.Client;
-import modele.Courriel;
 import modele.Pays;
-import modele.PieceJointe;
 import modele.Vente;
 
 /**
@@ -54,7 +51,7 @@ public class VenteDAO {
                 Vente uneVente = new Vente();
                 uneVente.setId(rs.getInt("id"));
                 uneVente.setNom(rs.getString("nom"));
-                uneVente.setDateDebutVente(rs.getString("dateDebut"));
+                uneVente.setDateDebut(rs.getString("dateDebut"));
                 
                 CategVente uneCateg = new CategVente();
                 uneCateg.setCode(rs.getString("code"));  // on aurait aussi pu prendre CodeCateg
@@ -128,7 +125,7 @@ public class VenteDAO {
                 p.setCode(rs.getString("codePays"));
                 p.setNom(rs.getString("nomPays"));
                 
-                unClient.setUnPays(p);
+                unClient.setPays(p);
                 /*CategVente uneCateg = new CategVente();
                 uneCateg.setCode(rs.getString("code"));  // on aurait aussi pu prendre CodeCateg
                 uneCateg.setLibelle(rs.getString("libelle"));*/

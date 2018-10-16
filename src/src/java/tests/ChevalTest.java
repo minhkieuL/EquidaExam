@@ -18,7 +18,7 @@ public class ChevalTest {
         System.out.println("id : "+c.getId());
         System.out.println("lot : "+c.getLots().get(0));
         System.out.println("nom : "+c.getNom());
-        System.out.println("male : "+c.estMale());
+        System.out.println("male : "+c.getMale());
         System.out.println("sire : "+c.getSire());
         System.out.println("type cheval : "+c.getTypeCheval());
     }
