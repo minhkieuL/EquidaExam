@@ -50,5 +50,26 @@ public class PaysDAO {
         }
         return lesPays ;    
     } 
+     
+     public static Pays ajouterPays(Connection connection, Pays unPays){      
+    
+        try
+        {
+            requete=connection.prepareStatement("INSERT INTO pays (code, nom)\n" +
+                    "VALUES (?,?)", requete.RETURN_GENERATED_KEYS);
+            requete.setString(1, unPays.getCode());
+            requete.setString(2, unPays.getNom());
+  
+            requete.executeUpdate();
+            
+            
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unPays ;    
+    }
     
 }

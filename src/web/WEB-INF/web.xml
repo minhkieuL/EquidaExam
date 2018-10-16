@@ -60,6 +60,10 @@
         <servlet-name>ServletDirecteur</servlet-name>
         <url-pattern>/ServletDirecteur/categorieVenteAjouter</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletDirecteur</servlet-name>
+        <url-pattern>/ServletDirecteur/paysAjouter</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
