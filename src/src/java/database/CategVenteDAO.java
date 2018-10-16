@@ -28,7 +28,7 @@ public class CategVenteDAO {
         try
         {
             //preparation de la requete     
-            requete=connection.prepareStatement("select * from categvente");
+            requete=connection.prepareStatement("SELECT * FROM categvente");
             
             //executer la requete
             rs=requete.executeQuery();
@@ -55,7 +55,7 @@ public class CategVenteDAO {
         {
             //preparation de la requete
             
-            requete=connection.prepareStatement("INSERT INTO CATEGVENTE ( code, libelle)\n" +
+            requete=connection.prepareStatement("INSERT INTO categvente ( code, libelle)\n" +
                     "VALUES (?,?)", requete.RETURN_GENERATED_KEYS );
             requete.setString(1, uneCategVente.getCode());
             requete.setString(2, uneCategVente.getLibelle());
