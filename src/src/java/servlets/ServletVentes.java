@@ -83,7 +83,7 @@ public class ServletVentes extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+		System.out.println("servlets.ServletVentes.doGet()"+request.getSession().getAttribute("user"));
         
         String url = request.getRequestURI();
         

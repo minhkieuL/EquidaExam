@@ -1,6 +1,7 @@
 package servlets;
 
 import database.CompteDAO;
+import database.UtilisateurDAO;
 import database.Utilitaire;
 import formulaires.CompteForm;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Compte;
+import modele.Utilisateur;
 
 public class ServletAuthentification extends HttpServlet {
     
@@ -66,7 +68,8 @@ public class ServletAuthentification extends HttpServlet {
 		if(url.equals("/EquidaWebG2/ServletAuthentification/connexion")) {
 			this.getServletContext().getRequestDispatcher("/vues/authentification/connexion.jsp" ).forward( request, response );
 		} else if(url.equals("/EquidaWebG2/ServletAuthentification/deconnexion")) {
-			this.getServletContext().getRequestDispatcher("/vues/clientAjouter.jsp" ).forward( request, response );
+			request.getSession().invalidate();
+			response.sendRedirect("/EquidaWebG2");
 		}
     }
 
@@ -91,6 +94,8 @@ public class ServletAuthentification extends HttpServlet {
 			
 			try {
 				if(compte.getMdp().equals(compteBdd.getMdp()) && compteForm.getErreurs().isEmpty()) {
+					Utilisateur user = UtilisateurDAO.getUtilisateurParCompte(compte, connection);
+					request.getSession().setAttribute("user", user);
 					response.sendRedirect("/EquidaWebG2");
 				} else {
 					showError = true;

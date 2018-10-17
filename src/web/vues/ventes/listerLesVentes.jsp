@@ -4,6 +4,7 @@
     Author     : Zakina
 --%>
 
+<%@page import="modele.Utilisateur"%>
 <%@page import="modele.CategVente"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modele.Vente"%>
@@ -20,6 +21,10 @@
          <%
         ArrayList<Vente> lesVentes = (ArrayList)request.getAttribute("pLesVentes");
         ArrayList<CategVente> lesCatVentes = (ArrayList)request.getAttribute("pLesCatVentes");
+			
+		Utilisateur user = (Utilisateur)session.getAttribute("user");
+		if(user != null)
+			out.println("Bienvenue " + user.getNom() + " " + user.getPrenom());
          %>
          <form method="GET">
             <select
