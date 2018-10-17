@@ -71,7 +71,7 @@ public class ServletDirecteur extends HttpServlet {
             throws ServletException, IOException {
        
        String url = request.getRequestURI();
-       
+	   
        if(url.equals("/EquidaWebG2/ServletDirecteur/categorieVenteAjouter"))
         {                   
             

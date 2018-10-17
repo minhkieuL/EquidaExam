@@ -1,5 +1,6 @@
 package modele;
 
+import database.Autorisations;
 import java.util.ArrayList;
 
 public class Client extends Utilisateur{
@@ -15,8 +16,13 @@ public class Client extends Utilisateur{
 
     public Client(ArrayList<CategVente> lesCategVentes, int id, String nom, String prenom, String rue, String copos, String ville, String mail, boolean archiver, Pays pays, Compte compte) {
         super(id, nom, prenom, rue, copos, ville, mail, archiver, pays, compte);
-        
+		
+        //TODO Implémenter une véritable gestion des roles
         this.lesCategVentes = lesCategVentes;
+		this.autorisations.add(Autorisations.CLIENT_AJOUTER);
+		this.autorisations.add(Autorisations.CLIENT_CONSULTER);
+		this.autorisations.add(Autorisations.CLIENT_MODIFIER);
+		this.autorisations.add(Autorisations.CLIENT_SUPPRIMER);
     }
     
     public ArrayList<CategVente> getLesCategVentes() {

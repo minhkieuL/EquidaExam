@@ -1,5 +1,7 @@
 package modele;
 
+import java.util.ArrayList;
+
 public abstract class Utilisateur {
 
     private int id;
@@ -12,6 +14,8 @@ public abstract class Utilisateur {
     private boolean archiver;
     private Pays pays;
     private Compte compte;
+	//TODO Implémenter une véritable gestion des roles
+	protected ArrayList<Integer> autorisations;
 
     public Utilisateur() {
         this(0, "", "", "", "", "", "", false, null, null);
@@ -28,7 +32,14 @@ public abstract class Utilisateur {
         this.archiver = archiver;
         this.pays = pays;
         this.compte = compte;
+		//TODO Implémenter une véritable gestion des roles
+		this.autorisations = new ArrayList<>();
     }
+
+	public boolean estAutoriseA(int autorisation) {
+		//TODO Implémenter une véritable gestion des roles
+		return this.autorisations.contains(autorisation);
+	}
 
     public int getId() {
         return id;
