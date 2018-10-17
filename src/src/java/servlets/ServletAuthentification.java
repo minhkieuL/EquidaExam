@@ -1,30 +1,23 @@
 package servlets;
 
-import database.CategVenteDAO;
+import database.CompteDAO;
 import database.Utilitaire;
-import formulaires.CategorieForm;
+import formulaires.CompteForm;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.CategVente;
+import modele.Compte;
 
-
-/**
-    Document   : ServletDirecteur
-    Created on : 12 oct. 2018, 09:00:00
-    Author     : paul_collet
- */
-@WebServlet(name = "ServletDirecteur", urlPatterns = {"/ServletDirecteur"})
-public class ServletDirecteur extends HttpServlet {
+public class ServletAuthentification extends HttpServlet {
     
     Connection connection ;
-    
+      
+        
     @Override
     public void init()
     {     
@@ -49,10 +42,10 @@ public class ServletDirecteur extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServletDirecteur</title>");            
+            out.println("<title>Servlet ServletClient</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServletDirecteur at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ServletClient at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,16 +60,14 @@ public class ServletDirecteur extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        String url = request.getRequestURI();
        
-       if(url.equals("/EquidaWebG2/ServletDirecteur/categorieVenteAjouter"))
-        {                   
-            
-            getServletContext().getRequestDispatcher("/vues/categorieVenteAjouter.jsp" ).forward( request, response );
-        }
+		if(url.equals("/EquidaWebG2/ServletAuthentification/connexion")) {
+			this.getServletContext().getRequestDispatcher("/vues/authentification/connexion.jsp" ).forward( request, response );
+		} else if(url.equals("/EquidaWebG2/ServletAuthentification/deconnexion")) {
+			this.getServletContext().getRequestDispatcher("/vues/clientAjouter.jsp" ).forward( request, response );
+		}
     }
 
     /**
@@ -88,39 +79,34 @@ public class ServletDirecteur extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            
-            throws ServletException, IOException {
-        
-        
-        /* Préparation de l'objet formulaire */
-        CategorieForm form = new CategorieForm();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String url = request.getRequestURI();
 		
-        /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-        CategVente uneCategVente = form.getCategVente(request);
-        
-        /* Stockage du formulaire et de l'objet dans l'objet request */
-        request.setAttribute( "form", form );
-        request.setAttribute( "pCategVente", uneCategVente );
-		
-        if (form.getErreurs().isEmpty()){
-            // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-            CategVenteDAO.ajouterCategVente(connection, uneCategVente);
-            this.getServletContext().getRequestDispatcher("/vues/categorieVenteConsulter.jsp" ).forward( request, response );
-            
-        }
-        else
-        { 
-		
-           this.getServletContext().getRequestDispatcher("/vues/categorieVenteAjouter.jsp" ).forward( request, response );
-        }
-        
+		if(url.equals("/EquidaWebG2/ServletAuthentification/connexion")) {
+			CompteForm compteForm = new CompteForm();
+			Compte compte = compteForm.getCompte(request);
+			Compte compteBdd = CompteDAO.getCompteParLogin(compte.getLogin(), connection);
+			
+			boolean showError = false;
+			
+			try {
+				if(compte.getMdp().equals(compteBdd.getMdp()) && compteForm.getErreurs().isEmpty()) {
+					response.sendRedirect("/EquidaWebG2");
+				} else {
+					showError = true;
+				}
+			} catch(NullPointerException e) {
+				//Aucun compte en bdd ne correspond au login
+				showError = true;
+			}
+			
+			if(showError) {
+				response.sendRedirect("/EquidaWebG2/ServletAuthentification/connexion");
+			}
+			
+		}
     }
 
-    
-    
-    
-    
     /**
      * Returns a short description of the servlet.
      *
@@ -129,9 +115,8 @@ public class ServletDirecteur extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-        }// </editor-fold>
-    
-    public void destroy(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
+    }// </editor-fold>
+ public void destroy(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
     {
         try
         {
@@ -150,5 +135,4 @@ public class ServletDirecteur extends HttpServlet {
             Utilitaire.fermerConnexion(connection);
         }
     }
-
 }

@@ -32,6 +32,10 @@
         <servlet-name>ServletDirecteur</servlet-name>
         <servlet-class>servlets.ServletDirecteur</servlet-class>
     </servlet>
+	<servlet>
+        <servlet-name>ServletAuthentification</servlet-name>
+        <servlet-class>servlets.ServletAuthentification</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletVentes</servlet-name>
         <url-pattern>/ServletVentes</url-pattern>
@@ -59,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>ServletDirecteur</servlet-name>
         <url-pattern>/ServletDirecteur/categorieVenteAjouter</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>ServletAuthentification</servlet-name>
+        <url-pattern>/ServletAuthentification/connexion</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>ServletAuthentification</servlet-name>
+        <url-pattern>/ServletAuthentification/deconnexion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
