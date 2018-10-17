@@ -168,7 +168,7 @@ ALTER TABLE `utilisateur`
 ALTER TABLE utilisateur 
   ADD compte INT(11);
 ALTER TABLE utilisateur 
-  ADD FOREIGN KEY (compte) REFERENCES compte`(id`);
+  ADD FOREIGN KEY (compte) REFERENCES compte(id);
 
 --
 -- Modification de la table `client`
