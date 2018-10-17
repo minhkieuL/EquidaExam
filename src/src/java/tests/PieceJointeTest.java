@@ -1,11 +1,8 @@
 package tests;
 
 import java.util.*;
-import modele.CategVente;
 import modele.Courriel;
-import modele.Lieu;
 import modele.PieceJointe;
-import modele.Vente;
 
 /**
  *

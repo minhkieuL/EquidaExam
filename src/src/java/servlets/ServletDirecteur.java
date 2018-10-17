@@ -6,14 +6,11 @@
 package servlets;
 
 import database.CategVenteDAO;
-
 import database.Utilitaire;
 import formulaires.CategorieForm;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

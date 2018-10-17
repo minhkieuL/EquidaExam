@@ -5,14 +5,12 @@
  */
 package database;
 
-import static database.ClientDAO.requete;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modele.CategVente;
-import modele.Client;
 /**
  *
  * @author Zakina
