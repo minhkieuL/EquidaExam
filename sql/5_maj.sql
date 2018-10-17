@@ -138,18 +138,6 @@ ALTER TABLE `vente`
 
 
 --
--- Modification de la table `lot`
---
-ALTER TABLE `lot`
-  ADD `vente` int(11);
-ALTER TABLE `lot`
-  ADD FOREIGN KEY (`vente`) REFERENCES `lot` (`id`);
-ALTER TABLE `lot`
-  ADD `cheval` int(11);
-ALTER TABLE `lot`
-  ADD FOREIGN KEY (`cheval`) REFERENCES `cheval` (`id`);
-
---
 -- Modification de la table `cheval`
 --
 ALTER TABLE `cheval`
@@ -166,12 +154,21 @@ ALTER TABLE `cheval`
   ADD `pere` int(11);
 ALTER TABLE `cheval`
   ADD FOREIGN KEY (`pere`) REFERENCES `cheval` (`id`);
+  
+ALTER TABLE `cheval`
+  ADD `client` int(11);
+ALTER TABLE `cheval`
+  ADD FOREIGN KEY (`client`) REFERENCES `client` (`id`);
 
 --
 -- Modification de la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
   ADD `archiver` tinyint(1);
+ALTER TABLE utilisateur 
+  ADD compte INT(11);
+ALTER TABLE utilisateur 
+  ADD FOREIGN KEY (compte) REFERENCES compte(id);
 
 --
 -- Modification de la table `client`
@@ -197,3 +194,5 @@ ALTER TABLE `enchere`
   ADD `client` int(11);
 ALTER TABLE `enchere`
   ADD FOREIGN KEY (`client`) REFERENCES `client` (`id`);
+
+  
