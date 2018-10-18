@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `cheval` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `lot` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idCheval` int(11) NOT NULL,
   `idVente` int(11) NOT NULL,
   `prixDepart` decimal(8,2) NOT NULL,

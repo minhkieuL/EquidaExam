@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `participer` (
   `idCourse` int(11) NOT NULL,
   `classement` int(11),
   PRIMARY KEY (idCheval, idCourse)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 --
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `participer` (
 CREATE TABLE IF NOT EXISTS `client` (
   `id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 --
@@ -34,60 +34,60 @@ CREATE TABLE IF NOT EXISTS `client` (
 CREATE TABLE IF NOT EXISTS `directeurgeneral` (
   `id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 --
 -- Structure de la table `enchere`
 --
 CREATE TABLE IF NOT EXISTS `enchere` (
-  `id` int(4) NOT NULL,
+  `id` int(4) NOT NULL AUTO_INCREMENT,
   `montant` decimal(8, 2),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 --
 -- Structure de la table `course`
 --
 CREATE TABLE IF NOT EXISTS `course` (
-  `id` int(4) NOT NULL,
+  `id` int(4) NOT NULL AUTO_INCREMENT,
   `nom` char(32),
   `date` date,
   `ville` char(32),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 --
 -- Structure de la table `compte`
 --
 CREATE TABLE IF NOT EXISTS `compte` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` char(32),
   `mdp` char(64),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 --
 -- Structure de la table `role`
 --
 CREATE TABLE IF NOT EXISTS `role` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` char(32),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 --
 -- Structure de la table `permission`
 --
 CREATE TABLE IF NOT EXISTS `permission` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` char(32),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `avoir` (
   `idRole` int(11) NOT NULL,
   `idPermission` int(11) NOT NULL,
   PRIMARY KEY (idRole, idPermission)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- ALTER TABLE 
@@ -141,9 +141,9 @@ ALTER TABLE `vente`
 -- Modification de la table `cheval`
 --
 ALTER TABLE `cheval`
-  ADD `archiver` tinyint(1);
+  ADD `archiver` tinyint(1) default 0;
 ALTER TABLE `cheval`
-  ADD `valider` tinyint(1);
+  ADD `valider` tinyint(1) default 0;
   
 ALTER TABLE `cheval`
   ADD `mere` int(11);
@@ -164,7 +164,7 @@ ALTER TABLE `cheval`
 -- Modification de la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  ADD `archiver` tinyint(1);
+  ADD `archiver` tinyint(1) default 0;
 ALTER TABLE utilisateur 
   ADD compte INT(11);
 ALTER TABLE utilisateur 

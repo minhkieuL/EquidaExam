@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `categvente` (
   `code` varchar(5) NOT NULL,
   `libelle` varchar(30) NOT NULL,
   PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `categvente`
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `codePays` varchar(3) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_cli_pays` (`codePays`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51 ;
 
 --
 -- Contenu de la table `client`
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `clientcategvente` (
   `codeCategVente` varchar(5) NOT NULL,
   PRIMARY KEY (`codeClient`,`codeCategVente`),
   KEY `FK_cliCat_Categ` (`codeCategVente`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `clientcategvente`
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `pays` (
   `code` varchar(3) NOT NULL,
   `nom` varchar(30) NOT NULL,
   PRIMARY KEY (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `pays`
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `vente` (
   `codeCategVente` varchar(5) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `codeCategVente` (`codeCategVente`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `vente`
