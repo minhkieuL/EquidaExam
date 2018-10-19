@@ -6,7 +6,7 @@
     </context-param>
     <context-param>
         <param-name>urlconnexionjdbc</param-name>
-        <param-value>jdbc:mysql://localhost:3306/equidaG2</param-value>
+        <param-value>jdbc:mysql://localhost:3306/equidag2</param-value>
     </context-param>
     <context-param>
         <param-name>utilisateurjdbc</param-name>
@@ -51,6 +51,11 @@
     <servlet-mapping>
         <servlet-name>ServletClient</servlet-name>
         <url-pattern>/ServletClient/ajouterClient</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ServletCheval</servlet-name>
+        <url-pattern>/ServletCheval/ajouterCheval</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

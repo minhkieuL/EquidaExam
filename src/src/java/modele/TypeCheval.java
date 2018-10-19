@@ -8,8 +8,14 @@ public class TypeCheval {
     private String desc;
     private ArrayList<Cheval> chevaux;
 
-    public TypeCheval() {
+   
+    
+    public TypeCheval(){
         this(0, "", "", null);
+    }
+    
+    public TypeCheval(String libelle) {
+        this(0, libelle, "", null);
     }
 
     public TypeCheval(int id, String libelle, String desc, ArrayList<Cheval> chevaux) {
@@ -21,6 +27,8 @@ public class TypeCheval {
         if(this.chevaux == null)
             this.chevaux = new ArrayList<>();
     }
+
+
 
     public int getId() {
         return id;
@@ -36,7 +44,7 @@ public class TypeCheval {
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
-    }
+    } 
 
     public String getDesc() {
         return desc;

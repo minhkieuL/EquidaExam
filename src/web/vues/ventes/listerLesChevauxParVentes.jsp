@@ -51,7 +51,7 @@
                         out.println("</td>");
                         
                         out.println("<td>");
-                        out.println((lot.getCheval().estMale()) ? "Male" : "Femelle");
+                        out.println((lot.getCheval().getMale()) ? "Male" : "Femelle");
                         out.println("</td>");
                         
                         out.println("<td>");
