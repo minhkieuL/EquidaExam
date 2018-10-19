@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import database.CategVenteDAO;
@@ -11,12 +6,10 @@ import database.PaysDAO;
 import database.Utilitaire;
 import formulaires.ClientForm;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
@@ -30,42 +23,15 @@ import modele.Pays;
  * Fonctionnalités implémentées :
  *      ajouter un nouveau client
  */
-public class ServletClient extends HttpServlet {
+public class ServletClient extends ServletBase {
     
     Connection connection ;
       
         
     @Override
-    public void init()
-    {     
+    public void init() {     
         ServletContext servletContext=getServletContext();
         connection=(Connection)servletContext.getAttribute("connection");
-    }
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletClient</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletClient at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     /**
@@ -77,19 +43,17 @@ public class ServletClient extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-        
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        String url = request.getRequestURI();
        
-       if(url.equals("/EquidaWebG2/ServletClient/ajouterClient"))
-        {                   
+		if(url.equals("/EquidaWebG2/ServletClient/ajouterClient")) {                   
             ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
-            request.setAttribute("pLesPays", lesPays);
-            
             ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
+			
+            request.setAttribute("pLesPays", lesPays);
             request.setAttribute("pLesCategVente", lesCategVentes);
+			changerTitrePage("Ajouter un client", request);
+			
             this.getServletContext().getRequestDispatcher("/vues/clientAjouter.jsp" ).forward( request, response );
         }
     }
@@ -103,9 +67,7 @@ public class ServletClient extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-               
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          /* Préparation de l'objet formulaire */
         ClientForm form = new ClientForm();
 		
@@ -120,10 +82,8 @@ public class ServletClient extends HttpServlet {
             // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
             ClientDAO.ajouterClient(connection, unClient);
             this.getServletContext().getRequestDispatcher("/vues/clientConsulter.jsp" ).forward( request, response );
-        }
-        else
-        { 
-		// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
+        } else { 
+			// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
             ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
             request.setAttribute("pLesPays", lesPays);
             
@@ -142,21 +102,16 @@ public class ServletClient extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
- public void destroy(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
-    {
-        try
-        {
+    }
+	
+	public void destroy(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+        try {
             //fermeture
             System.out.println("Connexion fermée");
-        }
-        catch (Exception e) 
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erreur lors de l’établissement de la connexion");
-        }
-        finally
-        {
+        } finally {
             //Utilitaire.fermerConnexion(rs);
             //Utilitaire.fermerConnexion(requete);
             Utilitaire.fermerConnexion(connection);

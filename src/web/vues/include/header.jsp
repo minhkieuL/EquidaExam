@@ -9,6 +9,9 @@
 
 <%
 Utilisateur user = (Utilisateur)request.getSession().getAttribute("user");
+String title = (String)request.getAttribute("title");
+
+title = (title == null) ? "" : " - " + title; 
 %>
 
 <!DOCTYPE html>
@@ -16,9 +19,11 @@ Utilisateur user = (Utilisateur)request.getSession().getAttribute("user");
 
     <head>
         <meta charset="utf-8" />
+		<title>Equida <%= title %></title>
     </head>    
     
     <body>
+		
         <nav>
             <ul>
                 <li><a href="/EquidaWebG2/">Accueil</a></li>

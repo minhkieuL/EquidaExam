@@ -38,7 +38,11 @@
     </servlet>
 	<servlet>
         <servlet-name>ServletAccueil</servlet-name>
-        <servlet-class>ServletAccueil</servlet-class>
+        <servlet-class>servlets.ServletAccueil</servlet-class>
+    </servlet>	
+	<servlet>
+        <servlet-name>ServletCheval</servlet-name>
+        <servlet-class>servlets.ServletCheval</servlet-class>
     </servlet>	
     <servlet-mapping>
         <servlet-name>ServletVentes</servlet-name>

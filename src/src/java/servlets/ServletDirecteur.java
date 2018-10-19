@@ -6,12 +6,9 @@ import database.Utilitaire;
 import formulaires.CategorieForm;
 import formulaires.PaysForm;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
@@ -23,42 +20,14 @@ import modele.Pays;
     Created on : 12 oct. 2018, 09:00:00
     Author     : paul_collet
  */
-@WebServlet(name = "ServletDirecteur", urlPatterns = {"/ServletDirecteur"})
-public class ServletDirecteur extends HttpServlet {
+public class ServletDirecteur extends ServletBase {
     
     Connection connection ;
     
     @Override
-    public void init()
-    {     
+    public void init() {     
         ServletContext servletContext=getServletContext();
         connection=(Connection)servletContext.getAttribute("connection");
-    }
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletDirecteur</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletDirecteur at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     /**
@@ -70,22 +39,20 @@ public class ServletDirecteur extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-       String url = request.getRequestURI();
-	   
-       if(url.equals("/EquidaWebG2/ServletDirecteur/categorieVenteAjouter"))
-        {                   
-            
-            getServletContext().getRequestDispatcher("/vues/categorieVenteAjouter.jsp" ).forward( request, response );
-        }
-       
-       if(url.equals("/EquidaWebG2/ServletDirecteur/paysAjouter"))
-        {                   
-            
-            getServletContext().getRequestDispatcher("/vues/paysAjouter.jsp" ).forward( request, response );
-        }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url = request.getRequestURI();
+
+		if(url.equals("/EquidaWebG2/ServletDirecteur/categorieVenteAjouter")) {     
+			changerTitrePage("Ajouter une catégorie de vente", request);
+			
+			getServletContext().getRequestDispatcher("/vues/categorieVenteAjouter.jsp" ).forward( request, response );
+		}
+
+		if(url.equals("/EquidaWebG2/ServletDirecteur/paysAjouter")) {     
+			changerTitrePage("Ajouter un pays", request);
+			
+			getServletContext().getRequestDispatcher("/vues/paysAjouter.jsp" ).forward( request, response );
+		}
     }
 
     /**
@@ -121,9 +88,7 @@ public class ServletDirecteur extends HttpServlet {
                 CategVenteDAO.ajouterCategVente(connection, uneCategVente);
                 this.getServletContext().getRequestDispatcher("/vues/categorieVenteConsulter.jsp" ).forward( request, response );
 
-            }
-            else
-            { 
+            } else { 
                this.getServletContext().getRequestDispatcher("/vues/categorieVenteAjouter.jsp" ).forward( request, response );
             }
         }
@@ -134,19 +99,12 @@ public class ServletDirecteur extends HttpServlet {
                 PaysDAO.ajouterPays(connection, unPays);
                 this.getServletContext().getRequestDispatcher("/vues/paysConsulter.jsp" ).forward( request, response );
 
-            }
-            else
-            { 
+            } else { 
 
                this.getServletContext().getRequestDispatcher("/vues/paysAjouter.jsp" ).forward( request, response );
             }
         }
-        
     }
-
-    
-    
-    
     
     /**
      * Returns a short description of the servlet.
@@ -156,26 +114,19 @@ public class ServletDirecteur extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-        }// </editor-fold>
+	}
     
-    public void destroy(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
-    {
-        try
-        {
+    public void destroy(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        try {
             //fermeture
             System.out.println("Connexion fermée");
-        }
-        catch (Exception e) 
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Erreur lors de l’établissement de la connexion");
-        }
-        finally
-        {
+        } finally {
             //Utilitaire.fermerConnexion(rs);
             //Utilitaire.fermerConnexion(requete);
             Utilitaire.fermerConnexion(connection);
         }
     }
-
 }

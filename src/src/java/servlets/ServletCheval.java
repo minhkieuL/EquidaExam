@@ -1,21 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import database.ChevalDAO;
 import database.TypeChevalDAO;
 import formulaires.ChevalForm;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Cheval;
@@ -25,45 +17,17 @@ import modele.TypeCheval;
  *
  * @author slam
  */
-@WebServlet(name = "ServletCheval", urlPatterns = {"/ServletCheval"})
-public class ServletCheval extends HttpServlet {
+public class ServletCheval extends ServletBase {
 
     Connection connection ;
       
         
     @Override
-    public void init()
-    {     
+    public void init() {     
         ServletContext servletContext=getServletContext();
         connection=(Connection)servletContext.getAttribute("connection");
     }
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletCheval</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletCheval at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -73,18 +37,16 @@ public class ServletCheval extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-         String url = request.getRequestURI();
+		String url = request.getRequestURI();
        
-       if(url.equals("/EquidaWebG2/ServletCheval/ajouterCheval"))
-        {                   
-            /*ArrayList<Lot> lesLots = LotDAO.getLesLots(connection);
-            request.setAttribute("pLesLots", lesLots);*/
-            
+		if(url.equals("/EquidaWebG2/ServletCheval/ajouterCheval")) {                             
             ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
+			
             request.setAttribute("pLesTypeCheval", lesTypeCheval);
+			changerTitrePage("Ajouter un cheval", request);
+			
             this.getServletContext().getRequestDispatcher("/vues/chevalAjouter.jsp" ).forward( request, response );
         }
     }
@@ -98,9 +60,7 @@ public class ServletCheval extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-                   
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
          /* Préparation de l'objet formulaire */
         ChevalForm form = new ChevalForm();
 		
@@ -115,10 +75,8 @@ public class ServletCheval extends HttpServlet {
             // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
             ChevalDAO.ajouterCheval(connection, unCheval);
             this.getServletContext().getRequestDispatcher("/vues/chevalConsulter.jsp" ).forward( request, response );
-        }
-        else
-        { 
-		// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
+        } else { 
+			// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
             ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
             request.setAttribute("pLesTypeCheval", lesTypeCheval);
             
@@ -127,15 +85,4 @@ public class ServletCheval extends HttpServlet {
            this.getServletContext().getRequestDispatcher("/vues/chevalAjouter.jsp" ).forward( request, response );
         }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }
