@@ -7,7 +7,7 @@
 <%@page import="modele.Pays"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<jsp:include page="/vues/MiseEnForme/header.jsp" />
+<jsp:include page="/vues/include/header.jsp" />
         
         
         <h1>Infos sur l'Ajout de Pays</h1>
@@ -23,4 +23,4 @@
            
               </td></tr>
         </table>
-<jsp:include page="/vues/MiseEnForme/Footer.jsp" />
+<jsp:include page="/vues/include/footer.jsp" />

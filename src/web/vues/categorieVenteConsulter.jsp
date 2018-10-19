@@ -7,7 +7,7 @@
 <%@page import="modele.CategVente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<jsp:include page="/vues/MiseEnForme/header.jsp" />
+<jsp:include page="/vues/include/header.jsp" />
     <body>
         
         
@@ -24,4 +24,4 @@
            
               </td></tr>
         </table>
-<jsp:include page="/vues/MiseEnForme/Footer.jsp" />
+<jsp:include page="/vues/include/footer.jsp" />

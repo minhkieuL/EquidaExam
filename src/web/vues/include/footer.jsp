@@ -7,8 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
         <footer>
-            <a href="#"> Mention legal </a>
-            <a href="#"> Autre chose </a>
+            <ul>
+                <li><a href="#"> Mention legal </a></li>
+                <li><a href="#"> Autre chose </a></li>
+            </ul>
         </footer>   
     </body>
 </html>

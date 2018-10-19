@@ -8,7 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<jsp:include page="/vues/MiseEnForme/header.jsp" />
+<jsp:include page="/vues/include/header.jsp" />
         <h1>LISTE DES CLIENTS POUR UNE CATEGORIE DE VENTE</h1>
          <%
         ArrayList<Client> lesClients = (ArrayList)request.getAttribute("pLesClients");
@@ -71,4 +71,4 @@
                 </tr>
             </tbody>
         </table>
-<jsp:include page="/vues/MiseEnForme/Footer.jsp" />
+<jsp:include page="/vues/include/footer.jsp" />

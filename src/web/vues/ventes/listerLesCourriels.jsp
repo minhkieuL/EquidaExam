@@ -12,7 +12,7 @@
 <%@page import="modele.Vente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<jsp:include page="/vues/MiseEnForme/header.jsp" />
+<jsp:include page="/vues/include/header.jsp" />
         <h1>LISTE DES COURRIELS</h1>
          <%
         ArrayList<Courriel> lesCourriels = (ArrayList)request.getAttribute("pLesCourriels");
@@ -50,4 +50,4 @@
             out.println("</div>");
         }
          %>
-<jsp:include page="/vues/MiseEnForme/Footer.jsp" />
+<jsp:include page="/vues/include/footer.jsp" />

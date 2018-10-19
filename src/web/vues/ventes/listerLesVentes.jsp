@@ -9,7 +9,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="modele.Vente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="/vues/MiseEnForme/header.jsp" />
+<jsp:include page="/vues/include/header.jsp" />
         <h1>LISTE DES VENTES</h1>
          <%
         ArrayList<Vente> lesVentes = (ArrayList)request.getAttribute("pLesVentes");
@@ -91,4 +91,4 @@
             </tbody>
         </table>
 
-<jsp:include page="/vues/MiseEnForme/Footer.jsp" />
+<jsp:include page="/vues/include/footer.jsp" />

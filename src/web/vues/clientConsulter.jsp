@@ -6,7 +6,7 @@
 
 <%@page import="modele.Client"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="/vues/MiseEnForme/header.jsp" />
+<jsp:include page="/vues/include/header.jsp" />
         <h1>Infos clients</h1>
         
          <%
@@ -31,4 +31,4 @@
         </table>
         
 
-<jsp:include page="/vues/MiseEnForme/Footer.jsp" />
+<jsp:include page="/vues/include/footer.jsp" />

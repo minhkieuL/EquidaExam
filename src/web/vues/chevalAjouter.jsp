@@ -11,7 +11,7 @@
 <%@page import="formulaires.ChevalForm"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<jsp:include page="/vues/MiseEnForme/header.jsp" />
+<jsp:include page="/vues/include/header.jsp" />
         <h1>NOUVEAU CHEVAL</h1>
         
          <%
@@ -99,4 +99,4 @@
                 
             <input type="submit" name="valider" id="valider" value="Valider"/>
             </form>
-<jsp:include page="/vues/MiseEnForme/Footer.jsp" />
+<jsp:include page="/vues/include/footer.jsp" />
