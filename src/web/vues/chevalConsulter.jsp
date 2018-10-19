@@ -7,12 +7,7 @@
 <%@page import="modele.Cheval"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-       <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consultation Cheval</title>
-    </head>
-    <body>
+<jsp:include page="/vues/MiseEnForme/header.jsp" />
         <h1>Infos Cheval</h1>
         
          <%
@@ -36,5 +31,5 @@
           
         </table>
         
-    </body>
-</html>
+
+<jsp:include page="/vues/MiseEnForme/Footer.jsp" />

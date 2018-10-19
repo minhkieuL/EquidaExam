@@ -30,6 +30,7 @@
 		<a href="/EquidaWebG2/ServletClient/ajouterClient">Ajouter un client</a>
 		<a href="/EquidaWebG2/ServletDirecteur/categorieVenteAjouter">Ajouter une catégorie de vente</a>
 		<a href="/EquidaWebG2/ServletDirecteur/paysAjouter">Ajouter un pays</a>
+                <a href="/EquidaWebG2/ServletCheval/ajouterCheval">Ajouter un cheval</a>
 
     </nav>
     </body>
