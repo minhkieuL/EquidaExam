@@ -10,7 +10,6 @@ import database.LotDAO;
 import database.Utilitaire;
 import database.VenteDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
@@ -84,7 +83,7 @@ public class ServletVentes extends HttpServlet {
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+		System.out.println("servlets.ServletVentes.doGet()"+request.getSession().getAttribute("user"));
         
         String url = request.getRequestURI();
         

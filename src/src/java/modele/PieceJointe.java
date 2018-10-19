@@ -12,6 +12,10 @@ public class PieceJointe {
     private String description;
     private ArrayList<Courriel> listeCourriels;
 
+    public PieceJointe() {
+        this(0, "", "", null);
+    }
+    
     public PieceJointe(int id, String chemin, String description, ArrayList<Courriel> listeCourriels) {
         this.id = id;
         this.chemin = chemin;
@@ -22,10 +26,6 @@ public class PieceJointe {
             this.listeCourriels = new ArrayList<>();
     }
 
-    public PieceJointe() {
-        
-    }
-    
     public int getId() {
         return id;
     }

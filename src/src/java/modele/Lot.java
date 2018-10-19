@@ -1,19 +1,28 @@
 package modele;
 
+import java.util.ArrayList;
+
 public class Lot {
     private int id;
     private float prixDepart;
     private Vente vente;
     private Cheval cheval; 
+    private ArrayList<Enchere> encheres;
 
     public Lot() {
+        this(0, 0, null, null, null);
     }
 
-    public Lot(int id, float prixDepart, Vente vente, Cheval cheval) {
+    public Lot(int id, float prixDepart, Vente vente, Cheval cheval, ArrayList<Enchere> encheres) {
         this.id = id;
         this.prixDepart = prixDepart;
         this.vente = vente;
         this.cheval = cheval;
+        this.encheres = encheres;
+        
+        if(this.encheres == null) {
+            this.encheres = new ArrayList<>();
+        }
     }
 
     public int getId() {
@@ -47,6 +56,16 @@ public class Lot {
     public void setCheval(Cheval cheval) {
         this.cheval = cheval;
     }
+
+    public ArrayList<Enchere> getEncheres() {
+        return encheres;
+    }
+
+    public void setEncheres(ArrayList<Enchere> encheres) {
+        this.encheres = encheres;
+    }
     
-    
+    public void addEnchere(Enchere enchere) {
+        this.encheres.add(enchere);
+    }
 }

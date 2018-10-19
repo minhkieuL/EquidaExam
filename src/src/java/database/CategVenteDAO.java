@@ -26,7 +26,7 @@ public class CategVenteDAO {
         try
         {
             //preparation de la requete     
-            requete=connection.prepareStatement("select * from categvente");
+            requete=connection.prepareStatement("SELECT * FROM categvente");
             
             //executer la requete
             rs=requete.executeQuery();
@@ -46,5 +46,28 @@ public class CategVenteDAO {
         }
         return lesCategVentes ;    
     } 
-    
+     
+     public static CategVente ajouterCategVente(Connection connection, CategVente uneCategVente){      
+        int idGenere = -1;
+        try
+        {
+            //preparation de la requete
+            
+            requete=connection.prepareStatement("INSERT INTO categvente ( code, libelle)\n" +
+                    "VALUES (?,?)", requete.RETURN_GENERATED_KEYS );
+            requete.setString(1, uneCategVente.getCode());
+            requete.setString(2, uneCategVente.getLibelle());
+            
+           /* Exécution de la requête */
+            requete.executeUpdate();
+            
+            
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return uneCategVente ;    
+    }
 }

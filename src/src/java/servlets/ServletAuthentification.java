@@ -1,36 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
-import database.CategVenteDAO;
-import database.ClientDAO;
-import database.PaysDAO;
+import database.CompteDAO;
+import database.UtilisateurDAO;
 import database.Utilitaire;
-import formulaires.ClientForm;
+import formulaires.CompteForm;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.CategVente;
-import modele.Client;
-import modele.Pays;
+import modele.Compte;
+import modele.Utilisateur;
 
-/**
- *
- * @author Zakina
- * Servlet Client permettant d'excéuter les fonctionnalités relatives au clients
- * Fonctionnalités implémentées :
- *      ajouter un nouveau client
- */
-public class ServletClient extends HttpServlet {
+public class ServletAuthentification extends HttpServlet {
     
     Connection connection ;
       
@@ -77,21 +62,15 @@ public class ServletClient extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
-        
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        String url = request.getRequestURI();
        
-       if(url.equals("/EquidaWebG2/ServletClient/ajouterClient"))
-        {                   
-            ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
-            request.setAttribute("pLesPays", lesPays);
-            
-            ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
-            request.setAttribute("pLesCategVente", lesCategVentes);
-            this.getServletContext().getRequestDispatcher("/vues/clientAjouter.jsp" ).forward( request, response );
-        }
+		if(url.equals("/EquidaWebG2/ServletAuthentification/connexion")) {
+			this.getServletContext().getRequestDispatcher("/vues/authentification/connexion.jsp" ).forward( request, response );
+		} else if(url.equals("/EquidaWebG2/ServletAuthentification/deconnexion")) {
+			request.getSession().invalidate();
+			response.sendRedirect("/EquidaWebG2");
+		}
     }
 
     /**
@@ -103,35 +82,34 @@ public class ServletClient extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-               
-         /* Préparation de l'objet formulaire */
-        ClientForm form = new ClientForm();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String url = request.getRequestURI();
 		
-        /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-        Client unClient = form.getClient(request);
-        
-        /* Stockage du formulaire et de l'objet dans l'objet request */
-        request.setAttribute( "form", form );
-        request.setAttribute( "pClient", unClient );
-		
-        if (form.getErreurs().isEmpty()){
-            // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-            ClientDAO.ajouterClient(connection, unClient);
-            this.getServletContext().getRequestDispatcher("/vues/clientConsulter.jsp" ).forward( request, response );
-        }
-        else
-        { 
-		// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
-            ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
-            request.setAttribute("pLesPays", lesPays);
-            
-            ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
-            request.setAttribute("pLesCategVente", lesCategVentes);
-           this.getServletContext().getRequestDispatcher("/vues/clientAjouter.jsp" ).forward( request, response );
-        }
-    
+		if(url.equals("/EquidaWebG2/ServletAuthentification/connexion")) {
+			CompteForm compteForm = new CompteForm();
+			Compte compte = compteForm.getCompte(request);
+			Compte compteBdd = CompteDAO.getCompteParLogin(compte.getLogin(), connection);
+			
+			boolean showError = false;
+			
+			try {
+				if(compte.getMdp().equals(compteBdd.getMdp()) && compteForm.getErreurs().isEmpty()) {
+					Utilisateur user = UtilisateurDAO.getUtilisateurParCompte(compte, connection);
+					request.getSession().setAttribute("user", user);
+					response.sendRedirect("/EquidaWebG2");
+				} else {
+					showError = true;
+				}
+			} catch(NullPointerException e) {
+				//Aucun compte en bdd ne correspond au login
+				showError = true;
+			}
+			
+			if(showError) {
+				response.sendRedirect("/EquidaWebG2/ServletAuthentification/connexion");
+			}
+			
+		}
     }
 
     /**
