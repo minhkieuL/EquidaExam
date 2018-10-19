@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import modele.Cheval;
 import modele.Lot;
+import modele.Pays;
 import modele.TypeCheval;
 import modele.Vente;
 
@@ -58,4 +59,30 @@ public class LotDAO {
         }
         return lesLots ;   
     }
+  
+     public static ArrayList<Lot>  getLesLots(Connection connection){      
+        ArrayList<Lot> lesLots = new  ArrayList<Lot>();
+        try
+        {
+            //preparation de la requete     
+            requete=connection.prepareStatement("select * from lot");
+            
+            //executer la requete
+            rs=requete.executeQuery();
+            
+            //On hydrate l'objet métier Client avec les résultats de la requête
+            while ( rs.next() ) {  
+                Lot unLot = new Lot();
+                unLot.setId(rs.getInt("Id"));
+                unLot.setPrixDepart(rs.getFloat("prixDepart"));
+               
+            }
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return lesLots;    
+    } 
 }
