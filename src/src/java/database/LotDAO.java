@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import modele.Cheval;
 import modele.Lot;
-import modele.Pays;
 import modele.TypeCheval;
 import modele.Vente;
 

@@ -2,11 +2,9 @@ package servlets;
 
 import database.CategVenteDAO;
 import database.PaysDAO;
-
 import database.Utilitaire;
 import formulaires.CategorieForm;
 import formulaires.PaysForm;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;

@@ -5,19 +5,12 @@
  */
 package formulaires;
 
-import java.sql.Connection;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import database.ChevalDAO;
 import database.TypeChevalDAO;
 import static formulaires.Form.getDataForm;
-import java.util.ArrayList;
+import java.sql.Connection;
 import javax.servlet.http.HttpServletRequest;
-import modele.CategVente;
 import modele.Cheval;
-import modele.Client;
-import modele.Lot;
-import modele.Pays;
-import modele.TypeCheval;
 
 /**
  *

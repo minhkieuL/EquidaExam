@@ -5,14 +5,9 @@
  */
 package servlets;
 
-import database.CategVenteDAO;
 import database.ChevalDAO;
-import database.ClientDAO;
-import database.LotDAO;
-import database.PaysDAO;
 import database.TypeChevalDAO;
 import formulaires.ChevalForm;
-import formulaires.ClientForm;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -23,11 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.CategVente;
 import modele.Cheval;
-import modele.Client;
-import modele.Lot;
-import modele.Pays;
 import modele.TypeCheval;
 
 /**
