@@ -7,12 +7,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Categorie Vente Ajouter</title>
-    </head>
-    <body>
+<jsp:include page="/vues/MiseEnForme/header.jsp" />
         <h1>Ajouter une catégorie de vente</h1>
         
         <%
@@ -32,5 +27,4 @@
                 
                 <input type="submit" name="valider" id="valider" value="Valider"/>
                 </form>
-    </body>
-</html>
+<jsp:include page="/vues/MiseEnForme/Footer.jsp" />

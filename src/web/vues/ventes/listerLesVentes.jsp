@@ -9,14 +9,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="modele.Vente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-        <title>LISTE DES VENTES</title>
-    </head>
-    <body>
+<jsp:include page="/vues/MiseEnForme/header.jsp" />
         <h1>LISTE DES VENTES</h1>
          <%
         ArrayList<Vente> lesVentes = (ArrayList)request.getAttribute("pLesVentes");
@@ -97,5 +90,5 @@
                 </tr>
             </tbody>
         </table>
-    </body>
-</html>
+
+<jsp:include page="/vues/MiseEnForme/Footer.jsp" />

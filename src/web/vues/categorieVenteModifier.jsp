@@ -6,12 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Categorie Vente Modifier</title>
-    </head>
-    <body>
+<jsp:include page="/vues/MiseEnForme/header.jsp" />
         <h1>Modifier une catégorie de vente</h1>
-    </body>
-</html>
+<jsp:include page="/vues/MiseEnForme/Footer.jsp" />

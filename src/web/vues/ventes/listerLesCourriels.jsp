@@ -12,13 +12,7 @@
 <%@page import="modele.Vente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-        <title>LISTE DES VENTES</title>
-    </head>
-    <body>
+<jsp:include page="/vues/MiseEnForme/header.jsp" />
         <h1>LISTE DES COURRIELS</h1>
          <%
         ArrayList<Courriel> lesCourriels = (ArrayList)request.getAttribute("pLesCourriels");
@@ -56,5 +50,4 @@
             out.println("</div>");
         }
          %>
-    </body>
-</html>
+<jsp:include page="/vues/MiseEnForme/Footer.jsp" />

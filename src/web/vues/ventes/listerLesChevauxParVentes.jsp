@@ -2,13 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-        <title>LISTE LES CHEVAUX POUR UNE VENTE</title>
-    </head>
-    <body>
+<jsp:include page="/vues/MiseEnForme/header.jsp" />
         <h1>LISTE LES CHEVAUX POUR UNE VENTE</h1>
          <%
         ArrayList<Lot> lesLots = (ArrayList)request.getAttribute("pLesLots");
@@ -71,5 +65,4 @@
                     %>
             </tbody>
         </table>
-    </body>
-</html>
+<jsp:include page="/vues/MiseEnForme/Footer.jsp" />

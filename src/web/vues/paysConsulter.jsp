@@ -7,12 +7,7 @@
 <%@page import="modele.Pays"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consultation Nouveau Pays</title>
-    </head>
-    <body>
+<jsp:include page="/vues/MiseEnForme/header.jsp" />
         
         
         <h1>Infos sur l'Ajout de Pays</h1>
@@ -28,5 +23,4 @@
            
               </td></tr>
         </table>
-    </body>
-</html>
+<jsp:include page="/vues/MiseEnForme/Footer.jsp" />

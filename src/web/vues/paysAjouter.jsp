@@ -6,12 +6,7 @@
 <%@page import="formulaires.PaysForm"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Pays Ajouter</title>
-    </head>
-    <body>
+<jsp:include page="/vues/MiseEnForme/header.jsp" />
         <h1>NOUVEAU PAYS</h1>
         
          <%
@@ -33,5 +28,4 @@
             <input type="submit" name="valider" id="valider" value="Valider"/>
             </form>
         
-    </body>
-</html>
+<jsp:include page="/vues/MiseEnForme/Footer.jsp" />

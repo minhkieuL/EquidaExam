@@ -4,22 +4,40 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<!DOCTYPE html>
 <html>
+
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="vues/MiseEnForme/CSS/css.css" />
+    </head>    
+    
     <body>
-        <div>PAGE D'ACCUEIL EQUIDA - A EMBELLIR</div>
-		<ul>
-			<li><a href="/EquidaWebG2/ServletAuthentification/connexion">Connexion</a></li>
-			<li><a href="/EquidaWebG2/ServletAuthentification/deconnexion">Deconnexion</a></li>
-			<li><a href="/EquidaWebG2/ServletVentes/listerLesVentes">Lister les ventes</a></li>
-			<li><a href="/EquidaWebG2/ServletClient/ajouterClient">Ajouter un client</a></li>
-			<li><a href="/EquidaWebG2/ServletDirecteur/categorieVenteAjouter">Ajouter une catégorie de vente</a></li>
-			<li><a href="/EquidaWebG2/ServletDirecteur/paysAjouter">Ajouter un pays</a></li>
+        <header>
+          <img class="logo" src="https://via.placeholder.com/275x75" alt="";>
+          <a > <em>Charte graphique EQUIDA</em> </a>
+          <div id="authentification">
+          <a href="#"> Connexion </a>
+          <br/>
+          <br/>
+          <a href="#"> Inscription </a>
+
+        </header>
+    
+        <nav>
+		
 			
-		</ul>
+			<a href="/EquidaWebG2/ServletVentes/listerLesVentes">Lister les ventes</a>
+			<a href="/EquidaWebG2/ServletClient/ajouterClient">Ajouter un client</a>
+			<a href="/EquidaWebG2/ServletDirecteur/categorieVenteAjouter">Ajouter une catégorie de vente</a>
+			<a href="/EquidaWebG2/ServletDirecteur/paysAjouter">Ajouter un pays</a>
+			
+		
+        </nav>
+       
+        <footer>
+            <a href="#"> Mention legal </a>
+            <a href="#"> Autre chose </a>
+        </footer>   
     </body>
 </html>

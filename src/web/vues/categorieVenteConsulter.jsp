@@ -7,11 +7,7 @@
 <%@page import="modele.CategVente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consultation Nouvelle Categorie de Vente</title>
-    </head>
+<jsp:include page="/vues/MiseEnForme/header.jsp" />
     <body>
         
         
@@ -28,5 +24,4 @@
            
               </td></tr>
         </table>
-    </body>
-</html>
+<jsp:include page="/vues/MiseEnForme/Footer.jsp" />
