@@ -9,25 +9,21 @@ import static formulaires.Form.getDataForm;
 import javax.servlet.http.HttpServletRequest;
 import modele.CategVente;
 
-
 /**
-    Document   : CategorieForm
-    Created on : 12 oct. 2018, 09:25:00
-    Author     : paul_collet
+ * Document : CategorieForm Created on : 12 oct. 2018, 09:25:00 Author :
+ * paul_collet
  */
 public class CategorieForm extends Form {
-    
-    
-    public CategVente getCategVente( HttpServletRequest request ) {
-        CategVente uneCategVente  = new CategVente();
-         
-        String code = getDataForm( request, "code" );
-        String libelle = getDataForm( request, "libelle");
-        
-        uneCategVente.setCode(code);
-        uneCategVente.setLibelle(libelle);
-        
-               
-        return uneCategVente ;
-    }
+
+	public CategVente getCategVente(HttpServletRequest request) {
+		CategVente uneCategVente = new CategVente();
+
+		String code = getDataForm(request, "code");
+		String libelle = getDataForm(request, "libelle");
+
+		uneCategVente.setCode(code);
+		uneCategVente.setLibelle(libelle);
+
+		return uneCategVente;
+	}
 }

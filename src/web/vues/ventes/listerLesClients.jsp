@@ -10,7 +10,7 @@
 
 <jsp:include page="/vues/include/header.jsp" />
 <h1>LISTE DES CLIENTS POUR UNE CATEGORIE DE VENTE</h1>
- <%
+<%
 ArrayList<Client> lesClients = (ArrayList)request.getAttribute("pLesClients");
 %>
 <table  class="table table-bordered table-striped table-condensed">  
@@ -26,7 +26,7 @@ ArrayList<Client> lesClients = (ArrayList)request.getAttribute("pLesClients");
             <th>Mail</th>
     <br>
     <br>
-        </tr>
+	</tr>
     </thead>
     <tbody>
         <tr>

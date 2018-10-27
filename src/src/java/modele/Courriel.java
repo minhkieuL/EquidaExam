@@ -7,79 +7,80 @@ import java.util.ArrayList;
  * @author MartinJ
  */
 public class Courriel {
-    private int id;
-    private String date;
-    private String objet;
-    private String corps;
-    private Vente vente;
-    private ArrayList<PieceJointe> listePiecesJointes;
-    
-    public Courriel() {
-        this(0, "", "", "", null, null);
-    }
-    
-    public Courriel(int id, String date, String objet, String corps, Vente vente, ArrayList<PieceJointe> listePiecesJointes) {
-        this.id = id;
-        this.date = date;
-        this.objet = objet;
-        this.corps = corps;
-        this.vente = vente;
-        this.listePiecesJointes = listePiecesJointes;
-        
-        if(this.listePiecesJointes == null)
-            this.listePiecesJointes = new ArrayList<>();
-    }
 
-    public int getId() {
-        return id;
-    }
+	private int id;
+	private String date;
+	private String objet;
+	private String corps;
+	private Vente vente;
+	private ArrayList<PieceJointe> listePiecesJointes;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public Courriel() {
+		this(0, "", "", "", null, null);
+	}
 
-    public String getDate() {
-        return date;
-    }
+	public Courriel(int id, String date, String objet, String corps, Vente vente, ArrayList<PieceJointe> listePiecesJointes) {
+		this.id = id;
+		this.date = date;
+		this.objet = objet;
+		this.corps = corps;
+		this.vente = vente;
+		this.listePiecesJointes = listePiecesJointes;
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+		if (this.listePiecesJointes == null) {
+			this.listePiecesJointes = new ArrayList<>();
+		}
+	}
 
-    public String getObjet() {
-        return objet;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setObjet(String objet) {
-        this.objet = objet;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getCorps() {
-        return corps;
-    }
+	public String getDate() {
+		return date;
+	}
 
-    public void setCorps(String corps) {
-        this.corps = corps;
-    }
+	public void setDate(String date) {
+		this.date = date;
+	}
 
-    public Vente getVente() {
-        return vente;
-    }
+	public String getObjet() {
+		return objet;
+	}
 
-    public void setVente(Vente vente) {
-        this.vente = vente;
-    }   
+	public void setObjet(String objet) {
+		this.objet = objet;
+	}
 
-    public ArrayList<PieceJointe> getPiecesJointes() {
-        return listePiecesJointes;
-    }
+	public String getCorps() {
+		return corps;
+	}
 
-    public void setPiecesJointes(ArrayList<PieceJointe> piecesJointes) {
-        this.listePiecesJointes = piecesJointes;
-    }
-    
-    public void addPieceJointe(PieceJointe pieceJointe) {
-        this.listePiecesJointes.add(pieceJointe);
-    }
+	public void setCorps(String corps) {
+		this.corps = corps;
+	}
+
+	public Vente getVente() {
+		return vente;
+	}
+
+	public void setVente(Vente vente) {
+		this.vente = vente;
+	}
+
+	public ArrayList<PieceJointe> getPiecesJointes() {
+		return listePiecesJointes;
+	}
+
+	public void setPiecesJointes(ArrayList<PieceJointe> piecesJointes) {
+		this.listePiecesJointes = piecesJointes;
+	}
+
+	public void addPieceJointe(PieceJointe pieceJointe) {
+		this.listePiecesJointes.add(pieceJointe);
+	}
 }
-

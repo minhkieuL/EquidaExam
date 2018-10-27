@@ -10,7 +10,7 @@
 <jsp:include page="/vues/include/header.jsp" />
 <h1>Infos sur l'Ajout de Pays</h1>
 
- <%
+<%
 Pays unPays = (Pays)request.getAttribute("pPays");
 %>
 

@@ -19,7 +19,7 @@ ArrayList<CategVente> lesCatVentes = (ArrayList)request.getAttribute("pLesCatVen
         Utilisateur user = (Utilisateur)session.getAttribute("user");
         if(user != null)
                 out.println("Bienvenue " + user.getNom() + " " + user.getPrenom());
- %>
+%>
 <form method="GET">
     <select
         name="catVente">
@@ -40,7 +40,7 @@ ArrayList<CategVente> lesCatVentes = (ArrayList)request.getAttribute("pLesCatVen
     <input type="submit"/>
 </form>
 
-    <a href="listerLesVentes"><button>Reset</button></a>
+<a href="listerLesVentes"><button>Reset</button></a>
 <table  class="table table-bordered table-striped table-condensed">  
     <thead>
         <tr>             

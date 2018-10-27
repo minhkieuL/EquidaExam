@@ -3,69 +3,70 @@ package modele;
 import java.util.ArrayList;
 
 public class Lot {
-    private int id;
-    private float prixDepart;
-    private Vente vente;
-    private Cheval cheval; 
-    private ArrayList<Enchere> encheres;
 
-    public Lot() {
-        this(0, 0, null, null, null);
-    }
+	private int id;
+	private float prixDepart;
+	private Vente vente;
+	private Cheval cheval;
+	private ArrayList<Enchere> encheres;
 
-    public Lot(int id, float prixDepart, Vente vente, Cheval cheval, ArrayList<Enchere> encheres) {
-        this.id = id;
-        this.prixDepart = prixDepart;
-        this.vente = vente;
-        this.cheval = cheval;
-        this.encheres = encheres;
-        
-        if(this.encheres == null) {
-            this.encheres = new ArrayList<>();
-        }
-    }
+	public Lot() {
+		this(0, 0, null, null, null);
+	}
 
-    public int getId() {
-        return id;
-    }
+	public Lot(int id, float prixDepart, Vente vente, Cheval cheval, ArrayList<Enchere> encheres) {
+		this.id = id;
+		this.prixDepart = prixDepart;
+		this.vente = vente;
+		this.cheval = cheval;
+		this.encheres = encheres;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+		if (this.encheres == null) {
+			this.encheres = new ArrayList<>();
+		}
+	}
 
-    public float getPrixDepart() {
-        return prixDepart;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setPrixDepart(float prixDepart) {
-        this.prixDepart = prixDepart;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public Vente getVente() {
-        return vente;
-    }
+	public float getPrixDepart() {
+		return prixDepart;
+	}
 
-    public void setVente(Vente vente) {
-        this.vente = vente;
-    }
+	public void setPrixDepart(float prixDepart) {
+		this.prixDepart = prixDepart;
+	}
 
-    public Cheval getCheval() {
-        return cheval;
-    }
+	public Vente getVente() {
+		return vente;
+	}
 
-    public void setCheval(Cheval cheval) {
-        this.cheval = cheval;
-    }
+	public void setVente(Vente vente) {
+		this.vente = vente;
+	}
 
-    public ArrayList<Enchere> getEncheres() {
-        return encheres;
-    }
+	public Cheval getCheval() {
+		return cheval;
+	}
 
-    public void setEncheres(ArrayList<Enchere> encheres) {
-        this.encheres = encheres;
-    }
-    
-    public void addEnchere(Enchere enchere) {
-        this.encheres.add(enchere);
-    }
+	public void setCheval(Cheval cheval) {
+		this.cheval = cheval;
+	}
+
+	public ArrayList<Enchere> getEncheres() {
+		return encheres;
+	}
+
+	public void setEncheres(ArrayList<Enchere> encheres) {
+		this.encheres = encheres;
+	}
+
+	public void addEnchere(Enchere enchere) {
+		this.encheres.add(enchere);
+	}
 }

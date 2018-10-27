@@ -10,7 +10,7 @@
 <jsp:include page="/vues/include/header.jsp" />
 <h1>Infos Cheval</h1>
 
- <%
+<%
 Cheval unCheval = (Cheval)request.getAttribute("pCheval");
 %>
 

@@ -14,10 +14,10 @@
 <jsp:include page="/vues/include/header.jsp" />
 <h1>NOUVEAU CHEVAL</h1>
 
- <%
-        //Client client=(Client)request.getAttribute("client");
-        ChevalForm form = (ChevalForm)request.getAttribute("form");
-    %>
+<%
+	   //Client client=(Client)request.getAttribute("client");
+	   ChevalForm form = (ChevalForm)request.getAttribute("form");
+%>
 
 
 <form class="form-inline" action="ajouterCheval" method="POST">
@@ -29,18 +29,18 @@
         <option value="0">Femelle</option>
         <option value="1">Male</option>
     </select>
-     </br>
-     </br>
+	</br>
+	</br>
 
     <label for="sire">SIRE : </label>
     <input id="sire"  type="text"  name="sire" size="30" maxlength="50">
-     </br>
-     </br>
+	</br>
+	</br>
 
 
     <%-- Champ Liste des typeCheval --%>
 
-   <label for="typeCheval"> Race: </label>
+	<label for="typeCheval"> Race: </label>
     <select name="typeCheval">
 
         <%
@@ -56,13 +56,13 @@
 
     <label for="pere">Père : </label>
     <input id="pere"  type="text"  name="pere" size="30" maxlength="50">
-     </br>
-     </br>
+	</br>
+	</br>
 
-     <label for="mere">Mère : </label>
+	<label for="mere">Mère : </label>
     <input id="mere"  type="text"  name="mere" size="30" maxlength="50">
-     </br>
-     </br>
+	</br>
+	</br>
 
 
     <%--<label for="lot"> : </label>
@@ -92,7 +92,7 @@
             }
         %>
         </br>
-        --%>
+	--%>
 
 
     <input type="submit" name="valider" id="valider" value="Valider"/>

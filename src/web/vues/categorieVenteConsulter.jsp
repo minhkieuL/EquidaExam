@@ -12,12 +12,12 @@
 
 <h1>Infos sur l'Ajout de Categorie</h1>
 
- <%
-CategVente uneCategVente = (CategVente)request.getAttribute("pCategVente");
+<%
+	CategVente uneCategVente = (CategVente) request.getAttribute("pCategVente");
 %>
 
 
- <table class="table table-bordered table-striped table-condensed">
+<table class="table table-bordered table-striped table-condensed">
     <tr>
         <td>Code :</td>
         <td><% out.println(uneCategVente.getCode());%></td>

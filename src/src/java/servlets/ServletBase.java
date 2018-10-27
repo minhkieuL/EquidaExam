@@ -21,7 +21,7 @@ public abstract class ServletBase extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -31,7 +31,7 @@ public abstract class ServletBase extends HttpServlet {
 	public void changerTitrePage(String titre, HttpServletRequest request) {
 		request.setAttribute("title", titre);
 	}
-	
+
 	public void redirigerVersAcceuil(HttpServletResponse response) {
 		try {
 			response.sendRedirect("/EquidaWebG2");

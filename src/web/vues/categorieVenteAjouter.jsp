@@ -10,7 +10,7 @@
 <jsp:include page="/vues/include/header.jsp" />
 <h1>Ajouter une catégorie de vente</h1>
 <%
-    CategorieForm form = (CategorieForm)request.getAttribute("form");
+	CategorieForm form = (CategorieForm) request.getAttribute("form");
 %>
 
 <form class="form-inline" action="categorieVenteAjouter" method="POST">
@@ -19,5 +19,5 @@
     <label for="libelle">Libelle : </label><input id="libelle"  type="text"  name="libelle" size="15" maxlength="30"></br>
     <input type="submit" name="valider" id="valider" value="Valider"/>
 </form>
-    
+
 <jsp:include page="/vues/include/footer.jsp" />

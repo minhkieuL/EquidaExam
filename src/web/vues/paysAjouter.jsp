@@ -17,12 +17,12 @@
     <label for="code">Code : </label><input id="code" type="text" name="code"  size="30" maxlength="30">
     </br>
     <br/>
-    
+
     <label for="nom">Nom : </label><input id="nom"  type="text"  name="nom" size="30" maxlength="30">      
     </br>
     <br/>
-    
+
     <input type="submit" name="valider" id="valider" value="Valider"/>
 </form>
-        
+
 <jsp:include page="/vues/include/footer.jsp" />

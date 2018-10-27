@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-    
+
 <h1>Bienvenue sur Equida!</h1>
 
 <jsp:include page="/vues/include/footer.jsp" />

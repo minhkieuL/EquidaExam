@@ -3,115 +3,118 @@ package modele;
 import java.util.ArrayList;
 
 public class Vente {
-    private int id;
-    private String nom;
-    private String dateDebut;
-    private String dateFin;
-    private String dateDebutInscription;
-    private CategVente uneCategVente;
-    private Lieu lieu;
-    private ArrayList<Courriel> listeCourriels;
-    private ArrayList<Lot> lots;
 
-    public Vente() {
-        this(0, "", "", "", "", null, null, null, null);
-    }
-    
-    public Vente(int id, String nom, String dateDebut, String dateFin, String datedebutInscription, CategVente catVente, Lieu lieu, ArrayList<Courriel> listeCourriels, ArrayList<Lot> lots) {
-        this.id = id;
-        this.nom = nom;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
-        this.dateDebutInscription = datedebutInscription;
-        this.uneCategVente = catVente;
-        this.lieu = lieu;
-        this.listeCourriels = listeCourriels;
-        this.lots = lots;
-        
-        if(this.listeCourriels == null)
-            this.listeCourriels = new ArrayList<>();
-        
-        if(this.lots == null)
-            this.lots = new ArrayList<>();
-    }
+	private int id;
+	private String nom;
+	private String dateDebut;
+	private String dateFin;
+	private String dateDebutInscription;
+	private CategVente uneCategVente;
+	private Lieu lieu;
+	private ArrayList<Courriel> listeCourriels;
+	private ArrayList<Lot> lots;
 
-    public int getId() {
-        return id;
-    }
+	public Vente() {
+		this(0, "", "", "", "", null, null, null, null);
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public Vente(int id, String nom, String dateDebut, String dateFin, String datedebutInscription, CategVente catVente, Lieu lieu, ArrayList<Courriel> listeCourriels, ArrayList<Lot> lots) {
+		this.id = id;
+		this.nom = nom;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.dateDebutInscription = datedebutInscription;
+		this.uneCategVente = catVente;
+		this.lieu = lieu;
+		this.listeCourriels = listeCourriels;
+		this.lots = lots;
 
-    public String getNom() {
-        return nom;
-    }
+		if (this.listeCourriels == null) {
+			this.listeCourriels = new ArrayList<>();
+		}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+		if (this.lots == null) {
+			this.lots = new ArrayList<>();
+		}
+	}
 
-    public String getDateDebut() {
-        return dateDebut;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public void setDateDebut(String dateDebut) {
-        this.dateDebut = dateDebut;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getDateFin() {
-        return dateFin;
-    }
+	public String getNom() {
+		return nom;
+	}
 
-    public void setDateFin(String dateFin) {
-        this.dateFin = dateFin;
-    }
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
-    public String getDateDebutInscription() {
-        return dateDebutInscription;
-    }
+	public String getDateDebut() {
+		return dateDebut;
+	}
 
-    public void setDateDebutInscription(String dateDebutInscription) {
-        this.dateDebutInscription = dateDebutInscription;
-    }
-    
-    public CategVente getUneCategVente() {
-        return uneCategVente;
-    }
+	public void setDateDebut(String dateDebut) {
+		this.dateDebut = dateDebut;
+	}
 
-    public void setUneCategVente(CategVente uneCategVente) {
-        this.uneCategVente = uneCategVente;
-    }
+	public String getDateFin() {
+		return dateFin;
+	}
 
-    public Lieu getLieu() {
-        return lieu;
-    }
+	public void setDateFin(String dateFin) {
+		this.dateFin = dateFin;
+	}
 
-    public void setLieu(Lieu lieu) {
-        this.lieu = lieu;
-    }
+	public String getDateDebutInscription() {
+		return dateDebutInscription;
+	}
 
-    public ArrayList<Courriel> getListeCourriels() {
-        return listeCourriels;
-    }
+	public void setDateDebutInscription(String dateDebutInscription) {
+		this.dateDebutInscription = dateDebutInscription;
+	}
 
-    public void setListeCourriels(ArrayList<Courriel> listeCourriels) {
-        this.listeCourriels = listeCourriels;
-    }
+	public CategVente getUneCategVente() {
+		return uneCategVente;
+	}
 
-    public void addCourriel(Courriel courriel) {
-        listeCourriels.add(courriel);
-    }
+	public void setUneCategVente(CategVente uneCategVente) {
+		this.uneCategVente = uneCategVente;
+	}
 
-    public ArrayList<Lot> getLots() {
-        return lots;
-    }
+	public Lieu getLieu() {
+		return lieu;
+	}
 
-    public void setLots(ArrayList<Lot> lots) {
-        this.lots = lots;
-    }
-    
-    public void addLot(Lot lot) {
-        this.lots.add(lot);
-    }
+	public void setLieu(Lieu lieu) {
+		this.lieu = lieu;
+	}
+
+	public ArrayList<Courriel> getListeCourriels() {
+		return listeCourriels;
+	}
+
+	public void setListeCourriels(ArrayList<Courriel> listeCourriels) {
+		this.listeCourriels = listeCourriels;
+	}
+
+	public void addCourriel(Courriel courriel) {
+		listeCourriels.add(courriel);
+	}
+
+	public ArrayList<Lot> getLots() {
+		return lots;
+	}
+
+	public void setLots(ArrayList<Lot> lots) {
+		this.lots = lots;
+	}
+
+	public void addLot(Lot lot) {
+		this.lots.add(lot);
+	}
 }

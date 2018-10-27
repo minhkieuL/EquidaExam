@@ -3,108 +3,110 @@ package modele;
 import java.util.ArrayList;
 
 public class Cheval {
-    private int id;
-    private String nom;
-    private boolean male;
-    private String sire;
-    private boolean valider;
-    private TypeCheval typeCheval;
-    private ArrayList<Lot> lots;
-    private Cheval pere;
-    private Cheval mere;
 
-    public Cheval() {
-        this(0, "", false, "", false, null, null, null, null);
-    }
-    
-    public Cheval(int id, String nom, boolean male, String sire, boolean valider, TypeCheval typeCheval, ArrayList<Lot> lots, Cheval pere, Cheval mere) {
-        this.id = id;
-        this.nom = nom;
-        this.male = male;
-        this.sire = sire;
-        this.valider = valider;
-        this.typeCheval = typeCheval;
-        this.lots = lots;
-        this.pere = pere;
-        this.mere = mere;
-        
-        if(this.lots == null)
-            this.lots = new ArrayList<>();
-    }
+	private int id;
+	private String nom;
+	private boolean male;
+	private String sire;
+	private boolean valider;
+	private TypeCheval typeCheval;
+	private ArrayList<Lot> lots;
+	private Cheval pere;
+	private Cheval mere;
 
-    public int getId() {
-        return id;
-    }
+	public Cheval() {
+		this(0, "", false, "", false, null, null, null, null);
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public Cheval(int id, String nom, boolean male, String sire, boolean valider, TypeCheval typeCheval, ArrayList<Lot> lots, Cheval pere, Cheval mere) {
+		this.id = id;
+		this.nom = nom;
+		this.male = male;
+		this.sire = sire;
+		this.valider = valider;
+		this.typeCheval = typeCheval;
+		this.lots = lots;
+		this.pere = pere;
+		this.mere = mere;
 
-    public String getNom() {
-        return nom;
-    }
+		if (this.lots == null) {
+			this.lots = new ArrayList<>();
+		}
+	}
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getSire() {
-        return sire;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setSire(String sire) {
-        this.sire = sire;
-    }
+	public String getNom() {
+		return nom;
+	}
 
-    public boolean getValider() {
-        return valider;
-    }
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
-    public void setValider(boolean valider) {
-        this.valider = valider;
-    }
-    
-    public TypeCheval getTypeCheval() {
-        return typeCheval;
-    }
+	public String getSire() {
+		return sire;
+	}
 
-    public void setTypeCheval(TypeCheval typeCheval) {
-        this.typeCheval = typeCheval;
-    }
+	public void setSire(String sire) {
+		this.sire = sire;
+	}
 
-    public ArrayList<Lot> getLots() {
-        return lots;
-    }
+	public boolean getValider() {
+		return valider;
+	}
 
-    public void setLots(ArrayList<Lot> lots) {
-        this.lots = lots;
-    }
-    
-    public void addLot(Lot lot) {
-        this.lots.add(lot);
-    }
+	public void setValider(boolean valider) {
+		this.valider = valider;
+	}
 
-    public boolean getMale() {
-        return this.male;
-    }
-    
-    public void setMale(boolean male) {
-        this.male = male;
-    }
+	public TypeCheval getTypeCheval() {
+		return typeCheval;
+	}
 
-    public Cheval getPere() {
-        return pere;
-    }
+	public void setTypeCheval(TypeCheval typeCheval) {
+		this.typeCheval = typeCheval;
+	}
 
-    public void setPere(Cheval pere) {
-        this.pere = pere;
-    }
+	public ArrayList<Lot> getLots() {
+		return lots;
+	}
 
-    public Cheval getMere() {
-        return mere;
-    }
+	public void setLots(ArrayList<Lot> lots) {
+		this.lots = lots;
+	}
 
-    public void setMere(Cheval mere) {
-        this.mere = mere;
-    }
+	public void addLot(Lot lot) {
+		this.lots.add(lot);
+	}
+
+	public boolean getMale() {
+		return this.male;
+	}
+
+	public void setMale(boolean male) {
+		this.male = male;
+	}
+
+	public Cheval getPere() {
+		return pere;
+	}
+
+	public void setPere(Cheval pere) {
+		this.pere = pere;
+	}
+
+	public Cheval getMere() {
+		return mere;
+	}
+
+	public void setMere(Cheval mere) {
+		this.mere = mere;
+	}
 }

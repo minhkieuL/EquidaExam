@@ -10,7 +10,7 @@
 <jsp:include page="/vues/include/header.jsp" />
 <h1>Infos clients</h1>
 
- <%
+<%
 Client unClient = (Client)request.getAttribute("pClient");
 %>
 
@@ -42,13 +42,13 @@ Client unClient = (Client)request.getAttribute("pClient");
     </tr>
     <tr>
         <td> Catégories selectionnées</td><td>
-        <% for (int i=0; i<unClient.getLesCategVentes().size(); i++){
-           out.println(unClient.getLesCategVentes().get(i).getCode() + "</br>");
+			<% for (int i=0; i<unClient.getLesCategVentes().size(); i++){
+			   out.println(unClient.getLesCategVentes().get(i).getCode() + "</br>");
 
-        }
-        %>
-      </td></tr>
+			}
+			%>
+		</td></tr>
 </table>
-        
+
 
 <jsp:include page="/vues/include/footer.jsp" />

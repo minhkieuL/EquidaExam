@@ -6,11 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-        <footer>
-            <ul>
-                <li><a href="#"> Mention legal </a></li>
-                <li><a href="#"> Autre chose </a></li>
-            </ul>
-        </footer>   
-    </body>
+<footer>
+	<ul>
+		<li><a href="#"> Mention legal </a></li>
+		<li><a href="#"> Autre chose </a></li>
+	</ul>
+</footer>   
+</body>
 </html>

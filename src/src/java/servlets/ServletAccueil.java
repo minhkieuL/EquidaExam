@@ -28,8 +28,8 @@ public class ServletAccueil extends ServletBase {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
 		changerTitrePage("Accueil", request);
-		
-		this.getServletContext().getRequestDispatcher("/index.jsp" ).forward(request, response);
+
+		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 }

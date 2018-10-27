@@ -4,7 +4,7 @@
 
 <jsp:include page="/vues/include/header.jsp" />
 <h1>LISTE LES CHEVAUX POUR UNE VENTE</h1>
- <%
+<%
 ArrayList<Lot> lesLots = (ArrayList)request.getAttribute("pLesLots");
 %>
 <table  class="table table-bordered table-striped table-condensed">  
