@@ -18,7 +18,7 @@ title = (title == null) ? "" : " - " + title;
 <html>
 
     <head>
-        <meta charset="utf-8" />
+        <meta charset="UTF-8" />
 		<title>Equida <%= title %></title>
     </head>    
     

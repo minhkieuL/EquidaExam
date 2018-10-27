@@ -26,6 +26,7 @@ public class ServletAccueil extends ServletBase {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		super.doGet(request, response);
 		changerTitrePage("Accueil", request);
 		
 		this.getServletContext().getRequestDispatcher("/index.jsp" ).forward(request, response);

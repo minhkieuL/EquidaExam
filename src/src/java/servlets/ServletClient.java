@@ -44,18 +44,19 @@ public class ServletClient extends ServletBase {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       String url = request.getRequestURI();
-       
+		super.doGet(request, response);
+		String url = request.getRequestURI();
+
 		if(url.equals("/EquidaWebG2/ServletClient/ajouterClient")) {                   
-            ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
-            ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
-			
-            request.setAttribute("pLesPays", lesPays);
-            request.setAttribute("pLesCategVente", lesCategVentes);
+			ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
+			ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
+
+			request.setAttribute("pLesPays", lesPays);
+			request.setAttribute("pLesCategVente", lesCategVentes);
 			changerTitrePage("Ajouter un client", request);
-			
-            this.getServletContext().getRequestDispatcher("/vues/clientAjouter.jsp" ).forward( request, response );
-        }
+
+			this.getServletContext().getRequestDispatcher("/vues/clientAjouter.jsp" ).forward( request, response );
+		}
     }
 
     /**
@@ -68,6 +69,7 @@ public class ServletClient extends ServletBase {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		super.doPost(request, response);
          /* Préparation de l'objet formulaire */
         ClientForm form = new ClientForm();
 		

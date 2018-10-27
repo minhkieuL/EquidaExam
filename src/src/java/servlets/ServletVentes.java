@@ -51,6 +51,7 @@ public class ServletVentes extends ServletBase {
      */
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {        
+		super.doGet(request, response);
         String url = request.getRequestURI();
         
         // Récup et affichage par date décroissante de toutes les ventes   

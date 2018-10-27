@@ -40,6 +40,8 @@ public class ServletDirecteur extends ServletBase {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		super.doGet(request, response);
+		
 		String url = request.getRequestURI();
 
 		if(url.equals("/EquidaWebG2/ServletDirecteur/categorieVenteAjouter")) {     
@@ -67,7 +69,7 @@ public class ServletDirecteur extends ServletBase {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             
             throws ServletException, IOException {
-        
+        super.doPost(request, response);
         String url = request.getRequestURI();
         /* Préparation de l'objet formulaire */
         CategorieForm form = new CategorieForm();

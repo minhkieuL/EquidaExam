@@ -42,7 +42,7 @@ public class ServletAuthentification extends ServletBase {
 			this.getServletContext().getRequestDispatcher("/vues/authentification/connexion.jsp" ).forward( request, response );
 		} else if(url.equals("/EquidaWebG2/ServletAuthentification/deconnexion")) {
 			request.getSession().invalidate();
-			response.sendRedirect("/EquidaWebG2");
+			redirigerVersAcceuil(response);
 		}
     }
 
@@ -69,7 +69,7 @@ public class ServletAuthentification extends ServletBase {
 				if(compte.getMdp().equals(compteBdd.getMdp()) && compteForm.getErreurs().isEmpty()) {
 					Utilisateur user = UtilisateurDAO.getUtilisateurParCompte(compte, connection);
 					request.getSession().setAttribute("user", user);
-					response.sendRedirect("/EquidaWebG2");
+					redirigerVersAcceuil(response);
 				} else {
 					showError = true;
 				}
