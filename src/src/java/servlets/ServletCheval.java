@@ -46,7 +46,7 @@ public class ServletCheval extends ServletBase {
 			request.setAttribute("pLesTypeCheval", lesTypeCheval);
 			changerTitrePage("Ajouter un cheval", request);
 
-			this.getServletContext().getRequestDispatcher("/vues/chevalAjouter.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/vues/cheval/chevalAjouter.jsp").forward(request, response);
 		}
 	}
 
@@ -74,7 +74,7 @@ public class ServletCheval extends ServletBase {
 		if (form.getErreurs().isEmpty()) {
 			// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 			ChevalDAO.ajouterCheval(connection, unCheval);
-			this.getServletContext().getRequestDispatcher("/vues/chevalConsulter.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/vues/cheval/chevalConsulter.jsp").forward(request, response);
 		} else {
 			// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
 			ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
@@ -82,7 +82,7 @@ public class ServletCheval extends ServletBase {
 
 			/*ArrayList<Lot> lesLots = LotDAO.getLesLots(connection);
             request.setAttribute("pLesLots", lesLots);*/
-			this.getServletContext().getRequestDispatcher("/vues/chevalAjouter.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/vues/cheval/chevalAjouter.jsp").forward(request, response);
 		}
 	}
 }

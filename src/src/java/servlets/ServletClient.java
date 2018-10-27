@@ -52,7 +52,7 @@ public class ServletClient extends ServletBase {
 			request.setAttribute("pLesCategVente", lesCategVentes);
 			changerTitrePage("Ajouter un client", request);
 
-			this.getServletContext().getRequestDispatcher("/vues/clientAjouter.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/vues/client/clientAjouter.jsp").forward(request, response);
 		}
 	}
 
@@ -80,7 +80,7 @@ public class ServletClient extends ServletBase {
 		if (form.getErreurs().isEmpty()) {
 			// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 			ClientDAO.ajouterClient(connection, unClient);
-			this.getServletContext().getRequestDispatcher("/vues/clientConsulter.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/vues/client/clientConsulter.jsp").forward(request, response);
 		} else {
 			// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
 			ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
@@ -88,7 +88,7 @@ public class ServletClient extends ServletBase {
 
 			ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
 			request.setAttribute("pLesCategVente", lesCategVentes);
-			this.getServletContext().getRequestDispatcher("/vues/clientAjouter.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/vues/client/clientAjouter.jsp").forward(request, response);
 		}
 
 	}

@@ -45,13 +45,13 @@ public class ServletDirecteur extends ServletBase {
 		if (url.equals("/EquidaWebG2/ServletDirecteur/categorieVenteAjouter")) {
 			changerTitrePage("Ajouter une catégorie de vente", request);
 
-			getServletContext().getRequestDispatcher("/vues/categorieVenteAjouter.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
 		}
 
 		if (url.equals("/EquidaWebG2/ServletDirecteur/paysAjouter")) {
 			changerTitrePage("Ajouter un pays", request);
 
-			getServletContext().getRequestDispatcher("/vues/paysAjouter.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/vues/pays/paysAjouter.jsp").forward(request, response);
 		}
 	}
 
@@ -85,10 +85,10 @@ public class ServletDirecteur extends ServletBase {
 			if (form.getErreurs().isEmpty()) {
 				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 				CategVenteDAO.ajouterCategVente(connection, uneCategVente);
-				this.getServletContext().getRequestDispatcher("/vues/categorieVenteConsulter.jsp").forward(request, response);
+				this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteConsulter.jsp").forward(request, response);
 
 			} else {
-				this.getServletContext().getRequestDispatcher("/vues/categorieVenteAjouter.jsp").forward(request, response);
+				this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
 			}
 		}
 
@@ -96,11 +96,11 @@ public class ServletDirecteur extends ServletBase {
 			if (form.getErreurs().isEmpty()) {
 				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 				PaysDAO.ajouterPays(connection, unPays);
-				this.getServletContext().getRequestDispatcher("/vues/paysConsulter.jsp").forward(request, response);
+				this.getServletContext().getRequestDispatcher("/vues/pays/paysConsulter.jsp").forward(request, response);
 
 			} else {
 
-				this.getServletContext().getRequestDispatcher("/vues/paysAjouter.jsp").forward(request, response);
+				this.getServletContext().getRequestDispatcher("/vues/pays/paysAjouter.jsp").forward(request, response);
 			}
 		}
 	}
