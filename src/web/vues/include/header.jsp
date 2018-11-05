@@ -4,6 +4,8 @@
     Author     : Maxence
 --%>
 
+<%@page import="modele.Client"%>
+<%@page import="modele.DirecteurGeneral"%>
 <%@page import="modele.Utilisateur"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -28,20 +30,30 @@
             <ul>
                 <li><a href="/EquidaWebG2/">Accueil</a></li>
 					<%
+						//Si l'utilisateur n'est pas connecté on affiche le lien de connexion sinon, on affiche celui de la déconnexion
 						if (user == null) {
 					%>
-                <li><a href="/EquidaWebG2/ServletAuthentification/connexion">Connexion</a></li>
+				<li><a href="/EquidaWebG2/ServletAuthentification/connexion">Connexion</a></li>
 					<%
 					} else {
 					%>
                 <li><a href="/EquidaWebG2/ServletAuthentification/deconnexion">Deconnexion</a></li>
 					<%
-						}
+						//On verifie si un dircteur general ou un client est connecte et on affiche le menu correspondant
+						if (user instanceof DirecteurGeneral) {
 					%>
-                <li><a href="/EquidaWebG2/ServletVentes/listerLesVentes">Lister les ventes</a></li>
-                <li><a href="/EquidaWebG2/ServletClient/ajouterClient">Ajouter un client</a></li>
-                <li><a href="/EquidaWebG2/ServletDirecteur/categorieVenteAjouter">Ajouter une catégorie de vente</a></li>
-                <li><a href="/EquidaWebG2/ServletDirecteur/paysAjouter">Ajouter un pays</a></li>
-                <li><a href="/EquidaWebG2/ServletCheval/ajouterCheval">Ajouter un cheval</a></li>
+					<jsp:include page="/vues/include/nav_directeur_general.jsp" />			
+					<%
+					} else if (user instanceof Client) {
+					%>
+
+				<jsp:include page="/vues/include/nav_client.jsp" />		
+				<%
+						}
+					}
+				%>
+
+				<jsp:include page="/vues/include/nav_public.jsp" />
+
             </ul>
         </nav>
