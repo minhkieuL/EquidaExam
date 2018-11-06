@@ -52,6 +52,10 @@
 		<servlet-name>ServletCheval</servlet-name>
 		<servlet-class>servlets.ServletCheval</servlet-class>
 	</servlet>	
+	<servlet>
+		<servlet-name>ServletLieu</servlet-name>
+		<servlet-class>servlets.ServletLieu</servlet-class>
+	</servlet>	
 	<servlet-mapping>
 		<servlet-name>ServletVentes</servlet-name>
 		<url-pattern>/ServletVentes</url-pattern>
@@ -97,6 +101,10 @@
 		<url-pattern>/ServletAuthentification/deconnexion</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>ServletLieu</servlet-name>
+		<url-pattern>/ServletLieu/ajouterLieu</url-pattern>
+	</servlet-mapping> 
+	<servlet-mapping>	
 		<servlet-name>ServletAccueil</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
