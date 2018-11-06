@@ -35,9 +35,10 @@ public class UtilisateurDAO {
 			requeteClient.setInt(1, rsUtilisateur.getInt("id"));
 			ResultSet rsClient = requeteClient.executeQuery();
 			rsClient.last();
+            
 			boolean estClient = rsClient.getRow() > 0;
 			rsClient.beforeFirst();
-
+            
 			if (estDirecteur) {
 				utilisateur = new DirecteurGeneral();
 			} else if (estClient) {

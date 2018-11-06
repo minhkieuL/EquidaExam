@@ -64,38 +64,44 @@ public class ServletDirecteur extends ServletBase {
 	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doPost(request, response);
+        
 		String url = request.getRequestURI();
-		/* Préparation de l'objet formulaire */
-		CategorieForm form = new CategorieForm();
-		PaysForm formPays = new PaysForm();
-
-		/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-		CategVente uneCategVente = form.getCategVente(request);
-		Pays unPays = formPays.getPays(request);
-
-		/* Stockage du formulaire et de l'objet dans l'objet request */
-		request.setAttribute("form", form);
-		request.setAttribute("pCategVente", uneCategVente);
-		request.setAttribute("pPays", unPays);
-
 		if (url.equals("/EquidaWebG2/ServletDirecteur/categorieVenteAjouter")) {
-			if (form.getErreurs().isEmpty()) {
+            /* Préparation de l'objet formulaire */
+            CategorieForm formCategorie = new CategorieForm();		
+            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+            CategVente uneCategVente = formCategorie.getCategVente(request);
+            
+			if (formCategorie.getErreurs().isEmpty()) {
 				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 				CategVenteDAO.ajouterCategVente(connection, uneCategVente);
+                /* Stockage du formulaire et de l'objet dans l'objet request */
+                
+                request.setAttribute("form", formCategorie);
+                request.setAttribute("pCategVente", uneCategVente);
+                
 				this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteConsulter.jsp").forward(request, response);
-
 			} else {
 				this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
 			}
 		}
 
 		if (url.equals("/EquidaWebG2/ServletDirecteur/paysAjouter")) {
-			if (form.getErreurs().isEmpty()) {
+            /* Préparation de l'objet formulaire */
+            PaysForm formPays = new PaysForm();
+            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */            
+            Pays unPays = formPays.getPays(request);
+            
+			if (formPays.getErreurs().isEmpty()) {
 				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 				PaysDAO.ajouterPays(connection, unPays);
+                
+                /* Stockage du formulaire et de l'objet dans l'objet request */
+                request.setAttribute("form", formPays);
+                request.setAttribute("pPays", unPays);
+                
 				this.getServletContext().getRequestDispatcher("/vues/pays/paysConsulter.jsp").forward(request, response);
 
 			} else {

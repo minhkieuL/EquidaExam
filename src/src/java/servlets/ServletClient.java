@@ -67,30 +67,33 @@ public class ServletClient extends ServletBase {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doPost(request, response);
-		/* Préparation de l'objet formulaire */
-		ClientForm form = new ClientForm();
+        
+		String url = request.getRequestURI();
+        if (url.equals("/EquidaWebG2/ServletClient/ajouterClient")) {
+            /* Préparation de l'objet formulaire */
+            ClientForm form = new ClientForm();
 
-		/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-		Client unClient = form.getClient(request);
+            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+            Client unClient = form.getClient(request);
 
-		/* Stockage du formulaire et de l'objet dans l'objet request */
-		request.setAttribute("form", form);
-		request.setAttribute("pClient", unClient);
+            /* Stockage du formulaire et de l'objet dans l'objet request */
+            request.setAttribute("form", form);
+            request.setAttribute("pClient", unClient);
 
-		if (form.getErreurs().isEmpty()) {
-			// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-			ClientDAO.ajouterClient(connection, unClient);
-			this.getServletContext().getRequestDispatcher("/vues/client/clientConsulter.jsp").forward(request, response);
-		} else {
-			// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
-			ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
-			request.setAttribute("pLesPays", lesPays);
+            if (form.getErreurs().isEmpty()) {
+                // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+                ClientDAO.ajouterClient(connection, unClient);
+                this.getServletContext().getRequestDispatcher("/vues/client/clientConsulter.jsp").forward(request, response);
+            } else {
+                // il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
+                ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
+                request.setAttribute("pLesPays", lesPays);
 
-			ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
-			request.setAttribute("pLesCategVente", lesCategVentes);
-			this.getServletContext().getRequestDispatcher("/vues/client/clientAjouter.jsp").forward(request, response);
-		}
-
+                ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
+                request.setAttribute("pLesCategVente", lesCategVentes);
+                this.getServletContext().getRequestDispatcher("/vues/client/clientAjouter.jsp").forward(request, response);
+            }
+        }
 	}
 
 	/**

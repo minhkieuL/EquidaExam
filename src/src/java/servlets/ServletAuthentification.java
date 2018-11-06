@@ -66,7 +66,7 @@ public class ServletAuthentification extends ServletBase {
 
 			try {
 				if (compte.getMdp().equals(compteBdd.getMdp()) && compteForm.getErreurs().isEmpty()) {
-					Utilisateur user = UtilisateurDAO.getUtilisateurParCompte(compte, connection);
+					Utilisateur user = UtilisateurDAO.getUtilisateurParCompte(compteBdd, connection);
 					request.getSession().setAttribute("user", user);
 					redirigerVersAcceuil(response);
 				} else {
