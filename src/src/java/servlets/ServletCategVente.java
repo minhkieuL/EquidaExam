@@ -1,24 +1,29 @@
 package servlets;
 
 import database.CategVenteDAO;
+import database.ChevalDAO;
 import database.PaysDAO;
-import database.Utilitaire;
+import database.TypeChevalDAO;
 import formulaires.CategorieForm;
+import formulaires.ChevalForm;
 import formulaires.PaysForm;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
+import modele.Cheval;
 import modele.Pays;
+import modele.TypeCheval;
 
 /**
- * Document : ServletDirecteur Created on : 12 oct. 2018, 09:00:00 Author :
- * paul_collet
+ *
+ * @author slam
  */
-public class ServletDirecteur extends ServletBase {
+public class ServletCategVente extends ServletBase {
 
 	Connection connection;
 
@@ -39,19 +44,12 @@ public class ServletDirecteur extends ServletBase {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
-
 		String url = request.getRequestURI();
 
-		if (url.equals("/EquidaWebG2/ServletDirecteur/categorieVenteAjouter")) {
+		if (url.equals("/EquidaWebG2/ServletCategVente/categorieVenteAjouter")) {
 			changerTitrePage("Ajouter une catégorie de vente", request);
 
 			getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
-		}
-
-		if (url.equals("/EquidaWebG2/ServletDirecteur/paysAjouter")) {
-			changerTitrePage("Ajouter un pays", request);
-
-			getServletContext().getRequestDispatcher("/vues/pays/paysAjouter.jsp").forward(request, response);
 		}
 	}
 
@@ -67,8 +65,8 @@ public class ServletDirecteur extends ServletBase {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doPost(request, response);
         
-		String url = request.getRequestURI();
-		if (url.equals("/EquidaWebG2/ServletDirecteur/categorieVenteAjouter")) {
+        String url = request.getRequestURI();
+        if (url.equals("/EquidaWebG2/ServletCategVente/categorieVenteAjouter")) {
             /* Préparation de l'objet formulaire */
             CategorieForm formCategorie = new CategorieForm();		
             /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
@@ -86,52 +84,6 @@ public class ServletDirecteur extends ServletBase {
 			} else {
 				this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
 			}
-		}
-
-		if (url.equals("/EquidaWebG2/ServletDirecteur/paysAjouter")) {
-            /* Préparation de l'objet formulaire */
-            PaysForm formPays = new PaysForm();
-            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */            
-            Pays unPays = formPays.getPays(request);
-            
-			if (formPays.getErreurs().isEmpty()) {
-				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-				PaysDAO.ajouterPays(connection, unPays);
-                
-                /* Stockage du formulaire et de l'objet dans l'objet request */
-                request.setAttribute("form", formPays);
-                request.setAttribute("pPays", unPays);
-                
-				this.getServletContext().getRequestDispatcher("/vues/pays/paysConsulter.jsp").forward(request, response);
-
-			} else {
-
-				this.getServletContext().getRequestDispatcher("/vues/pays/paysAjouter.jsp").forward(request, response);
-			}
-		}
-	}
-
-	/**
-	 * Returns a short description of the servlet.
-	 *
-	 * @return a String containing servlet description
-	 */
-	@Override
-	public String getServletInfo() {
-		return "Short description";
-	}
-
-	public void destroy(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			//fermeture
-			System.out.println("Connexion fermée");
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Erreur lors de l’établissement de la connexion");
-		} finally {
-			//Utilitaire.fermerConnexion(rs);
-			//Utilitaire.fermerConnexion(requete);
-			Utilitaire.fermerConnexion(connection);
 		}
 	}
 }

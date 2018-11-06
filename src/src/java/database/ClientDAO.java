@@ -5,11 +5,14 @@
  */
 package database;
 
+import static database.VenteDAO.requete;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import modele.Client;
+import modele.Pays;
 
 /**
  *
@@ -68,6 +71,45 @@ public class ClientDAO {
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 		return unClient;
+	}
+	
+	public static ArrayList<Client> getLesClients(Connection connection, String codeCateg) {
+		ArrayList<Client> lesClients = new ArrayList<Client>();
+		try {
+			//preparation de la requete     
+			//codeCateg="ETE";
+			requete = connection.prepareStatement("SELECT u.*, p.nom AS nomPays, cv.libelle FROM client c, pays p, clientcategvente cc, categvente cv, utilisateur u WHERE u.id = c.id AND u.codePays=p.code AND cc.codeClient=c.id AND cv.code=cc.codeCategVente AND codeCategVente= ? ");
+			requete.setString(1, codeCateg);
+			//executer la requete
+			rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				Client unClient = new Client();
+				unClient.setId(rs.getInt("id"));
+				unClient.setNom(rs.getString("nom"));
+				unClient.setPrenom(rs.getString("prenom"));
+				unClient.setCopos(rs.getString("copos"));
+				unClient.setRue(rs.getString("rue"));
+				unClient.setVille(rs.getString("ville"));
+				unClient.setMail(rs.getString("mail"));
+
+				Pays p = new Pays();
+				p.setCode(rs.getString("codePays"));
+				p.setNom(rs.getString("nomPays"));
+
+				unClient.setPays(p);
+				/*CategVente uneCateg = new CategVente();
+                uneCateg.setCode(rs.getString("code"));  // on aurait aussi pu prendre CodeCateg
+                uneCateg.setLibelle(rs.getString("libelle"));*/
+
+				lesClients.add(unClient);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		return lesClients;
 	}
 
 }
