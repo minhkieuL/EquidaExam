@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modele.TypeCheval;
-import modele.Cheval;
+
 /**
  *
  * @author slam
@@ -71,4 +71,27 @@ public class TypeChevalDAO {
         }
         return unTypeCheval ;    
     }
+
+	public static TypeCheval getTypeCheval(Connection connection, int idTypeCheval) {
+		TypeCheval unTypeCheval = new TypeCheval();
+		try {
+			//preparation de la requete     
+			requete = connection.prepareStatement("select * from typecheval WHERE id=?");
+			requete.setInt(1, idTypeCheval);
+
+			//executer la requete
+			rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				unTypeCheval.setId(rs.getInt("id"));
+				unTypeCheval.setLibelle(rs.getString("libelle"));
+				unTypeCheval.setDesc(rs.getString("description"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		return unTypeCheval;
+	}
 }

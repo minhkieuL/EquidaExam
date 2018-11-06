@@ -6,15 +6,8 @@
 
 <%@page import="modele.TypeCheval"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consultation Nouveau Type Cheval</title>
-    </head>
-    <body>
-        
-        
+
+<jsp:include page="/vues/include/header.jsp" />
         <h1>Infos sur l'Ajout d'un Type Cheval</h1>
         
          <%
@@ -28,5 +21,4 @@
            
               </td></tr>
         </table>
-    </body>
-</html>
+<jsp:include page="/vues/include/footer.jsp" />

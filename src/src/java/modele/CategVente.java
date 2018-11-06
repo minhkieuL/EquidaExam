@@ -3,67 +3,68 @@ package modele;
 import java.util.ArrayList;
 
 public class CategVente {
-    private String code;
-    private String libelle ;
-    private ArrayList<Vente> ventes;
-    private ArrayList<Client> clients;
 
-    public CategVente() {
-        this("", "", null, null);
-    }
+	private String code;
+	private String libelle;
+	private ArrayList<Vente> ventes;
+	private ArrayList<Client> clients;
 
-    public CategVente(String code, String libelle, ArrayList<Vente> ventes, ArrayList<Client> clients) {
-        this.code = code;
-        this.libelle = libelle;
-        this.ventes = ventes;
-        this.clients = clients;
-        
-        if(this.ventes == null) {
-            this.ventes = new ArrayList<>();
-        }
-        
-        if(this.clients == null) {
-            this.clients = new ArrayList<>();                    
-        }
-    }
+	public CategVente() {
+		this("", "", null, null);
+	}
 
-    public String getCode() {
-        return code;
-    }
+	public CategVente(String code, String libelle, ArrayList<Vente> ventes, ArrayList<Client> clients) {
+		this.code = code;
+		this.libelle = libelle;
+		this.ventes = ventes;
+		this.clients = clients;
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+		if (this.ventes == null) {
+			this.ventes = new ArrayList<>();
+		}
 
-    public String getLibelle() {
-        return libelle;
-    }
+		if (this.clients == null) {
+			this.clients = new ArrayList<>();
+		}
+	}
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public ArrayList<Vente> getVentes() {
-        return ventes;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public void setVentes(ArrayList<Vente> ventes) {
-        this.ventes = ventes;
-    }
-    
-    public void addVente(Vente vente) {
-        this.ventes.add(vente);
-    }
+	public String getLibelle() {
+		return libelle;
+	}
 
-    public ArrayList<Client> getClients() {
-        return clients;
-    }
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
 
-    public void setClients(ArrayList<Client> clients) {
-        this.clients = clients;
-    }
-    
-    public void addClient(Client client) {
-        this.clients.add(client);
-    }
+	public ArrayList<Vente> getVentes() {
+		return ventes;
+	}
+
+	public void setVentes(ArrayList<Vente> ventes) {
+		this.ventes = ventes;
+	}
+
+	public void addVente(Vente vente) {
+		this.ventes.add(vente);
+	}
+
+	public ArrayList<Client> getClients() {
+		return clients;
+	}
+
+	public void setClients(ArrayList<Client> clients) {
+		this.clients = clients;
+	}
+
+	public void addClient(Client client) {
+		this.clients.add(client);
+	}
 }

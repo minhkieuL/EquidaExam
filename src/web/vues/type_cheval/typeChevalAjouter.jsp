@@ -7,13 +7,8 @@
 <%@page import="formulaires.TypeChevalForm"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Type Cheval Ajouter</title>
-    </head>
-    <body>
+
+<jsp:include page="/vues/include/header.jsp" />
         <h1>Ajouter un type de cheval</h1>
         
         <%
@@ -33,5 +28,5 @@
                 
                 <input type="submit" name="valider" id="valider" value="Valider"/>
                 </form>
-    </body>
-</html>
+			
+<jsp:include page="/vues/include/footer.jsp" />
