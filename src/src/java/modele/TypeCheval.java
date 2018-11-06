@@ -54,7 +54,7 @@ public class TypeCheval {
         this.chevaux = chevaux;
     }
     
-    public void addChaval(Cheval cheval) {
+    public void addCheval(Cheval cheval) {
         this.chevaux.add(cheval);
     }
 }

@@ -11,7 +11,7 @@ public class TypeChevalTest {
         tc.setId(0);
         tc.setLibelle("libelle");
         tc.setDesc("desc");
-        tc.addChaval(new Cheval());
+        tc.addCheval(new Cheval());
         
         System.out.println("id : " + tc.getId());
         System.out.println("libelle : " + tc.getLibelle());

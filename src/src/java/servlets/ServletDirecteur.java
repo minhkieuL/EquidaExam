@@ -6,9 +6,11 @@
 package servlets;
 
 import database.CategVenteDAO;
+import database.TypeChevalDAO;
 
 import database.Utilitaire;
 import formulaires.CategorieForm;
+import formulaires.TypeChevalForm;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
+import modele.TypeCheval;
 
 
 /**
@@ -86,6 +89,12 @@ public class ServletDirecteur extends HttpServlet {
             
             getServletContext().getRequestDispatcher("/vues/categorieVenteAjouter.jsp" ).forward( request, response );
         }
+       
+       if(url.equals("/EquidaWebG2/ServletDirecteur/typeChevalAjouter"))
+        {                   
+            
+            getServletContext().getRequestDispatcher("/vues/typeChevalAjouter.jsp" ).forward( request, response );
+        }
     }
 
     /**
@@ -101,27 +110,50 @@ public class ServletDirecteur extends HttpServlet {
             
             throws ServletException, IOException {
         
-        
+        String url = request.getRequestURI();
         /* Préparation de l'objet formulaire */
         CategorieForm form = new CategorieForm();
+        
+        
+        
 		
         /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
         CategVente uneCategVente = form.getCategVente(request);
-        
+
         /* Stockage du formulaire et de l'objet dans l'objet request */
         request.setAttribute( "form", form );
         request.setAttribute( "pCategVente", uneCategVente );
-		
-        if (form.getErreurs().isEmpty()){
-            // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-            CategVenteDAO.ajouterCategVente(connection, uneCategVente);
-            this.getServletContext().getRequestDispatcher("/vues/categorieVenteConsulter.jsp" ).forward( request, response );
+        if(url.equals("/EquidaWebG2/ServletDirecteur/categorieVenteAjouter")){
+            if (form.getErreurs().isEmpty()){
+                // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+                CategVenteDAO.ajouterCategVente(connection, uneCategVente);
+                this.getServletContext().getRequestDispatcher("/vues/categorieVenteConsulter.jsp" ).forward( request, response );
             
-        }
-        else
-        { 
+            }
+            else
+            { 
 		
-           this.getServletContext().getRequestDispatcher("/vues/categorieVenteAjouter.jsp" ).forward( request, response );
+            this.getServletContext().getRequestDispatcher("/vues/categorieVenteAjouter.jsp" ).forward( request, response );
+            }
+        }
+        
+        if(url.equals("/EquidaWebG2/ServletDirecteur/typeChevalAjouter")){
+            TypeChevalForm formTypeCheval = new TypeChevalForm();
+            TypeCheval unTypeCheval = formTypeCheval.getTypeCheval(request);
+        
+            if (form.getErreurs().isEmpty()){
+                // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+                
+                TypeChevalDAO.ajouterTypeCheval(connection, unTypeCheval);
+                request.setAttribute( "pTypeCheval", unTypeCheval );
+                this.getServletContext().getRequestDispatcher("/vues/typeChevalConsulter.jsp" ).forward( request, response );
+
+            }
+            else
+            { 
+
+               this.getServletContext().getRequestDispatcher("/vues/typeChevalAjouter.jsp" ).forward( request, response );
+            }
         }
         
     }
