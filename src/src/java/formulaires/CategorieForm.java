@@ -26,4 +26,8 @@ public class CategorieForm extends Form {
 
 		return uneCategVente;
 	}
+
+    public String getCategVenteOrigin(HttpServletRequest request) {
+        return getDataForm(request, "codeOrigin");
+    }
 }

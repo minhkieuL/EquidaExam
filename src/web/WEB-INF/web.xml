@@ -84,6 +84,14 @@
 		<servlet-name>ServletCategVente</servlet-name>
 		<url-pattern>/ServletCategVente/categorieVenteAjouter</url-pattern>
 	</servlet-mapping>
+        <servlet-mapping>
+		<servlet-name>ServletCategVente</servlet-name>
+		<url-pattern>/ServletCategVente/categorieVenteModifier</url-pattern>
+	</servlet-mapping>
+        <servlet-mapping>
+		<servlet-name>ServletCategVente</servlet-name>
+		<url-pattern>/ServletCategVente/listerLesCategVentes</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletPays</servlet-name>
 		<url-pattern>/ServletPays/paysAjouter</url-pattern>
