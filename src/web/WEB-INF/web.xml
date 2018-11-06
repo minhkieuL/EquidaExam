@@ -29,17 +29,25 @@
 		<servlet-class>servlets.ServletClient</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>ServletDirecteur</servlet-name>
-		<servlet-class>servlets.ServletDirecteur</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>ServletAuthentification</servlet-name>
 		<servlet-class>servlets.ServletAuthentification</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ServletAccueil</servlet-name>
 		<servlet-class>servlets.ServletAccueil</servlet-class>
-	</servlet>	
+	</servlet>
+        <servlet>
+		<servlet-name>ServletCategVente</servlet-name>
+		<servlet-class>servlets.ServletCategVente</servlet-class>
+	</servlet>
+        <servlet>
+		<servlet-name>ServletCourriel</servlet-name>
+		<servlet-class>servlets.ServletCourriel</servlet-class>
+	</servlet>
+        <servlet>
+		<servlet-name>ServletPays</servlet-name>
+		<servlet-class>servlets.ServletPays</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>ServletCheval</servlet-name>
 		<servlet-class>servlets.ServletCheval</servlet-class>
@@ -53,16 +61,16 @@
 		<url-pattern>/ServletVentes/listerLesVentes</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ServletVentes</servlet-name>
-		<url-pattern>/ServletVentes/listerLesClients</url-pattern>
+		<servlet-name>ServletClient</servlet-name>
+		<url-pattern>/ServletClient/listerLesClients</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ServletVentes</servlet-name>
-		<url-pattern>/ServletVentes/listerLesChevauxParVentes</url-pattern>
+		<servlet-name>ServletCheval</servlet-name>
+		<url-pattern>/ServletCheval/listerLesChevauxParVentes</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ServletVentes</servlet-name>
-		<url-pattern>/ServletVentes/listerLesCourriels</url-pattern>
+		<servlet-name>ServletCourriel</servlet-name>
+		<url-pattern>/ServletCourriel/listerLesCourriels</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletClient</servlet-name>
@@ -73,12 +81,12 @@
 		<url-pattern>/ServletCheval/ajouterCheval</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ServletDirecteur</servlet-name>
-		<url-pattern>/ServletDirecteur/categorieVenteAjouter</url-pattern>
+		<servlet-name>ServletCategVente</servlet-name>
+		<url-pattern>/ServletCategVente/categorieVenteAjouter</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ServletDirecteur</servlet-name>
-		<url-pattern>/ServletDirecteur/paysAjouter</url-pattern>
+		<servlet-name>ServletPays</servlet-name>
+		<url-pattern>/ServletPays/paysAjouter</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletAuthentification</servlet-name>

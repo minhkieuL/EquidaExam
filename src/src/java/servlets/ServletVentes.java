@@ -5,6 +5,8 @@
  */
 package servlets;
 
+import database.CategVenteDAO;
+import database.ClientDAO;
 import database.CourrielDAO;
 import database.LotDAO;
 import database.Utilitaire;
@@ -54,44 +56,13 @@ public class ServletVentes extends ServletBase {
 		if (url.equals("/EquidaWebG2/ServletVentes/listerLesVentes")) {
 			String catVente = (String) request.getParameter("catVente");
 			ArrayList<Vente> lesVentes = VenteDAO.getLesVentes(connection, catVente);
-			ArrayList<CategVente> lesCatVentes = VenteDAO.getLesCatVentes(connection);
+			ArrayList<CategVente> lesCatVentes = CategVenteDAO.getLesCategVentes(connection);
 
 			request.setAttribute("pLesCatVentes", lesCatVentes);
 			request.setAttribute("pLesVentes", lesVentes);
 			changerTitrePage("Lister les ventes", request);
 
 			getServletContext().getRequestDispatcher("/vues/ventes/listerLesVentes.jsp").forward(request, response);
-		}
-
-		// Récup et affichage des clients interessés par une certaine catégorie de ventes
-		if (url.equals("/EquidaWebG2/ServletVentes/listerLesClients")) {
-			String codeCat = (String) request.getParameter("codeCat");
-			ArrayList<Client> lesClients = VenteDAO.getLesClients(connection, codeCat);
-
-			request.setAttribute("pLesClients", lesClients);
-			changerTitrePage("Lister les clients", request);
-
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
-		}
-
-		if (url.equals("/EquidaWebG2/ServletVentes/listerLesCourriels")) {
-			String codeVente = (String) request.getParameter("codeVente");
-			ArrayList<Courriel> lesCourriels = CourrielDAO.getLesCourriels(connection, codeVente);
-
-			request.setAttribute("pLesCourriels", lesCourriels);
-			changerTitrePage("Lister les courriels", request);
-
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
-		}
-
-		if (url.equals("/EquidaWebG2/ServletVentes/listerLesChevauxParVentes")) {
-			String idVente = (String) request.getParameter("idVente");
-			ArrayList<Lot> lesLots = LotDAO.getLesLotPourVente(connection, idVente);
-
-			request.setAttribute("pLesLots", lesLots);
-			changerTitrePage("Lister les chevaux par ventes", request);
-
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesChevauxParVentes.jsp").forward(request, response);
 		}
 	}
 

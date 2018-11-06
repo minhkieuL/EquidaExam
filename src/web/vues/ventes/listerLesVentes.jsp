@@ -73,15 +73,15 @@ ArrayList<CategVente> lesCatVentes = (ArrayList)request.getAttribute("pLesCatVen
                 out.println(uneVente.getUneCategVente().getLibelle());
                 out.println("</td>");
 
-                out.println("<td><a href ='../ServletVentes/listerLesClients?codeCat="+ uneVente.getUneCategVente().getCode()+ "'>");
+                out.println("<td><a href ='../ServletClient/listerLesClients?codeCat="+ uneVente.getUneCategVente().getCode()+ "'>");
                 out.println("Lister les clients interessés");
                 out.println("</td>");
 
-                out.println("<td><a href ='../ServletVentes/listerLesCourriels?codeVente="+ uneVente.getId() + "'>");
+                out.println("<td><a href ='../ServletCourriel/listerLesCourriels?codeVente="+ uneVente.getId() + "'>");
                 out.println("Lister les courriels");
                 out.println("</td>");
 
-                out.println("<td><a href ='../ServletVentes/listerLesChevauxParVentes?idVente="+ uneVente.getId() + "'>");
+                out.println("<td><a href ='../ServletCheval/listerLesChevauxParVentes?idVente="+ uneVente.getId() + "'>");
                 out.println("Lister les chevaux");
                 out.println("</td>");
 

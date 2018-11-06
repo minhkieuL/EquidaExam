@@ -4,6 +4,7 @@ import database.CategVenteDAO;
 import database.ClientDAO;
 import database.PaysDAO;
 import database.Utilitaire;
+import database.VenteDAO;
 import formulaires.ClientForm;
 import java.io.IOException;
 import java.sql.Connection;
@@ -53,6 +54,16 @@ public class ServletClient extends ServletBase {
 			changerTitrePage("Ajouter un client", request);
 
 			this.getServletContext().getRequestDispatcher("/vues/client/clientAjouter.jsp").forward(request, response);
+		}
+        
+		if (url.equals("/EquidaWebG2/ServletClient/listerLesClients")) {
+			String codeCat = (String) request.getParameter("codeCat");
+			ArrayList<Client> lesClients = ClientDAO.getLesClients(connection, codeCat);
+
+			request.setAttribute("pLesClients", lesClients);
+			changerTitrePage("Lister les clients", request);
+
+			getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
 		}
 	}
 

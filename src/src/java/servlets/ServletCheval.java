@@ -1,6 +1,7 @@
 package servlets;
 
 import database.ChevalDAO;
+import database.LotDAO;
 import database.TypeChevalDAO;
 import formulaires.ChevalForm;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Cheval;
+import modele.Lot;
 import modele.TypeCheval;
 
 /**
@@ -47,6 +49,16 @@ public class ServletCheval extends ServletBase {
 			changerTitrePage("Ajouter un cheval", request);
 
 			this.getServletContext().getRequestDispatcher("/vues/cheval/chevalAjouter.jsp").forward(request, response);
+		}
+		
+		if (url.equals("/EquidaWebG2/ServletCheval/listerLesChevauxParVentes")) {
+			String idVente = (String) request.getParameter("idVente");
+			ArrayList<Lot> lesLots = LotDAO.getLesLotPourVente(connection, idVente);
+
+			request.setAttribute("pLesLots", lesLots);
+			changerTitrePage("Lister les chevaux par ventes", request);
+
+			getServletContext().getRequestDispatcher("/vues/ventes/listerLesChevauxParVentes.jsp").forward(request, response);
 		}
 	}
 
