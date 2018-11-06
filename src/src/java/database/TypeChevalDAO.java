@@ -17,10 +17,60 @@ import modele.TypeCheval;
  * @author slam
  */
 public class TypeChevalDAO {
-
-	Connection connection = null;
-	static PreparedStatement requete = null;
-	static ResultSet rs = null;
+    
+    Connection connection=null;
+    static PreparedStatement requete=null;
+    static ResultSet rs=null;
+    
+     public static ArrayList<TypeCheval>  getLesTypeCheval(Connection connection){      
+        ArrayList<TypeCheval> lesTypeCheval = new  ArrayList<TypeCheval>();
+        try
+        {
+            //preparation de la requete     
+            requete=connection.prepareStatement("SELECT * FROM typecheval");
+            
+            //executer la requete
+            rs=requete.executeQuery();
+            
+            //On hydrate l'objet métier Client avec les résultats de la requête
+            while ( rs.next() ) {  
+                TypeCheval  unTypeCheval = new TypeCheval();
+                unTypeCheval.setId(rs.getInt("id"));
+                unTypeCheval.setLibelle(rs.getString("libelle"));
+                unTypeCheval.setDesc(rs.getString("desc"));
+                lesTypeCheval.add(unTypeCheval);
+            }
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return lesTypeCheval ;    
+    } 
+     
+     public static TypeCheval ajouterTypeCheval(Connection connection, TypeCheval unTypeCheval){      
+        try
+        {
+            //preparation de la requete
+            
+            requete=connection.prepareStatement("INSERT INTO typecheval (libelle, description) VALUES (?,?)", requete.RETURN_GENERATED_KEYS );
+            requete.setString(1, unTypeCheval.getLibelle());
+            requete.setString(2, unTypeCheval.getDesc());
+          
+            
+           /* Exécution de la requête */
+            requete.executeUpdate();
+            
+            
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unTypeCheval ;    
+    }
 
 	public static TypeCheval getTypeCheval(Connection connection, int idTypeCheval) {
 		TypeCheval unTypeCheval = new TypeCheval();
@@ -43,30 +93,5 @@ public class TypeChevalDAO {
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 		return unTypeCheval;
-	}
-
-	public static ArrayList<TypeCheval> getLesTypeCheval(Connection connection) {
-		ArrayList<TypeCheval> lesTypeCheval = new ArrayList<TypeCheval>();
-		try {
-			//preparation de la requete     
-			requete = connection.prepareStatement("select * from typecheval");
-
-			//executer la requete
-			rs = requete.executeQuery();
-
-			//On hydrate l'objet métier Client avec les résultats de la requête
-			while (rs.next()) {
-				TypeCheval unTypeCheval = new TypeCheval();
-				unTypeCheval.setId(rs.getInt("id"));
-				unTypeCheval.setLibelle(rs.getString("libelle"));
-				unTypeCheval.setDesc(rs.getString("description"));
-
-				lesTypeCheval.add(unTypeCheval);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			//out.println("Erreur lors de l’établissement de la connexion");
-		}
-		return lesTypeCheval;
 	}
 }

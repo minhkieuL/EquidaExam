@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+
 	<context-param>
 		<param-name>pilotejdbc</param-name>
 		<param-value>com.mysql.jdbc.Driver</param-value>
@@ -55,6 +56,10 @@
 	<servlet>
 		<servlet-name>ServletLieu</servlet-name>
 		<servlet-class>servlets.ServletLieu</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ServletTypeCheval</servlet-name>
+		<servlet-class>servlets.ServletTypeCheval</servlet-class>
 	</servlet>	
 	<servlet-mapping>
 		<servlet-name>ServletVentes</servlet-name>
@@ -88,9 +93,21 @@
 		<servlet-name>ServletCategVente</servlet-name>
 		<url-pattern>/ServletCategVente/categorieVenteAjouter</url-pattern>
 	</servlet-mapping>
+        <servlet-mapping>
+		<servlet-name>ServletCategVente</servlet-name>
+		<url-pattern>/ServletCategVente/categorieVenteModifier</url-pattern>
+	</servlet-mapping>
+        <servlet-mapping>
+		<servlet-name>ServletCategVente</servlet-name>
+		<url-pattern>/ServletCategVente/listerLesCategVentes</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletPays</servlet-name>
 		<url-pattern>/ServletPays/paysAjouter</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletPays</servlet-name>
+		<url-pattern>/ServletPays/paysModifier</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ServletAuthentification</servlet-name>
@@ -107,6 +124,14 @@
 	<servlet-mapping>	
 		<servlet-name>ServletAccueil</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>ServletTypeCheval</servlet-name>
+        <url-pattern>/ServletTypeCheval/typeChevalAjouter</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+		<servlet-name>ServletPays</servlet-name>
+		<url-pattern>/ServletPays/listerLesPays</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>

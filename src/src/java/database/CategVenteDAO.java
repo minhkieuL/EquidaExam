@@ -64,4 +64,52 @@ public class CategVenteDAO {
 		}
 		return uneCategVente;
 	}
+    
+    public static CategVente getCategVente(Connection connection, String codeCateg){
+		CategVente uneCategVente = new CategVente();
+        try
+        {
+            //preparation de la requete 
+            requete=connection.prepareStatement(" SELECT * FROM categvente WHERE code = ?; ");
+            requete.setString(1, codeCateg);
+            /* Exécution de la requête */
+            //executer la requete
+			rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				uneCategVente.setCode(rs.getString("code"));
+				uneCategVente.setLibelle(rs.getString("libelle"));
+			}
+            //System.out.println("requete " +requete);
+        }
+		catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return uneCategVente ; 
+    }
+	
+	public static CategVente modifierCategVente(Connection connection, CategVente uneCategVente, String codeCateg){      
+        
+        try
+        {
+            //preparation de la requete 
+            requete=connection.prepareStatement(" UPDATE categvente SET libelle = ? WHERE code = ?; ");
+      
+            requete.setString(1, uneCategVente.getLibelle());
+			requete.setString(2, codeCateg);
+            /* Exécution de la requête */
+            requete.executeUpdate();
+            
+            //System.out.println("requete " +requete);
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return uneCategVente ; 
+    }
 }

@@ -48,6 +48,25 @@ public class ServletPays extends ServletBase {
 
 			getServletContext().getRequestDispatcher("/vues/pays/paysAjouter.jsp").forward(request, response);
 		}
+		
+		if (url.equals("/EquidaWebG2/ServletPays/paysModifier")) {
+			String codePays = request.getParameter("code");
+			Pays unPays = PaysDAO.getPays(connection, codePays);
+			
+			request.setAttribute("pPays", unPays);
+			changerTitrePage("Modifier un pays", request);
+
+			this.getServletContext().getRequestDispatcher("/vues/pays/paysModifier.jsp").forward(request, response);
+		}
+		
+		 if (url.equals("/EquidaWebG2/ServletPays/listerLesPays")) {
+			ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
+
+			request.setAttribute("pLesPays", lesPays);
+			changerTitrePage("Lister les pays", request);
+
+			getServletContext().getRequestDispatcher("/vues/ventes/listerLesPays.jsp").forward(request, response);
+		}
 	}
 
 	/**
@@ -81,6 +100,28 @@ public class ServletPays extends ServletBase {
 
 			} else {
 
+				this.getServletContext().getRequestDispatcher("/vues/pays/paysAjouter.jsp").forward(request, response);
+			}
+		}
+		
+		if (url.equals("/EquidaWebG2/ServletPays/paysModifier")) {
+            /* Préparation de l'objet formulaire */
+            PaysForm form = new PaysForm();
+
+            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+            Pays unPays = form.getPays(request);
+
+            /* Stockage du formulaire et de l'objet dans l'objet request */
+            request.setAttribute("form", form);
+            request.setAttribute("pPays", unPays);
+            
+            if (form.getErreurs().isEmpty()) {
+				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+				
+				PaysDAO.modifierPays(connection, unPays, form.getPaysOrigin(request));
+				this.getServletContext().getRequestDispatcher("/vues/pays/paysConsulter.jsp").forward(request, response);
+
+			} else {
 				this.getServletContext().getRequestDispatcher("/vues/pays/paysAjouter.jsp").forward(request, response);
 			}
 		}

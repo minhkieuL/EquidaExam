@@ -1,5 +1,6 @@
 package servlets;
 
+import database.Autorisations;
 import database.ChevalDAO;
 import database.LotDAO;
 import database.TypeChevalDAO;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import modele.Cheval;
 import modele.Lot;
 import modele.TypeCheval;
+import modele.Utilisateur;
 
 /**
  *
@@ -41,14 +43,22 @@ public class ServletCheval extends ServletBase {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
 		String url = request.getRequestURI();
-
+                
+                
+                
 		if (url.equals("/EquidaWebG2/ServletCheval/ajouterCheval")) {
-			ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
+                    Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
+                    if(user != null && user.estAutoriseA(Autorisations.CLIENT_AJOUTER)) {
+                        ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
 
 			request.setAttribute("pLesTypeCheval", lesTypeCheval);
 			changerTitrePage("Ajouter un cheval", request);
 
 			this.getServletContext().getRequestDispatcher("/vues/cheval/chevalAjouter.jsp").forward(request, response);
+                    } else {
+                        redirigerVersAcceuil(response);
+                    }
+			
 		}
 		
 		if (url.equals("/EquidaWebG2/ServletCheval/listerLesChevauxParVentes")) {
@@ -81,6 +91,7 @@ public class ServletCheval extends ServletBase {
 
             /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
             Cheval unCheval = form.getCheval(request, connection);
+            
 
             /* Stockage du formulaire et de l'objet dans l'objet request */
             request.setAttribute("form", form);
@@ -88,7 +99,7 @@ public class ServletCheval extends ServletBase {
 
             if (form.getErreurs().isEmpty()) {
                 // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-                ChevalDAO.ajouterCheval(connection, unCheval);
+                ChevalDAO.ajouterCheval(connection, unCheval, request);
                 this.getServletContext().getRequestDispatcher("/vues/cheval/chevalConsulter.jsp").forward(request, response);
             } else {
                 // il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
