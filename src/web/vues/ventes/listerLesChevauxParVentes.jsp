@@ -17,7 +17,7 @@ ArrayList<Lot> lesLots = (ArrayList)request.getAttribute("pLesLots");
             <th>Sexe cheval</th>
             <th>Sire cheval</th>
             <th>Libelle type cheval</th>
-            <th>Desc type cheval</th>
+            <th>Description type cheval</th>
         </tr>
     </thead>
     <tbody>
