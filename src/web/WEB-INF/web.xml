@@ -11,11 +11,11 @@
 	</context-param>
 	<context-param>
 		<param-name>utilisateurjdbc</param-name>
-		<param-value>root</param-value>
+		<param-value>USR_EQUIG2</param-value>
 	</context-param>
 	<context-param>
 		<param-name>motdepassejdbc</param-name>
-		<param-value/>
+		<param-value>mpEQUIDAG2</param-value>
 	</context-param>
 	<!--  écouteurs -->
 	<listener>
