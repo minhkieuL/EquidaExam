@@ -16,6 +16,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import modele.DirecteurGeneral;
 import modele.Lieu;
 
 import modele.Pays;
@@ -47,13 +48,17 @@ public class ServletLieu extends ServletBase {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
+		
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-
 		if (url.equals("/EquidaWebG2/ServletLieu/ajouterLieu")) {
+			if(user instanceof DirecteurGeneral) {
+				changerTitrePage("Ajouter un lieu", request);
 
-			changerTitrePage("Ajouter un lieu", request);
-
-			getServletContext().getRequestDispatcher("/vues/lieu/lieuAjouter.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/lieu/lieuAjouter.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		} 	
 	}
 
@@ -69,26 +74,31 @@ public class ServletLieu extends ServletBase {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doPost(request, response);
         
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         String url = request.getRequestURI();
         if (url.equals("/EquidaWebG2/ServletLieu/ajouterLieu")) {
-			/* Préparation de l'objet formulaire */
-			LieuForm formLieu = new LieuForm();
-			/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */            
-			Lieu unLieu = formLieu.getLieu(request);
+			if(user instanceof DirecteurGeneral) {
+				/* Préparation de l'objet formulaire */
+				LieuForm formLieu = new LieuForm();
+				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */            
+				Lieu unLieu = formLieu.getLieu(request);
 
-			if (formLieu.getErreurs().isEmpty()) {
-				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-				LieuDAO.ajouterLieu(connection, unLieu);
+				if (formLieu.getErreurs().isEmpty()) {
+					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+					LieuDAO.ajouterLieu(connection, unLieu);
 
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", formLieu);
-				request.setAttribute("pLieu", unLieu);
+					/* Stockage du formulaire et de l'objet dans l'objet request */
+					request.setAttribute("form", formLieu);
+					request.setAttribute("pLieu", unLieu);
 
-				this.getServletContext().getRequestDispatcher("/vues/lieu/lieuConsulter.jsp").forward(request, response);
+					this.getServletContext().getRequestDispatcher("/vues/lieu/lieuConsulter.jsp").forward(request, response);
 
+				} else {
+
+					this.getServletContext().getRequestDispatcher("/vues/lieu/lieuAjouter.jsp").forward(request, response);
+				}
 			} else {
-
-				this.getServletContext().getRequestDispatcher("/vues/lieu/lieuAjouter.jsp").forward(request, response);
+				redirigerVersAcceuil(response);
 			}
 			
 		}

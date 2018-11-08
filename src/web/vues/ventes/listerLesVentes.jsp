@@ -4,6 +4,7 @@
     Author     : Zakina
 --%>
 
+<%@page import="modele.DirecteurGeneral"%>
 <%@page import="modele.Utilisateur"%>
 <%@page import="modele.CategVente"%>
 <%@page import="java.util.ArrayList"%>
@@ -73,13 +74,16 @@ ArrayList<CategVente> lesCatVentes = (ArrayList)request.getAttribute("pLesCatVen
                 out.println(uneVente.getUneCategVente().getLibelle());
                 out.println("</td>");
 
-                out.println("<td><a href ='../ServletClient/listerLesClients?codeCat="+ uneVente.getUneCategVente().getCode()+ "'>");
-                out.println("Lister les clients interessés");
-                out.println("</td>");
-
-                out.println("<td><a href ='../ServletCourriel/listerLesCourriels?codeVente="+ uneVente.getId() + "'>");
-                out.println("Lister les courriels");
-                out.println("</td>");
+				
+				if(user instanceof DirecteurGeneral) {
+					out.println("<td><a href ='../ServletClient/listerLesClients?codeCat="+ uneVente.getUneCategVente().getCode()+ "'>");
+					out.println("Lister les clients interessés");
+					out.println("</td>");
+				
+					out.println("<td><a href ='../ServletCourriel/listerLesCourriels?codeVente="+ uneVente.getId() + "'>");
+					out.println("Lister les courriels");
+					out.println("</td>");
+				}
 
                 out.println("<td><a href ='../ServletCheval/listerLesChevauxParVentes?idVente="+ uneVente.getId() + "'>");
                 out.println("Lister les chevaux");
