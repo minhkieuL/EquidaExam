@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import javax.servlet.http.HttpServletRequest;
 import modele.Cheval;
 import modele.Utilisateur;
@@ -39,13 +40,20 @@ public class ChevalDAO {
 			requete.setInt(2, unCheval.getMale() ? 1 : 0);
 			requete.setString(3, unCheval.getSire());
 			requete.setInt(4, unCheval.getTypeCheval().getId());
-			requete.setInt(5, unCheval.getPere().getId());
-			requete.setInt(6, unCheval.getMere().getId());
+			if(unCheval.getPere() != null)
+				requete.setInt(5, unCheval.getPere().getId());
+			else 
+				requete.setNull(5, Types.INTEGER);
+			
+			if(unCheval.getMere() != null)
+				requete.setInt(6, unCheval.getMere().getId());
+			else
+				requete.setNull(6, Types.INTEGER);
                         
-                        Utilisateur user = (Utilisateur)request.getSession().getAttribute("user");
-                        if(user != null) {
-                            requete.setInt(7, user.getId() );
-                        }
+			Utilisateur user = (Utilisateur)request.getSession().getAttribute("user");
+			if(user != null) {
+				requete.setInt(7, user.getId() );
+			}
 			/* Exécution de la requête */
 			requete.executeUpdate();
 

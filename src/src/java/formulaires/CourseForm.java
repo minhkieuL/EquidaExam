@@ -7,27 +7,29 @@ package formulaires;
 
 import static formulaires.Form.getDataForm;
 import javax.servlet.http.HttpServletRequest;
-import modele.Pays;
+import modele.Course;
 
 /**
  *
  * @author slam
  */
-public class PaysForm extends Form {
+public class CourseForm extends Form {
 
-	public Pays getPays(HttpServletRequest request) {
-		Pays unPays = new Pays();
+	public Course getCourse(HttpServletRequest request) {
+		Course uneCourse = new Course();
 
-		String code = getDataForm(request, "code");
 		String nom = getDataForm(request, "nom");
+		String date = getDataForm(request, "date");
+		String ville = getDataForm(request, "ville");
 
-		unPays.setCode(code);
-		unPays.setNom(nom);
+		uneCourse.setNom(nom);
+		uneCourse.setDate(date);
+		uneCourse.setVille(ville);
 
-		return unPays;
+		return uneCourse;
 	}
 	
-	public String getPaysOrigin(HttpServletRequest request) {
+	public String getCourseOrigin(HttpServletRequest request) {
         return getDataForm(request, "codeOrigin");
     }
 }
