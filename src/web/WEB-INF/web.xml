@@ -141,6 +141,14 @@
 		<servlet-name>ServletCourse</servlet-name>
 		<url-pattern>/ServletCourse/courseAjouter</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletCourse</servlet-name>
+		<url-pattern>/ServletCourse/listerLesCourses</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletCourse</servlet-name>
+		<url-pattern>/ServletCourse/courseModifier</url-pattern>
+	</servlet-mapping>
 	<session-config>
 		<session-timeout>
 			30

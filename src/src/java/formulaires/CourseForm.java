@@ -29,7 +29,8 @@ public class CourseForm extends Form {
 		return uneCourse;
 	}
 	
-	public String getCourseOrigin(HttpServletRequest request) {
-        return getDataForm(request, "codeOrigin");
+	public int getCourseOrigin(HttpServletRequest request) {
+        int idCourse = Integer.valueOf(getDataForm(request, "codeOrigin"));
+		return idCourse;
     }
 }

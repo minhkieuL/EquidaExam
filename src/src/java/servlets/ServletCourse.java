@@ -51,6 +51,33 @@ public class ServletCourse extends ServletBase {
 				redirigerVersAcceuil(response);
 			}			
 		}
+		
+		if (url.equals("/EquidaWebG2/ServletCourse/courseModifier")) {
+			if (user instanceof DirecteurGeneral) {
+				int idCourse = Integer.valueOf(request.getParameter("code"));
+				Course uneCourse = CourseDAO.getCourse(connection, idCourse);
+
+				request.setAttribute("pCourse", uneCourse);
+				changerTitrePage("Modifier une course", request);
+
+				this.getServletContext().getRequestDispatcher("/vues/course/courseModifier.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
+		
+		if (url.equals("/EquidaWebG2/ServletCourse/listerLesCourses")) {
+			if(user instanceof DirecteurGeneral) {
+				ArrayList <Course> lesCourses = CourseDAO.getLesCourses(connection);
+
+				request.setAttribute("pLesCourses", lesCourses);
+				changerTitrePage("Lister les courses", request);
+
+				getServletContext().getRequestDispatcher("/vues/course/listerLesCourses.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
 	}
 
 	/**
@@ -86,6 +113,32 @@ public class ServletCourse extends ServletBase {
 
 				} else {
 
+					this.getServletContext().getRequestDispatcher("/vues/course/courseAjouter.jsp").forward(request, response);
+				}
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
+		
+		if (url.equals("/EquidaWebG2/ServletCourse/courseModifier")) {
+			if(user instanceof DirecteurGeneral) {
+				/* Préparation de l'objet formulaire */
+				CourseForm form = new CourseForm();
+
+				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+				Course uneCourse = form.getCourse(request);
+
+				/* Stockage du formulaire et de l'objet dans l'objet request */
+				request.setAttribute("form", form);
+				request.setAttribute("pCourse", uneCourse);
+
+				if (form.getErreurs().isEmpty()) {
+					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+
+					CourseDAO.modifierCourse(connection, uneCourse, form.getCourseOrigin(request));
+					this.getServletContext().getRequestDispatcher("/vues/course/courseConsulter.jsp").forward(request, response);
+
+				} else {
 					this.getServletContext().getRequestDispatcher("/vues/course/courseAjouter.jsp").forward(request, response);
 				}
 			} else {
