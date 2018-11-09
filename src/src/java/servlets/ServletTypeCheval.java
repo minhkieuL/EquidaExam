@@ -59,22 +59,30 @@ public class ServletTypeCheval extends ServletBase {
         }
 	   
 	   if (url.equals("/EquidaWebG2/ServletTypeCheval/listerLesTypeCheval")) {
-			ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
+		   if(user instanceof DirecteurGeneral) {
+				ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
 
-			request.setAttribute("pLesTypeCheval", lesTypeCheval);
-			changerTitrePage("Lister les types de chevaux", request);
+				request.setAttribute("pLesTypeCheval", lesTypeCheval);
+				changerTitrePage("Lister les types de chevaux", request);
 
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesTypeCheval.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/ventes/listerLesTypeCheval.jsp").forward(request, response);
+		   } else {
+			   redirigerVersAcceuil(response);
+		   }
 		}
 		
 		if (url.equals("/EquidaWebG2/ServletTypeCheval/typeChevalModifier")) {
-			int idTypeCheval = Integer.valueOf(request.getParameter("id"));
-			TypeCheval unTypeCheval = TypeChevalDAO.getTypeCheval(connection, idTypeCheval);
-			
-			request.setAttribute("pTypeCheval", unTypeCheval);
-			changerTitrePage("Modifier un type de cheval", request);
+			if(user instanceof DirecteurGeneral) {
+				int idTypeCheval = Integer.valueOf(request.getParameter("id"));
+				TypeCheval unTypeCheval = TypeChevalDAO.getTypeCheval(connection, idTypeCheval);
 
-			this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalModifier.jsp").forward(request, response);
+				request.setAttribute("pTypeCheval", unTypeCheval);
+				changerTitrePage("Modifier un type de cheval", request);
+
+				this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalModifier.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
     }
 
@@ -113,24 +121,28 @@ public class ServletTypeCheval extends ServletBase {
         }
 		
 		if (url.equals("/EquidaWebG2/ServletTypeCheval/typeChevalModifier")) {
-            /* Préparation de l'objet formulaire */
-            TypeChevalForm form = new TypeChevalForm();
+			if(user instanceof DirecteurGeneral) {
+				/* Préparation de l'objet formulaire */
+				TypeChevalForm form = new TypeChevalForm();
 
-            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-            TypeCheval unTypeCheval = form.getTypeCheval(request);
+				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+				TypeCheval unTypeCheval = form.getTypeCheval(request);
 
-            /* Stockage du formulaire et de l'objet dans l'objet request */
-            request.setAttribute("form", form);
-            request.setAttribute("pTypeCheval", unTypeCheval);
-            
-            if (form.getErreurs().isEmpty()) {
-				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-				
-				TypeChevalDAO.modifierTypeCheval(connection, unTypeCheval, form.getTypeChevalOrigin(request));
-				this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalConsulter.jsp").forward(request, response);
+				/* Stockage du formulaire et de l'objet dans l'objet request */
+				request.setAttribute("form", form);
+				request.setAttribute("pTypeCheval", unTypeCheval);
 
+				if (form.getErreurs().isEmpty()) {
+					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+
+					TypeChevalDAO.modifierTypeCheval(connection, unTypeCheval, form.getTypeChevalOrigin(request));
+					this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalConsulter.jsp").forward(request, response);
+
+				} else {
+					this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp").forward(request, response);
+				}
 			} else {
-				this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp").forward(request, response);
+				redirigerVersAcceuil(response);
 			}
 		}
         
