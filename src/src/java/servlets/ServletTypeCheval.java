@@ -11,7 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modele.DirecteurGeneral;
 import modele.TypeCheval;
+import modele.Utilisateur;
 
 
 /**
@@ -44,10 +46,15 @@ public class ServletTypeCheval extends ServletBase {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        super.doGet(request, response);
 	   
+	   Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
        String url = request.getRequestURI();       
        if(url.equals("/EquidaWebG2/ServletTypeCheval/typeChevalAjouter")) { 
-			changerTitrePage("Ajouter race cheval", request);
-            getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp" ).forward( request, response );
+			if(user instanceof DirecteurGeneral) {
+				changerTitrePage("Ajouter race cheval", request);
+				getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp" ).forward( request, response );
+			} else {
+				redirigerVersAcceuil(response);
+			}
         }
     }
 
@@ -63,24 +70,26 @@ public class ServletTypeCheval extends ServletBase {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doPost(request, response);
 		
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         String url = request.getRequestURI();
         if(url.equals("/EquidaWebG2/ServletTypeCheval/typeChevalAjouter")){
-            TypeChevalForm formTypeCheval = new TypeChevalForm();
-            TypeCheval unTypeCheval = formTypeCheval.getTypeCheval(request);
-        
-            if (formTypeCheval.getErreurs().isEmpty()){
-                // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-                
-                TypeChevalDAO.ajouterTypeCheval(connection, unTypeCheval);
-                request.setAttribute( "pTypeCheval", unTypeCheval );
-                this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalConsulter.jsp" ).forward( request, response );
+			if(user instanceof DirecteurGeneral) {
+				TypeChevalForm formTypeCheval = new TypeChevalForm();
+				TypeCheval unTypeCheval = formTypeCheval.getTypeCheval(request);
 
-            }
-            else
-            { 
+				if (formTypeCheval.getErreurs().isEmpty()){
+					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 
-               this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp" ).forward( request, response );
-            }
+					TypeChevalDAO.ajouterTypeCheval(connection, unTypeCheval);
+					request.setAttribute( "pTypeCheval", unTypeCheval );
+					this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalConsulter.jsp" ).forward( request, response );
+
+				} else { 
+				   this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp" ).forward( request, response );
+				}
+			} else {
+				redirigerVersAcceuil(response);
+			}
         }
         
     }

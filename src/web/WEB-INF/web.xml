@@ -11,11 +11,11 @@
 	</context-param>
 	<context-param>
 		<param-name>utilisateurjdbc</param-name>
-		<param-value>root</param-value>
+		<param-value>USR_EQUIG2</param-value>
 	</context-param>
 	<context-param>
 		<param-name>motdepassejdbc</param-name>
-		<param-value/>
+		<param-value>mpEQUIDAG2</param-value>
 	</context-param>
 	<!--  écouteurs -->
 	<listener>
@@ -57,6 +57,10 @@
 		<servlet-name>ServletCheval</servlet-name>
 		<servlet-class>servlets.ServletCheval</servlet-class>
 	</servlet>	
+	<servlet>
+		<servlet-name>ServletLieu</servlet-name>
+		<servlet-class>servlets.ServletLieu</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>ServletTypeCheval</servlet-name>
 		<servlet-class>servlets.ServletTypeCheval</servlet-class>
@@ -118,8 +122,12 @@
 		<url-pattern>/ServletAuthentification/deconnexion</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>ServletLieu</servlet-name>
+		<url-pattern>/ServletLieu/ajouterLieu</url-pattern>
+	</servlet-mapping> 
+	<servlet-mapping>	
 		<servlet-name>ServletAccueil</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern></url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
         <servlet-name>ServletTypeCheval</servlet-name>
