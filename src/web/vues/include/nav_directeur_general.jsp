@@ -11,3 +11,4 @@
 <li><a href="/EquidaWebG2/ServletCategVente/listerLesCategVentes">Lister les catégories de vente</a></li>
 <li><a href="/EquidaWebG2/ServletPays/paysAjouter">Ajouter un pays</a></li>
 <li><a href="/EquidaWebG2/ServletTypeCheval/typeChevalAjouter">Ajouter une race de cheval</a></li>
+<li><a href="/EquidaWebG2/ServletTypeCheval/listerLesTypeCheval">Lister les races de chevaux</a></li>

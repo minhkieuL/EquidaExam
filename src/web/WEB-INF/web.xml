@@ -117,6 +117,14 @@
         <servlet-name>ServletTypeCheval</servlet-name>
         <url-pattern>/ServletTypeCheval/typeChevalAjouter</url-pattern>
     </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>ServletTypeCheval</servlet-name>
+        <url-pattern>/ServletTypeCheval/typeChevalModifier</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>ServletTypeCheval</servlet-name>
+        <url-pattern>/ServletTypeCheval/listerLesTypeCheval</url-pattern>
+    </servlet-mapping>
 	<session-config>
 		<session-timeout>
 			30
