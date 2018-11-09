@@ -26,4 +26,8 @@ public class PaysForm extends Form {
 
 		return unPays;
 	}
+	
+	public String getPaysOrigin(HttpServletRequest request) {
+        return getDataForm(request, "codeOrigin");
+    }
 }

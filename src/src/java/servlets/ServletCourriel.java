@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Courriel;
+import modele.DirecteurGeneral;
+import modele.Utilisateur;
+
 /**
  *
  * @author slam
@@ -34,16 +37,21 @@ public class ServletCourriel extends ServletBase {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
+		
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-
 		if (url.equals("/EquidaWebG2/ServletCourriel/listerLesCourriels")) {
-			String codeVente = (String) request.getParameter("codeVente");
-			ArrayList<Courriel> lesCourriels = CourrielDAO.getLesCourriels(connection, codeVente);
+			if(user instanceof DirecteurGeneral) {
+				String codeVente = (String) request.getParameter("codeVente");
+				ArrayList<Courriel> lesCourriels = CourrielDAO.getLesCourriels(connection, codeVente);
 
-			request.setAttribute("pLesCourriels", lesCourriels);
-			changerTitrePage("Lister les courriels", request);
+				request.setAttribute("pLesCourriels", lesCourriels);
+				changerTitrePage("Lister les courriels", request);
 
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
 	}
 }

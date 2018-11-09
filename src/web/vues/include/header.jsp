@@ -42,7 +42,7 @@
 		<%
 		} else {
 		%>
-                    <a href="/EquidaWebG2/ServletAuthentification/deconnexion" class="brand-logo right"><i class="large material-icons">exit_to_app</i>
+                <a href="/EquidaWebG2/ServletAuthentification/deconnexion" class="brand-logo right"><i class="large material-icons">exit_to_app</i></a>
         </div>
                 <%
                     }

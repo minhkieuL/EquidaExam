@@ -39,12 +39,15 @@ Cheval unCheval = (Cheval)request.getAttribute("pCheval");
         <td><%  out.println(unCheval.getTypeCheval().getLibelle());%></td>  
     </tr>
     <tr>
-        <td>Père :</td>
-        <td><%  out.println(unCheval.getPere().getId());%></td>  
+        <td>Pere  :</td>
+        <td><%  if(unCheval.getPere() != null)
+					out.println(unCheval.getPere().getId());%></td>  
     </tr>
     <tr>
-        <td>Mère :</td>
-        <td><%  out.println(unCheval.getMere().getId());%></td>  
+        <td>Mere  :</td>
+        <td><%  if(unCheval.getMere() != null)
+				out.println(unCheval.getMere().getId());%></td>  
+
     </tr>
 
 </table>

@@ -39,5 +39,7 @@ $( document ).ready(function() {
   <li><a href="/EquidaWebG2/ServletTypeCheval/typeChevalAjouter">Ajouter une race</a></li>
 </ul>
 <ul id="dropdown4" class="dropdown-content">
-  <li><a href="/EquidaWebG2/ServletPays/ajouterPays">Ajouter un pays</a></li>
+  <li><a href="/EquidaWebG2/ServletPays/paysAjouter">Ajouter un pays</a></li>
+  <li class="divider"></li>
+  <li><a href="/EquidaWebG2/ServletPays/listerLesPays">Lister les pays</a></li>
 </ul>
