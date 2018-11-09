@@ -1,3 +1,4 @@
+<%@page import="modele.Cheval"%>
 <%@page import="modele.Lot"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -23,6 +24,7 @@ ArrayList<Lot> lesLots = (ArrayList)request.getAttribute("pLesLots");
         for(int i = 0; i < lesLots.size();i++)
         {
             Lot lot = lesLots.get(i);
+            Cheval unCheval = new Cheval();
         
             out.println("<h3>");
             out.println(lot.getCheval().getNom());
@@ -40,8 +42,10 @@ ArrayList<Lot> lesLots = (ArrayList)request.getAttribute("pLesLots");
                 out.println("Race : "+lot.getCheval().getTypeCheval().getLibelle());
                      
                 /*out.println("<Br>");
-                out.println("<option value=\"</option>)");*/
-
+                out.println("<td><a href ='../ServletCheval/chevalModifier?id="+lot.getCheval().getId() +"'>");
+                out.println("modifier");
+                out.println("</td>"); */
+                
             out.println("</ul>");
             out.println("<hr>");
             

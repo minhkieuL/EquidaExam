@@ -6,12 +6,17 @@
 package database;
 
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
+import static database.CategVenteDAO.requete;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
+import modele.CategVente;
 import modele.Cheval;
+import modele.Client;
+import modele.TypeCheval;
 import modele.Utilisateur;
 
 /**
@@ -71,19 +76,35 @@ public class ChevalDAO {
 	}
 
 	public static Cheval getCheval(Connection connection, int idCheval) {
+        ArrayList<Cheval> lesChevaux = new ArrayList<Cheval>();
+        
 		Cheval unCheval = new Cheval();
+        Cheval chevalPere = new Cheval();
+        Cheval chevalMere = new Cheval();
+        
+        TypeCheval unTypeCheval = new TypeCheval();
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("select * from cheval WHERE id=?");
+			requete = connection.prepareStatement("SELECT * FROM cheval WHERE id=?");
 			requete.setInt(1, idCheval);
 
 			//executer la requete
 			rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Cheval avec les résultats de la requête
 			while (rs.next()) {
 				unCheval.setId(rs.getInt("id"));
 				unCheval.setNom(rs.getString("nom"));
+                unTypeCheval.setId(rs.getInt("typeCheval"));
+                unCheval.setSire(rs.getString("sire"));
+                unCheval.setTypeCheval(unTypeCheval);
+                unCheval.setMale(rs.getBoolean("sexe"));
+                chevalPere.setId(rs.getInt("pere"));
+                unCheval.setPere(chevalPere);
+                chevalMere.setId(rs.getInt("mere"));
+                unCheval.setMere(chevalMere);
+                
+                lesChevaux.add(unCheval);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -91,4 +112,31 @@ public class ChevalDAO {
 		}
 		return unCheval;
 	}
+        public static Cheval modifierChevalOrigin(Connection connection, Cheval unCheval){      
+           
+        try
+        {
+            //preparation de la requete 
+            requete=connection.prepareStatement(" UPDATE cheval SET nom = ? sexe = ? sire = ? typeCheval = ? mere = ? pere = ? WHERE id = ?; ");
+      
+            requete.setString(1, unCheval.getNom());
+			requete.setBoolean(2, unCheval.getMale());
+            requete.setString(3, unCheval.getSire());
+            requete.setInt(4, unCheval.getTypeCheval().getId());
+            requete.setInt(5, unCheval.getMere().getId());
+            requete.setInt(6, unCheval.getPere().getId());
+            requete.setInt(7, unCheval.getId());
+                        
+            /* Exécution de la requête */
+            requete.executeUpdate();
+            
+            //System.out.println("requete " +requete);
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unCheval; 
+    }
 }

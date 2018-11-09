@@ -37,7 +37,7 @@ public class TypeChevalDAO {
                 TypeCheval  unTypeCheval = new TypeCheval();
                 unTypeCheval.setId(rs.getInt("id"));
                 unTypeCheval.setLibelle(rs.getString("libelle"));
-                unTypeCheval.setDesc(rs.getString("desc"));
+                unTypeCheval.setDesc(rs.getString("description"));
                 lesTypeCheval.add(unTypeCheval);
             }
         }   

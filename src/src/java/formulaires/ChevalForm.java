@@ -67,4 +67,7 @@ public class ChevalForm extends Form {
 
 		return unCheval;
 	}
+        public String getChevalOrigin(HttpServletRequest request) {
+            return getDataForm(request, "idOrigin");
+        }
 }
