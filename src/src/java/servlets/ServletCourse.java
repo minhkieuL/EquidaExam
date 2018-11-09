@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Course;
+import modele.DirecteurGeneral;
+import modele.Utilisateur;
 
 /**
  *
@@ -37,12 +39,17 @@ public class ServletCourse extends ServletBase {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
+		
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-
 		if (url.equals("/EquidaWebG2/ServletCourse/courseAjouter")) {
-			changerTitrePage("Ajouter une Course", request);
+			if(user instanceof DirecteurGeneral) {
+				changerTitrePage("Ajouter une Course", request);
 
-			getServletContext().getRequestDispatcher("/vues/course/courseAjouter.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/course/courseAjouter.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}			
 		}
 	}
 
@@ -58,26 +65,31 @@ public class ServletCourse extends ServletBase {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doPost(request, response);
         
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         String url = request.getRequestURI();
         if (url.equals("/EquidaWebG2/ServletCourse/courseAjouter")) {
-            /* Préparation de l'objet formulaire */
-            CourseForm formCourse = new CourseForm();
-            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */            
-            Course uneCourse = formCourse.getCourse(request);
-            
-			if (formCourse.getErreurs().isEmpty()) {
-				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-				CourseDAO.ajouterCourse(connection, uneCourse);
-                
-                /* Stockage du formulaire et de l'objet dans l'objet request */
-                request.setAttribute("form", formCourse);
-                request.setAttribute("pCourse", uneCourse);
-                
-				this.getServletContext().getRequestDispatcher("/vues/course/courseConsulter.jsp").forward(request, response);
+			if(user instanceof DirecteurGeneral) {
+				/* Préparation de l'objet formulaire */
+				CourseForm formCourse = new CourseForm();
+				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */            
+				Course uneCourse = formCourse.getCourse(request);
 
+				if (formCourse.getErreurs().isEmpty()) {
+					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+					CourseDAO.ajouterCourse(connection, uneCourse);
+
+					/* Stockage du formulaire et de l'objet dans l'objet request */
+					request.setAttribute("form", formCourse);
+					request.setAttribute("pCourse", uneCourse);
+
+					this.getServletContext().getRequestDispatcher("/vues/course/courseConsulter.jsp").forward(request, response);
+
+				} else {
+
+					this.getServletContext().getRequestDispatcher("/vues/course/courseAjouter.jsp").forward(request, response);
+				}
 			} else {
-
-				this.getServletContext().getRequestDispatcher("/vues/course/courseAjouter.jsp").forward(request, response);
+				redirigerVersAcceuil(response);
 			}
 		}
 	}
