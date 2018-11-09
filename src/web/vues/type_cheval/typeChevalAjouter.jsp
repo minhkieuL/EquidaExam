@@ -9,7 +9,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
+        <div class="container">
         <h1>Ajouter un type de cheval</h1>
+        </div>
         
         <%
                 
@@ -17,7 +19,6 @@
             %>
             
                 <form class="form-inline" action="typeChevalAjouter" method="POST">
-                <!--<input id="codeOrigne" type="hidden" name="code"  size="4" maxlength="4">-->
                 <label for="libelle">Libelle : </label>
                 <input id="libelle" type="text" name="libelle"  size="15" maxlength="50">
                 </br>

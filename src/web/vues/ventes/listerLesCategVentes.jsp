@@ -9,8 +9,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1>LISTE DES CATEGORIES DE VENTE</h1>
-
+<div class="container">
+<h1>Liste des catégories de vente</h1>
+</div>
 <%
 ArrayList<CategVente> lesCategVentes = (ArrayList)request.getAttribute("pLesCategVentes");
 %>
@@ -18,9 +19,9 @@ ArrayList<CategVente> lesCategVentes = (ArrayList)request.getAttribute("pLesCate
 <table  class="table table-bordered table-striped table-condensed">  
     <thead>
         <tr>             
-            <th>code</th>
-            <th>libelle</th>
-            <th>modifier</th>
+            <th>Code</th>
+            <th>Libelle</th>
+            <th>Modifier</th>
         </tr>
     </thead>
     <tbody>

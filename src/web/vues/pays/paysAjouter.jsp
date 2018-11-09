@@ -7,7 +7,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1>NOUVEAU PAYS</h1>
+<div class="container">
+<h1>Nouveau pays</h1>
+</div>
 
 <%
     PaysForm form = (PaysForm)request.getAttribute("form");

@@ -6,11 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<footer>
+<footer class="light-green darken-4">
 	<ul>
-		<li><a href="#"> Mention legal </a></li>
-		<li><a href="#"> Autre chose </a></li>
+                <a href="/EquidaWebG2/ServletFooter/qui_sommes_nous" class="white-text"> Qui sommes-nous ? </a>
+                <a href="#" class="white-text"> Contact </a>
+		<a href="/EquidaWebG2/ServletFooter/mentions_legales" class="white-text"> Mentions legales </a>
 	</ul>
 </footer>   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

@@ -8,7 +8,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
+<div class="container">
 <h1>Infos sur l'Ajout de Pays</h1>
+</div>
 
 <%
 Pays unPays = (Pays)request.getAttribute("pPays");

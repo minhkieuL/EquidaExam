@@ -12,7 +12,7 @@
 
 <jsp:include page="/vues/include/header.jsp" />
 <div class="container">
-<h1>Liste des ventes</h1>
+<h1>Liste des ventes à venir</h1>
 </div>
 <%
 ArrayList<Vente> lesVentes = (ArrayList)request.getAttribute("pLesVentes");
@@ -42,7 +42,7 @@ ArrayList<CategVente> lesCatVentes = (ArrayList)request.getAttribute("pLesCatVen
     <input type="submit"/>
 </form>
 
-<a href="listerLesVentes"><button>Reset</button></a>
+<a href="listerLesVentesAVenir"><button>Reset</button></a>
 <table  class="table table-bordered table-striped table-condensed">  
     <thead>
         <tr>             

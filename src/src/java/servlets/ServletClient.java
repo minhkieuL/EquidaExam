@@ -4,7 +4,6 @@ import database.CategVenteDAO;
 import database.ClientDAO;
 import database.PaysDAO;
 import database.Utilitaire;
-import database.VenteDAO;
 import formulaires.ClientForm;
 import java.io.IOException;
 import java.sql.Connection;

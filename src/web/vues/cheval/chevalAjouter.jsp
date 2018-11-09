@@ -12,7 +12,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1>NOUVEAU CHEVAL</h1>
+
+<div class="container">
+<h1>Nouveau cheval</h1>
+</div>
 
 <%
 	   //Client client=(Client)request.getAttribute("client");
@@ -24,7 +27,7 @@
     <label for="nom">Nom : </label><input id="nom" type="text" name="nom"  size="30" maxlength="30">
     </br>
     </br>
-    <label for="sexe"> Sexe: </label>
+    <label for="sexe">Sexe : </label>
     <select id="sexe" name="sexe">
         <option value="0">Femelle</option>
         <option value="1">Male</option>
@@ -40,7 +43,7 @@
 
     <%-- Champ Liste des typeCheval --%>
 
-	<label for="typeCheval"> Race: </label>
+	<label for="typeCheval">Race: </label>
     <select name="typeCheval">
 
         <%

@@ -11,7 +11,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1>NOUVEAU CLIENT</h1>
+
+<div class="container">
+<h1>Nouveau client</h1>
+</div>
 
 <%
 	   //Client client=(Client)request.getAttribute("client");
@@ -19,15 +22,15 @@
 %>
 
 <form class="form-inline" action="ajouterClient" method="POST">
-	<label for="nom">NOM : </label>
+	<label for="nom">Nom : </label>
 	<input id="nom" type="text" name="nom"  size="30" maxlength="30">
 	</br>
 
-	<label for="prenom">PRENOM : </label>
+	<label for="prenom">Prénom : </label>
 	<input id="prenom"  type="text"  name="prenom" size="30" maxlength="30">      
 	</br>
 
-	<label for="rue">rue : </label>
+	<label for="rue">Adresse : </label>
 	<input id="rue"  type="text"  name="rue" size="30" maxlength="50">
 	</br>
 

@@ -9,8 +9,9 @@
 
 <jsp:include page="/vues/include/header.jsp" />
 
-
+<div class="container">
 <h1>Infos sur l'Ajout de Categorie</h1>
+</div>
 
 <%
 	CategVente uneCategVente = (CategVente) request.getAttribute("pCategVente");
@@ -19,11 +20,11 @@
 
 <table class="table table-bordered table-striped table-condensed">
     <tr>
-        <td>Code :</td>
+        <td>Code : </td>
         <td><% out.println(uneCategVente.getCode());%></td>
     </tr>
     <tr>
-        <td>Libelle :</td>
+        <td>Libelle : </td>
         <td><%  out.println(uneCategVente.getLibelle());%></td>  
     </tr>
 </table>

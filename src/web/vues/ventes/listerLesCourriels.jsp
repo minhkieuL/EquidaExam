@@ -13,7 +13,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1>LISTE DES COURRIELS</h1>
+<div class="container">
+<h1>Liste des courriels pour une vente</h1>
+</div>
 <%
 ArrayList<Courriel> lesCourriels = (ArrayList)request.getAttribute("pLesCourriels");
 

@@ -6,9 +6,6 @@
 package servlets;
 
 import database.CategVenteDAO;
-import database.ClientDAO;
-import database.CourrielDAO;
-import database.LotDAO;
 import database.Utilitaire;
 import database.VenteDAO;
 import java.io.IOException;
@@ -19,9 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
-import modele.Client;
-import modele.Courriel;
-import modele.Lot;
 import modele.Vente;
 
 /**
@@ -63,6 +57,17 @@ public class ServletVentes extends ServletBase {
 			changerTitrePage("Lister les ventes", request);
 
 			getServletContext().getRequestDispatcher("/vues/ventes/listerLesVentes.jsp").forward(request, response);
+		}
+		if (url.equals("/EquidaWebG2/ServletVentes/listerLesVentesAVenir")) {
+			String catVente = (String) request.getParameter("catVente");
+			ArrayList<Vente> lesVentes = VenteDAO.getLesVentesAVenir(connection, catVente);
+			ArrayList<CategVente> lesCatVentes = CategVenteDAO.getLesCategVentes(connection);
+
+			request.setAttribute("pLesCatVentes", lesCatVentes);
+			request.setAttribute("pLesVentes", lesVentes);
+			changerTitrePage("Liste des ventes à venir", request);
+
+			getServletContext().getRequestDispatcher("/vues/ventes/listerLesVentesAVenir.jsp").forward(request, response);
 		}
 	}
 

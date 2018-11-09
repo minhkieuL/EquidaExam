@@ -1,12 +1,7 @@
 package servlets;
 
 import database.CategVenteDAO;
-import database.ChevalDAO;
-import database.PaysDAO;
-import database.TypeChevalDAO;
 import formulaires.CategorieForm;
-import formulaires.ChevalForm;
-import formulaires.PaysForm;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -15,9 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
-import modele.Cheval;
-import modele.Pays;
-import modele.TypeCheval;
 
 /**
  *

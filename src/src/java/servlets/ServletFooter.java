@@ -1,19 +1,16 @@
 package servlets;
 
-import database.CourrielDAO;
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.Courriel;
 /**
  *
  * @author slam
  */
-public class ServletCourriel extends ServletBase {
+public class ServletFooter extends ServletBase {
 
 	Connection connection;
 
@@ -36,14 +33,16 @@ public class ServletCourriel extends ServletBase {
 		super.doGet(request, response);
 		String url = request.getRequestURI();
 
-		if (url.equals("/EquidaWebG2/ServletCourriel/listerLesCourriels")) {
-			String codeVente = (String) request.getParameter("codeVente");
-			ArrayList<Courriel> lesCourriels = CourrielDAO.getLesCourriels(connection, codeVente);
+		if (url.equals("/EquidaWebG2/ServletFooter/mentions_legales")) {
+			changerTitrePage("Mentions legales", request);
 
-			request.setAttribute("pLesCourriels", lesCourriels);
-			changerTitrePage("Lister les courriels", request);
+			getServletContext().getRequestDispatcher("/vues/informations/mentions_legales.jsp").forward(request, response);
+		}
+		
+		if (url.equals("/EquidaWebG2/ServletFooter/qui_sommes_nous")) {
+			changerTitrePage("Qui sommes-nous", request);
 
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/vues/informations/qui_sommes_nous.jsp").forward(request, response);
 		}
 	}
 }

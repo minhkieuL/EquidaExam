@@ -5,7 +5,6 @@
  */
 package database;
 
-import static database.VenteDAO.requete;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

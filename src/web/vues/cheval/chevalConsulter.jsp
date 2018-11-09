@@ -8,7 +8,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1>Infos Cheval</h1>
+<div class="container">
+    <h1>Infos cheval</h1>
+</div>
 
 <%
 Cheval unCheval = (Cheval)request.getAttribute("pCheval");
@@ -29,19 +31,19 @@ Cheval unCheval = (Cheval)request.getAttribute("pCheval");
             }
             %></td>  </tr>
     <tr>
-        <td>SIRE  :</td>
+        <td>SIRE :</td>
         <td><%  out.println(unCheval.getSire());%></td>  
     </tr>
     <tr>
-        <td>Race  :</td>
+        <td>Race :</td>
         <td><%  out.println(unCheval.getTypeCheval().getLibelle());%></td>  
     </tr>
     <tr>
-        <td>Pere  :</td>
+        <td>Père :</td>
         <td><%  out.println(unCheval.getPere().getId());%></td>  
     </tr>
     <tr>
-        <td>Mere  :</td>
+        <td>Mère :</td>
         <td><%  out.println(unCheval.getMere().getId());%></td>  
     </tr>
 

@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modele.CategVente;
-import modele.Client;
-import modele.Pays;
 import modele.Vente;
 
 /**
@@ -41,6 +39,36 @@ public class VenteDAO {
 			String selectionCatVente = (catVente != null) ? "AND code='" + catVente + "'" : "";
 			//preparation de la requete     
 			requete = connection.prepareStatement("SELECT * FROM vente, categvente WHERE codeCategVente=code " + selectionCatVente + " ORDER BY dateDebut DESC");
+			//executer la requete
+			rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				Vente uneVente = new Vente();
+				uneVente.setId(rs.getInt("id"));
+				uneVente.setNom(rs.getString("nom"));
+				uneVente.setDateDebut(rs.getString("dateDebut"));
+
+				CategVente uneCateg = new CategVente();
+				uneCateg.setCode(rs.getString("code"));  // on aurait aussi pu prendre CodeCateg
+				uneCateg.setLibelle(rs.getString("libelle"));
+
+				uneVente.setUneCategVente(uneCateg);
+				lesVentes.add(uneVente);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lesVentes;
+	}
+	
+	
+	public static ArrayList<Vente> getLesVentesAVenir(Connection connection, String catVente) {
+		ArrayList<Vente> lesVentes = new ArrayList<Vente>();
+		try {
+			String selectionCatVente = (catVente != null) ? "AND code='" + catVente + "'" : "";
+			//preparation de la requete     
+			requete = connection.prepareStatement("SELECT * FROM vente, categvente WHERE vente.dateDebut>NOW() AND codeCategVente=code " + selectionCatVente + "  ORDER BY dateDebut DESC");
 			//executer la requete
 			rs = requete.executeQuery();
 

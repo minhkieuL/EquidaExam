@@ -3,7 +3,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1>LISTE LES CHEVAUX POUR UNE VENTE</h1>
+<div class="container">
+<h1>Liste des chevaux pour une vente</h1>
+</div>
 <%
 ArrayList<Lot> lesLots = (ArrayList)request.getAttribute("pLesLots");
 %>

@@ -17,31 +17,31 @@ Client unClient = (Client)request.getAttribute("pClient");
 
 <table class="table table-bordered table-striped table-condensed">
     <tr>
-        <td>NOM :</td>
+        <td>Nom :</td>
         <td><% out.println(unClient.getNom());%></td>
     </tr>
     <tr>
-        <td>PRENOM :</td>
+        <td>Prénom :</td>
         <td><%  out.println(unClient.getPrenom());%></td>  
     </tr>
     <tr>
-        <td>ADRESSE  :</td>
+        <td>Adresse :</td>
         <td><%  out.println(unClient.getRue());%></td>  
     </tr>
     <tr>
-        <td> CODE POSTAL  :</td>
+        <td>Code postal :</td>
         <td><%  out.println(unClient.getCopos());%></td>  
     </tr>
     <tr>
-        <td> VILLE  :</td>
+        <td>Ville :</td>
         <td><%  out.println(unClient.getVille());%></td>  
     </tr>
     <tr>
-        <td> PAYS  :</td>
+        <td>Pays :</td>
         <td><%  out.println(unClient.getPays().getCode());%></td>  
     </tr>
     <tr>
-        <td> Catégories selectionnées</td><td>
+        <td>Catégories selectionnées :</td><td>
 			<% for (int i=0; i<unClient.getLesCategVentes().size(); i++){
 			   out.println(unClient.getLesCategVentes().get(i).getCode() + "</br>");
 
