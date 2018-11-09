@@ -13,6 +13,7 @@
 <%
 ArrayList<Client> lesClients = (ArrayList)request.getAttribute("pLesClients");
 %>
+
 <table  class="table table-bordered table-striped table-condensed">  
     <thead>
         <tr>             

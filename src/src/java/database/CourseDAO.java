@@ -10,48 +10,50 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import modele.Pays;
-
+import modele.Course;
 /**
  *
- * @author Zakina
+ * @author slam
  */
-public class PaysDAO {
-
+public class CourseDAO {
+	
 	Connection connection = null;
 	static PreparedStatement requete = null;
 	static ResultSet rs = null;
 
-	public static ArrayList<Pays> getLesPays(Connection connection) {
-		ArrayList<Pays> lesPays = new ArrayList<Pays>();
+	public static ArrayList<Course> getLesCourses(Connection connection) {
+		ArrayList<Course> lesCourses = new ArrayList<Course>();
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("SELECT * FROM pays");
+			requete = connection.prepareStatement("SELECT * FROM course");
 
 			//executer la requete
 			rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
-				Pays unPays = new Pays();
-				unPays.setCode(rs.getString("code"));
-				unPays.setNom(rs.getString("nom"));
-				lesPays.add(unPays);
+				Course uneCourse = new Course();
+				uneCourse.setId(rs.getInt("id"));
+				uneCourse.setNom(rs.getString("nom"));
+				uneCourse.setDate(rs.getString("date"));
+				uneCourse.setVille(rs.getString("ville"));
+				lesCourses.add(uneCourse);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
-		return lesPays;
+		return lesCourses;
 	}
 
-	public static Pays ajouterPays(Connection connection, Pays unPays) {
+	public static Course ajouterCourse(Connection connection, Course uneCourse) {
 
 		try {
-			requete = connection.prepareStatement("INSERT INTO pays (code, nom)\n"
-					+ "VALUES (?,?)", requete.RETURN_GENERATED_KEYS);
-			requete.setString(1, unPays.getCode());
-			requete.setString(2, unPays.getNom());
+			requete = connection.prepareStatement("INSERT INTO course (nom, date, ville)\n"
+					+ "VALUES (?,?,?)", requete.RETURN_GENERATED_KEYS);
+			requete.setString(1, uneCourse.getNom());
+			requete.setString(2, uneCourse.getDate());
+			requete.setString(3, uneCourse.getVille());
 
 			requete.executeUpdate();
 
@@ -59,24 +61,25 @@ public class PaysDAO {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
-		return unPays;
+		return uneCourse;
 	}
 	
-	 public static Pays getPays(Connection connection, String codePays){
-		Pays unPays = new Pays();
+	public static Course getCourse(Connection connection, int idCourse){
+		Course uneCourse = new Course();
         try
         {
             //preparation de la requete 
-            requete=connection.prepareStatement(" SELECT * FROM pays WHERE code = ?; ");
-            requete.setString(1, codePays);
+            requete=connection.prepareStatement(" SELECT * FROM course WHERE id = ?; ");
+            requete.setInt(1, idCourse);
             /* Exécution de la requête */
             //executer la requete
 			rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
-				unPays.setCode(rs.getString("code"));
-				unPays.setNom(rs.getString("nom"));
+				uneCourse.setId(idCourse);
+				uneCourse.setNom(rs.getString("nom"));
+				uneCourse.setDate(rs.getString("date"));
+				uneCourse.setVille(rs.getString("ville"));
 			}
             //System.out.println("requete " +requete);
         }
@@ -85,18 +88,21 @@ public class PaysDAO {
             e.printStackTrace();
             //out.println("Erreur lors de l’établissement de la connexion");
         }
-        return unPays ; 
+        return uneCourse ; 
     }
 	
-	public static Pays modifierPays(Connection connection, Pays unPays, String codePays){      
+	public static Course modifierCourse(Connection connection, Course uneCourse, int idCourse){      
         
         try
         {
             //preparation de la requete 
-            requete=connection.prepareStatement(" UPDATE pays SET nom = ? WHERE code = ?; ");
+            requete=connection.prepareStatement("UPDATE course SET nom = ?, date = ?, ville = ? WHERE id = ?;");
       
-            requete.setString(1, unPays.getNom());
-			requete.setString(2, codePays);
+            requete.setString(1, uneCourse.getNom());
+			requete.setString(2, uneCourse.getDate());
+			requete.setString(3, uneCourse.getVille());
+			requete.setInt(4, idCourse);
+			System.out.println(requete);
             /* Exécution de la requête */
             requete.executeUpdate();
             
@@ -107,7 +113,7 @@ public class PaysDAO {
             e.printStackTrace();
             //out.println("Erreur lors de l’établissement de la connexion");
         }
-        return unPays ; 
+        return uneCourse ; 
     }
-
+	
 }
