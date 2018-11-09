@@ -26,6 +26,10 @@
 		<servlet-class>servlets.ServletVentes</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>ServletCourse</servlet-name>
+		<servlet-class>servlets.ServletCourse</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>ServletClient</servlet-name>
 		<servlet-class>servlets.ServletClient</servlet-class>
 	</servlet>
@@ -121,9 +125,13 @@
         <servlet-name>ServletTypeCheval</servlet-name>
         <url-pattern>/ServletTypeCheval/typeChevalAjouter</url-pattern>
     </servlet-mapping>
-        <servlet-mapping>
+    <servlet-mapping>
 		<servlet-name>ServletPays</servlet-name>
 		<url-pattern>/ServletPays/listerLesPays</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletCourse</servlet-name>
+		<url-pattern>/ServletCourse/courseAjouter</url-pattern>
 	</servlet-mapping>
 	<session-config>
 		<session-timeout>

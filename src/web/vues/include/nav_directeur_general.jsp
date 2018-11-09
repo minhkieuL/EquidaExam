@@ -12,3 +12,4 @@
 <li><a href="/EquidaWebG2/ServletPays/paysAjouter">Ajouter un pays</a></li>
 <li><a href="/EquidaWebG2/ServletPays/listerLesPays">Lister les pays</a></li>
 <li><a href="/EquidaWebG2/ServletTypeCheval/typeChevalAjouter">Ajouter une race de cheval</a></li>
+<li><a href="/EquidaWebG2/ServletCourse/courseAjouter">Ajouter une course</a></li>
