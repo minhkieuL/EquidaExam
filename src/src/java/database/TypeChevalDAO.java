@@ -76,14 +76,15 @@ public class TypeChevalDAO {
 		TypeCheval unTypeCheval = new TypeCheval();
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("SELECT * FROM typecheval; ");
+			requete = connection.prepareStatement("SELECT * FROM typecheval WHERE id=?;");
+			requete.setInt(1, idTypeCheval);
 			
 			//executer la requete
 			rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
-				unTypeCheval.setId(rs.getInt("id"));
+				unTypeCheval.setId(idTypeCheval);
 				unTypeCheval.setLibelle(rs.getString("libelle"));
 				unTypeCheval.setDesc(rs.getString("description"));
 			}

@@ -9,46 +9,36 @@
 
 <jsp:include page="/vues/include/header.jsp" />
 
-<h1 class="center-align">Infos cheval</h1>
-
 <%
 Cheval unCheval = (Cheval)request.getAttribute("pCheval");
 %>
 
-
-<table class="table table-bordered table-striped table-condensed">
-    <tr>
-        <td>Nom :</td>
-        <td><% out.println(unCheval.getNom());%></td>
-    </tr>
-    <tr>
-        <td>Sexe :</td><td><%  
-            if(unCheval.getMale()) {
-                out.println("Mâle");
-            } else {
-                out.println("Femelle");
-            }
-            %></td>  </tr>
-    <tr>
-        <td>SIRE :</td>
-        <td><%  out.println(unCheval.getSire());%></td>  
-    </tr>
-    <tr>
-        <td>Race :</td>
-        <td><%  out.println(unCheval.getTypeCheval().getLibelle());%></td>  
-    </tr>
-    <tr>
-        <td>Pere  :</td>
-        <td><%  if(unCheval.getPere() != null)
-					out.println(unCheval.getPere().getId());%></td>  
-    </tr>
-    <tr>
-        <td>Mere  :</td>
-        <td><%  if(unCheval.getMere() != null)
-				out.println(unCheval.getMere().getId());%></td>  
-
-    </tr>
-
-</table>
+<div class="row">
+	<div class="col s12 l6 right valign-wrapper">
+		<img src="<%= request.getContextPath()%>/img/1.jpg" class="responsive-img "/>
+	</div>
+	<div class="col s12 l6 left">
+		<h2><%= unCheval.getNom()%></h2>
+		<p class="tooltipped" data-position="bottom" data-tooltip="<%= unCheval.getTypeCheval().getDesc()%>">Race : <%= unCheval.getTypeCheval().getLibelle() %></p>
+		<p>Sexe : <%= (unCheval.getMale()) ? "Male" : "Femelle"%></p>
+		<p>Sire : <%= unCheval.getSire() %></p>
+		<p>Mère : <%= (unCheval.getMere() != null) ? "<a href=?id="+unCheval.getMere().getId()+">"+unCheval.getMere().getSire()+"</a>" : "Non renseignée"%></p>
+		<p>Père : <%= (unCheval.getPere() != null) ? "<a href=?id="+unCheval.getPere().getId()+">"+unCheval.getPere().getSire()+"</a>" : "Non renseigné"%></p>
+	</div>
+	
+	<div class="row">
+		<div class="col s12">
+			<h3>Les courses</h3>
+			<p>Aucune course n'a été enregistré pour ce cheval</p>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col s12">
+			<h3>Infos Vente</h3>
+			<p>Ce cheval n'est pas encore en vente</p>
+		</div>
+	</div>
+</div>
 
 <jsp:include page="/vues/include/footer.jsp" />

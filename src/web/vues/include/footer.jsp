@@ -28,10 +28,12 @@
         $(document).ready(function(){
         $('.carousel').carousel({indicators: true, duration: 200});
 		$('select').formSelect();
-        autoplay();
-        function autoplay() {
+		$('.tooltipped').tooltip();
+		
+        setTimeout(autoplayCaroussel, 15000);
+        function autoplayCaroussel() {
             $('.carousel').carousel('next');
-            setTimeout(autoplay, 15000);
+            setTimeout(autoplayCaroussel, 15000);
         }
       });
     </script>

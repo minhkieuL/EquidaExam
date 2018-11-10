@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/vues/include/header.jsp" />
 
-<h1 class="center-align">Connexion</h1>
+<h2 class="center-align">Connexion</h2>
 
 <div class="row">
     <form action="connexion" method="POST" class="col s10 push-s1 l6 push-l3 center-align">

@@ -9,7 +9,7 @@
 
 <jsp:include page="/vues/include/header.jsp" />
 
-<h1 class="center-align">Ajouter une catégorie de vente</h1>
+<h2 class="center-align">Ajouter une catégorie de vente</h2>
 
 
 <%

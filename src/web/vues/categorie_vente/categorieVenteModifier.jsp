@@ -10,7 +10,7 @@
 
 <jsp:include page="/vues/include/header.jsp" />
 
-<h1 class="center-align">Modifier une catégorie de vente</h1>
+<h2 class="center-align">Modifier une catégorie de vente</h2>
 
 <%
 	CategorieForm form = (CategorieForm) request.getAttribute("form");

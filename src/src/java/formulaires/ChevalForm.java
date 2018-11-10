@@ -27,7 +27,8 @@ public class ChevalForm extends Form {
 
 	public Cheval getCheval(HttpServletRequest request, Connection connection) {
 		Cheval unCheval = new Cheval();
-
+		
+		String idChevalStr = getDataForm(request, "id");
 		String nom = getDataForm(request, "nom");
 		boolean male = Integer.valueOf(getDataForm(request, "sexe")) == 1;
 		String sire = getDataForm(request, "sire");
@@ -52,13 +53,14 @@ public class ChevalForm extends Form {
 		} catch (Exception e) {
 			setErreur("nom", e.getMessage());
 		}
-		unCheval.setNom(nom);
-
 		if (this.getErreurs().isEmpty()) {
 			this.setResultat("Succès de l'ajout.");
 		} else {
 			this.setResultat("Échec de l'ajout.");
 		}
+		
+		if(idChevalStr != null)
+			unCheval.setId(Integer.valueOf(idChevalStr));
 
 		unCheval.setNom(nom);
 		unCheval.setMale(male);
