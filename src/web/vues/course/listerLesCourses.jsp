@@ -9,50 +9,52 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1>LISTE DES COURSES</h1>
+<h1 class="center-align">LISTE DES COURSES</h1>
 
 <%
 ArrayList<Course> lesCourses = (ArrayList)request.getAttribute("pLesCourses");
 %>
 
-<table  class="table table-bordered table-striped table-condensed">  
-    <thead>
-        <tr>             
-            <th>nom</th>
-            <th>date</th>
-			<th>ville</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <%
-            for(int i = 0; i < lesCourses.size();i++)
-            {
+<div class="row">
+	<table  class="table table-bordered table-striped table-condensed">  
+		<thead>
+			<tr>             
+				<th>Nom</th>
+				<th>Date</th>
+				<th>Ville</th>
 
-                Course uneCourse = lesCourses.get(i);
-                out.println("<td>");
-                out.println(uneCourse.getNom());
-                out.println("</td>");
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<%
+				for(int i = 0; i < lesCourses.size();i++)
+				{
 
-                out.println("<td>");
-                out.println(uneCourse.getDate());
-                out.println("</td>");
-				
-				out.println("<td>");
-                out.println(uneCourse.getVille());
-                out.println("</td>");
+					Course uneCourse = lesCourses.get(i);
+					out.println("<td>");
+					out.println(uneCourse.getNom());
+					out.println("</td>");
 
-                out.println("<td><a href ='../ServletCourse/courseModifier?code="+ uneCourse.getId() + "'>");
-                out.println("Modifier");
-                out.println("</td>");
-				
-				out.println("</tr>");
+					out.println("<td>");
+					out.println(uneCourse.getDate());
+					out.println("</td>");
 
-            }
-            %>
-        </tr>
-    </tbody>
-</table>
+					out.println("<td>");
+					out.println(uneCourse.getVille());
+					out.println("</td>");
+
+					out.println("<td><a href ='../ServletCourse/courseModifier?code="+ uneCourse.getId() + "'>");
+					out.println("Modifier");
+					out.println("</td>");
+
+					out.println("</tr>");
+
+				}
+				%>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
 <jsp:include page="/vues/include/footer.jsp" />

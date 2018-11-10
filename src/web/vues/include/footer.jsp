@@ -29,6 +29,7 @@
         $('.carousel').carousel({indicators: true, duration: 200});
 		$('select').formSelect();
 		$('.tooltipped').tooltip();
+		$('.datepicker').datepicker({format : "yyyy-m-d"});
 		
         setTimeout(autoplayCaroussel, 15000);
         function autoplayCaroussel() {
