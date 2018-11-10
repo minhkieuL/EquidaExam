@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modele.CategVente;
 import modele.Client;
 import modele.Pays;
 
@@ -127,7 +128,17 @@ public class ClientDAO {
 				client.setRue(rs.getString("rue"));
 				client.setVille(rs.getString("ville"));
 				client.setMail(rs.getString("mail"));
-
+				
+				PreparedStatement requeteCategvente = connection.prepareStatement("SELECT * FROM utilisateur, categvente, clientcategvente WHERE utilisateur.id=codeClient AND codeCategVente=categvente.code AND utilisateur.id=?");
+				requeteCategvente.setInt(1, idClient);
+				ResultSet rsCategVente = requeteCategvente.executeQuery();
+				while(rsCategVente.next()) {
+					CategVente categVente = new CategVente();
+					categVente.setCode(rsCategVente.getString("code"));
+					categVente.setLibelle(rsCategVente.getString("libelle"));
+					client.addUneCategVente(categVente);
+				}
+								
 				client.setPays(PaysDAO.getPays(connection, rs.getString("codePays")));
 			}
 		} catch (SQLException e) {

@@ -4,6 +4,7 @@
     Author     : MartinJ
 --%>
 
+<%@page import="modele.CategVente"%>
 <%@page import="modele.DirecteurGeneral"%>
 <%@page import="modele.Utilisateur"%>
 <%@page import="modele.Client"%>
@@ -13,33 +14,39 @@
 
 <%
 	Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
-	Client unClient = (Client)request.getAttribute("pClient");
+	Client unClient = (Client) request.getAttribute("pClient");
 %>
 
 <div class="row">
 	<div class="col s12 l6 right valign-wrapper">
 		<img src="<%= request.getContextPath()%>/img/1.jpg" class="responsive-img "/>
 	</div>
-	
+
 	<div class="col s12 l6 left">
-		<h2><%= unClient.getNom() + " " + unClient.getPrenom() %></h2>
+		<h2><%= unClient.getNom() + " " + unClient.getPrenom()%></h2>
 		<p><%= unClient.getRue()%></p>
-		<p><%= unClient.getCopos() + " " + unClient.getVille() %></p>
+		<p><%= unClient.getCopos() + " " + unClient.getVille()%></p>
 		<p><a href="mailto:<%= unClient.getMail()%>"><%= (unClient.getMail() != null) ? unClient.getMail() : ""%></a></p>
-		<p><%= unClient.getPays().getNom() %></p>
-		
-		<% if(user instanceof DirecteurGeneral) {
-			//TODO afficher si le client est archivé ou non
-		}%>
+		<p><%= unClient.getPays().getNom()%></p>
+		<p>Catégorie de vente : </p>
+		<ul>
+			<% for (CategVente categ : unClient.getLesCategVentes()) {%>
+			<li><%= categ.getLibelle()%></li>
+				<%}%>
+		</ul>
+
+		<% if (user instanceof DirecteurGeneral) {
+				//TODO afficher si le client est archivé ou non
+			}%>
 	</div>
-	
+
 	<div class="row">
 		<div class="col s12">
 			<h3>Chevaux en attente d'une vente</h3>
 			<p>Aucune cheval n'est en attente d'être associé à une vente</p>
 		</div>
 	</div>
-	
+
 	<div class="row">
 		<div class="col s12">
 			<h3>Chevaux en attente de validation</h3>
