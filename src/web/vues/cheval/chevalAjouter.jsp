@@ -13,91 +13,70 @@
 
 <jsp:include page="/vues/include/header.jsp" />
 
-<div class="container">
-<h1>Nouveau cheval</h1>
-</div>
+<h1 class="center-align">Nouveau cheval</h1>
 
 <%
-	   //Client client=(Client)request.getAttribute("client");
-	   ChevalForm form = (ChevalForm)request.getAttribute("form");
+	//Client client=(Client)request.getAttribute("client");
+	ChevalForm form = (ChevalForm) request.getAttribute("form");
+	ArrayList<TypeCheval> lesTypeCheval = (ArrayList) request.getAttribute("pLesTypeCheval");
 %>
 
+<div class="row">
+	<form class="col s10 push-s1 l6 push-l3 center-align" action="ajouterCheval" method="POST">
+		<div class="row">
+			<div class="input-field col l6 s12">
+				<input id="nom" type="text" name="nom" size="30" maxlength="30" class="validate">
+				<label for="nom">Nom : </label>
+			</div>
 
-<form class="form-inline" action="ajouterCheval" method="POST">
-    <label for="nom">Nom : </label><input id="nom" type="text" name="nom"  size="30" maxlength="30">
-    </br>
-    </br>
-    <label for="sexe">Sexe : </label>
-    <select id="sexe" name="sexe">
-        <option value="0">Femelle</option>
-        <option value="1">Male</option>
-    </select>
-	</br>
-	</br>
+			<div class="input-field col l6 s12">
+				<select id="sexe" name="sexe">
+					<option value="0">Femelle</option>
+					<option value="1">Male</option>
+				</select>
+				<label for="sexe">Sexe : </label>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="sire" type="text" name="sire" size="30" maxlength="50" class="validate">
+				<label for="sire">SIRE : </label>
+			</div>
+		</div>
+		
+		<%-- Champ Liste des typeCheval --%>
+		<div class="row">
+			<div class="input-field col s12">
+				<select name="typeCheval">
 
-    <label for="sire">SIRE : </label>
-    <input id="sire"  type="text"  name="sire" size="30" maxlength="50">
-	</br>
-	</br>
+					<%
+						for (int i = 0; i < lesTypeCheval.size(); i++) {
+							TypeCheval tc = lesTypeCheval.get(i);
+					%>
+					<option value="<%=tc.getId()%>"><%=tc.getLibelle()%></option>
+					<%
+						}
+					%>
+				</select>
+				<label for="typeCheval">Race: </label>
+			</div>
+		</div>
+				
+		<div class="row">
+			 <div class="input-field col l6 s12">
+				<input id="pere" type="text" name="pere" size="30" maxlength="50" class="validate">
+				<label for="pere">Père : </label>
+			</div>
 
+			<div class="input-field col l6 s12">
+				<input id="mere" type="text" name="mere" size="30" maxlength="50" class="validate">
+				<label for="mere">Mère : </label>
+			</div>
+		</div>
+				
+		<input type="submit" name="valider" id="valider" value="Valider"/>
+	</form>
+</div>
 
-    <%-- Champ Liste des typeCheval --%>
-
-	<label for="typeCheval">Race: </label>
-    <select name="typeCheval">
-
-        <%
-            ArrayList<TypeCheval> lesTypeCheval = (ArrayList)request.getAttribute("pLesTypeCheval");
-            for (int i=0; i<lesTypeCheval.size();i++){
-                TypeCheval tc = lesTypeCheval.get(i);
-                out.println("<option value='" + tc.getId()+"'>" + tc.getLibelle()+"</option>" );
-            }
-        %>
-    </select></br> 
-    </br>            
-    </br>
-
-    <label for="pere">Père : </label>
-    <input id="pere"  type="text"  name="pere" size="30" maxlength="50">
-	</br>
-	</br>
-
-	<label for="mere">Mère : </label>
-    <input id="mere"  type="text"  name="mere" size="30" maxlength="50">
-	</br>
-	</br>
-
-
-    <%--<label for="lot"> : </label>
-    <select name="lot" size="3" multiple>
-    <%
-            ArrayList<Lot> lesLots = (ArrayList)request.getAttribute("pLesLots");
-            for (int i=0; i<lesLots.size();i++){
-                Lot l = lesLots.get(i);
-                out.println("<option value ='" + l.getId() + "'>" + l.getPrixDepart() + "</option>"); 
-
-            }
-    </select></br>                    %>--%>
-
-    </br>            
-    </br>
-
-
-    <%-- Cases à cocher permettant de choisir les différentes catégories de vente auxquelles le client souhaite s'inscrire 
-    <label for="categVente">Categories de vente : </label></br>
-     <%
-            ArrayList<CategVente> lesCategVente = (ArrayList)request.getAttribute("pLesCategVente");
-            for (int i=0; i<lesCategVente.size();i++){
-                CategVente cv = lesCategVente.get(i);
-                out.println("<input type='checkbox' id='cb" + i + "' name='" + cv.getCode() + "'>"); 
-                out.println(cv.getLibelle()); 
-                out.println("</label></br>");
-            }
-        %>
-        </br>
-	--%>
-
-
-    <input type="submit" name="valider" id="valider" value="Valider"/>
-</form>
 <jsp:include page="/vues/include/footer.jsp" />

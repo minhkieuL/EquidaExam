@@ -109,9 +109,9 @@ public class ServletCategVente extends ServletBase {
 					request.setAttribute("form", formCategorie);
 					request.setAttribute("pCategVente", uneCategVente);
 
-					this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteConsulter.jsp").forward(request, response);
+					response.sendRedirect("/EquidaWebG2/ServletCategVente/listerLesCategVentes");
 				} else {
-					this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
+					response.sendRedirect("/EquidaWebG2/ServletCategVente/categorieVenteAjouter");
 				}
 			} else {
 				redirigerVersAcceuil(response);
@@ -134,10 +134,10 @@ public class ServletCategVente extends ServletBase {
 					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 
 					CategVenteDAO.modifierCategVente(connection, uneCategVente, form.getCategVenteOrigin(request));
-					this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteConsulter.jsp").forward(request, response);
+					response.sendRedirect("/EquidaWebG2/ServletCategVente/listerLesCategVentes");
 
 				} else {
-					this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
+					response.sendRedirect("/EquidaWebG2/ServletCategVente/categorieVenteModifier");
 				}
 			} else {
 				redirigerVersAcceuil(response);

@@ -6,13 +6,34 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<footer class="light-green darken-4">
-	<ul>
-                <a href="/EquidaWebG2/ServletFooter/qui_sommes_nous" class="white-text"> Qui sommes-nous ? </a>
-                <a href="#" class="white-text"> Contact </a>
-		<a href="/EquidaWebG2/ServletFooter/mentions_legales" class="white-text"> Mentions legales </a>
-	</ul>
-</footer>   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
+    </div>
+    <footer class="page-footer light-green darken-4">
+        <div class="container">
+            <div class="row">
+                <div class="col s2">
+                    <p><a href="/EquidaWebG2/ServletFooter/qui_sommes_nous" class="white-text"> Qui sommes-nous ? </a></p>
+                    <p><a href="#" class="white-text"> Contact </a></p>
+                </div>
+                  
+                <div class="col s2"> 
+                    <p><a href="/EquidaWebG2/ServletFooter/mentions_legales" class="white-text"> Mentions legales </a></p>
+                </div>
+            </div>
+        </div>
+    </footer>   
+
+    <script src="<%= request.getContextPath()%>/js/materialize.min.js"></script>
+	
+    <script> 
+        $(document).ready(function(){
+        $('.carousel').carousel({indicators: true, duration: 200});
+		$('select').formSelect();
+        autoplay();
+        function autoplay() {
+            $('.carousel').carousel('next');
+            setTimeout(autoplay, 15000);
+        }
+      });
+    </script>
+    </body>
 </html>

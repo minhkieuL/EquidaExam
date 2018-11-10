@@ -6,13 +6,27 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:include page="/vues/include/header.jsp" />
-<div class="container">
-<h1>Connexion</h1>
+
+<h1 class="center-align">Connexion</h1>
+
+<div class="row">
+    <form action="connexion" method="POST" class="col s10 push-s1 l6 push-l3 center-align">
+		<div class="row">
+			<div class="input-field col s12">
+				<input type="text" id="login" name="login" class="validate"/>
+				<label for="login">Nom d'utilisateur</label>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="input-field col s12">
+				<input type="password" id="passwd" name="passwd" class="validate"/>
+				<label for="passwd">Mot de passe</label>
+			</div>
+		</div>
+		
+        <input type="submit" value="Valider"/>
+    </form>
 </div>
-<form action="connexion" method="POST">
-    <label for="login">Nom d'utilisateur</label><input type="text" id="login" name="login"/><br/>
-    <label for="passwd">Mot de passe</label><input type="password" id="passwd" name="passwd"/><br/>
-    <input type="submit"/>
-</form>
 
 <jsp:include page="/vues/include/footer.jsp" />

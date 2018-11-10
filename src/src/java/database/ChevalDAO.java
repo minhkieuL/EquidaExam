@@ -26,7 +26,7 @@ public class ChevalDAO {
 
 	// Méthode permettant d'insérer un client en base à partir de l'objet client passé en paramètre
 	// Cette méthode renvoie l'objet client
-	public static Cheval ajouterCheval(Connection connection, Cheval unCheval, HttpServletRequest request) {
+	public static int ajouterCheval(Connection connection, Cheval unCheval, HttpServletRequest request) {
 		int idGenere = -1;
 		try {
 			//preparation de la requete
@@ -74,7 +74,7 @@ public class ChevalDAO {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
-		return unCheval;
+		return idGenere;
 	}
 
 	public static Cheval getCheval(Connection connection, int idCheval) {
@@ -87,9 +87,8 @@ public class ChevalDAO {
 			//executer la requete
 			rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
-				unCheval.setId(rs.getInt("id"));
+				unCheval.setId(idCheval);
 				unCheval.setNom(rs.getString("nom"));
 			}
 		} catch (SQLException e) {

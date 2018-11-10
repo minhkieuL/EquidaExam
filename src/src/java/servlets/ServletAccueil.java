@@ -29,7 +29,7 @@ public class ServletAccueil extends ServletBase {
 		super.doGet(request, response);
 		changerTitrePage("Accueil", request);
 
-		this.getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/vues/index.jsp").forward(request, response);
 	}
 
 }

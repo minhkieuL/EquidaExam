@@ -69,6 +69,16 @@ public class ServletCheval extends ServletBase {
 
 			getServletContext().getRequestDispatcher("/vues/ventes/listerLesChevauxParVentes.jsp").forward(request, response);
 		}
+		
+		if (url.equals("/EquidaWebG2/ServletCheval/consulterCheval")) {
+			int idCheval = Integer.valueOf(request.getParameter("id"));
+			Cheval cheval = ChevalDAO.getCheval(connection, idCheval);
+
+			request.setAttribute("pCheval", cheval);
+			changerTitrePage("Cheval " + cheval.getNom(), request);
+
+			getServletContext().getRequestDispatcher("/vues/cheval/chevalConsulter.jsp").forward(request, response);
+		}
 	}
 
 	/**
@@ -100,8 +110,8 @@ public class ServletCheval extends ServletBase {
 
 				if (form.getErreurs().isEmpty()) {
 					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-					ChevalDAO.ajouterCheval(connection, unCheval, request);
-					this.getServletContext().getRequestDispatcher("/vues/cheval/chevalConsulter.jsp").forward(request, response);
+					int idCheval = ChevalDAO.ajouterCheval(connection, unCheval, request);
+					response.sendRedirect("/EquidaWebG2/ServletCheval/consulterCheval?id="+idCheval);
 				} else {
 					// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
 					ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
@@ -109,7 +119,7 @@ public class ServletCheval extends ServletBase {
 
 					/*ArrayList<Lot> lesLots = LotDAO.getLesLots(connection);
 					request.setAttribute("pLesLots", lesLots);*/
-					this.getServletContext().getRequestDispatcher("/vues/cheval/chevalAjouter.jsp").forward(request, response);
+					response.sendRedirect("/vues/cheval/chevalAjouter.jsp");
 				}
 			} else {
 				redirigerVersAcceuil(response);

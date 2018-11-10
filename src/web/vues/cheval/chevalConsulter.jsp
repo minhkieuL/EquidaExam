@@ -8,9 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<div class="container">
-    <h1>Infos cheval</h1>
-</div>
+
+<h1 class="center-align">Infos cheval</h1>
 
 <%
 Cheval unCheval = (Cheval)request.getAttribute("pCheval");
@@ -51,6 +50,5 @@ Cheval unCheval = (Cheval)request.getAttribute("pCheval");
     </tr>
 
 </table>
-
 
 <jsp:include page="/vues/include/footer.jsp" />

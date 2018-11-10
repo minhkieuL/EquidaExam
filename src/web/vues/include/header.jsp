@@ -23,9 +23,9 @@
     <head>
         <meta charset="UTF-8" />
 		<title>Equida <%= title%></title>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+                <link rel="stylesheet" href="<%= request.getContextPath()%>/css/materialize.min.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-                <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+                <script type = "text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	</head>    
 
@@ -63,12 +63,11 @@
 			
 			%>
                         <%             
-                        if (!url.equals("/EquidaWebG2/index.jsp")) {
+                        if (!url.equals("/EquidaWebG2")) {
                         %> 
                             <ul id="nav-mobile" class="left offset-1 hide-on-med-and-down">
 				<li><a href="/EquidaWebG2/">Accueil</a></li>
                         <% } %>
-                                
-                                
-    
     </nav>
+    
+    <div class="container">
