@@ -76,9 +76,8 @@ public class TypeChevalDAO {
 		TypeCheval unTypeCheval = new TypeCheval();
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("select * from typecheval WHERE id=?");
-			requete.setInt(1, idTypeCheval);
-
+			requete = connection.prepareStatement("SELECT * FROM typecheval; ");
+			
 			//executer la requete
 			rs = requete.executeQuery();
 
@@ -94,4 +93,27 @@ public class TypeChevalDAO {
 		}
 		return unTypeCheval;
 	}
+	
+	public static TypeCheval modifierTypeCheval(Connection connection, TypeCheval unTypeCheval, int idTypeCheval){      
+        
+        try
+        {
+            //preparation de la requete 
+            requete=connection.prepareStatement(" UPDATE typecheval SET libelle = ?, description = ? WHERE id = ?; ");
+      
+            requete.setString(1, unTypeCheval.getLibelle());
+			requete.setString(2, unTypeCheval.getDesc());
+			requete.setInt(3, idTypeCheval);
+            /* Exécution de la requête */
+            requete.executeUpdate();
+            
+            //System.out.println("requete " +requete);
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unTypeCheval ; 
+    }
 }

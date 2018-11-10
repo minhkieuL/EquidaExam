@@ -24,6 +24,14 @@
         <servlet-name>ServletVentes</servlet-name>
         <servlet-class>servlets.ServletVentes</servlet-class>
     </servlet>
+	<servlet>
+		<servlet-name>ServletCourse</servlet-name>
+		<servlet-class>servlets.ServletCourse</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ServletLieu</servlet-name>
+		<servlet-class>servlets.ServletLieu</servlet-class>
+	</servlet>
     <servlet>
         <servlet-name>ServletClient</servlet-name>
         <servlet-class>servlets.ServletClient</servlet-class>
@@ -36,6 +44,10 @@
         <servlet-name>ServletAccueil</servlet-name>
         <servlet-class>servlets.ServletAccueil</servlet-class>
     </servlet>
+	<servlet>
+		<servlet-name>ServletCourriel</servlet-name>
+		<servlet-class>servlets.ServletCourriel</servlet-class>
+	</servlet>
     <servlet>
         <servlet-name>ServletCategVente</servlet-name>
         <servlet-class>servlets.ServletCategVente</servlet-class>
@@ -93,6 +105,14 @@
         <url-pattern>/ServletCheval/ajouterCheval</url-pattern>
     </servlet-mapping> 
 	<servlet-mapping>
+		<servlet-name>ServletLieu</servlet-name>
+		<url-pattern>/ServletLieu/ajouterLieu</url-pattern>
+	</servlet-mapping> 
+	<servlet-mapping>	
+		<servlet-name>ServletAccueil</servlet-name>
+		<url-pattern></url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
         <servlet-name>ServletCheval</servlet-name>
         <url-pattern>/ServletCheval/consulterCheval</url-pattern>
     </servlet-mapping>
@@ -137,20 +157,38 @@
         <url-pattern>/ServletFooter/qui_sommes_nous</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletAccueil</servlet-name>
-        <url-pattern></url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ServletTypeCheval</servlet-name>
         <url-pattern>/ServletTypeCheval/typeChevalAjouter</url-pattern>
+	</servlet-mapping>
+    <servlet-mapping>
+		<servlet-name>ServletCheval</servlet-name>
+		<url-pattern>/ServletCheval/chevalModifier</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletFooter</servlet-name>
         <url-pattern>/ServletFooter</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-	</session-timeout>
+	<servlet-mapping>
+        <servlet-name>ServletTypeCheval</servlet-name>
+        <url-pattern>/ServletTypeCheval/typeChevalModifier</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+        <servlet-name>ServletTypeCheval</servlet-name>
+        <url-pattern>/ServletTypeCheval/listerLesTypeCheval</url-pattern>
+    </servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletCourse</servlet-name>
+		<url-pattern>/ServletCourse/courseAjouter</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletCourse</servlet-name>
+		<url-pattern>/ServletCourse/listerLesCourses</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ServletCourse</servlet-name>
+		<url-pattern>/ServletCourse/courseModifier</url-pattern>
+	</servlet-mapping>
+	<session-config>
+        <session-timeout>30</session-timeout>
     </session-config>
 </web-app>

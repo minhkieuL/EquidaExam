@@ -20,7 +20,7 @@ ArrayList<Pays> lesPays = (ArrayList)request.getAttribute("pLesPays");
         <tr>             
             <th>code</th>
             <th>nom</th>
-            <th>modifier</th>
+           
         </tr>
     </thead>
     <tbody>
