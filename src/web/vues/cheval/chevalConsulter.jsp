@@ -17,6 +17,7 @@ Cheval unCheval = (Cheval)request.getAttribute("pCheval");
 	<div class="col s12 l6 right valign-wrapper">
 		<img src="<%= request.getContextPath()%>/img/1.jpg" class="responsive-img "/>
 	</div>
+	
 	<div class="col s12 l6 left">
 		<h2><%= unCheval.getNom()%></h2>
 		<p class="tooltipped" data-position="bottom" data-tooltip="<%= unCheval.getTypeCheval().getDesc()%>">Race : <%= unCheval.getTypeCheval().getLibelle() %></p>

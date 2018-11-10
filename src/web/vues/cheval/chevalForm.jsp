@@ -25,7 +25,7 @@
 <h2 class="center-align"><%= (unCheval == null) ? "Nouveau" : "Modifier un"%> cheval</h2>
 
 <div class="row">
-	<form class="col s10 push-s1 l6 push-l3 center-align" action="<%= (unCheval == null) ? "ajouterCheval" : "chevalModifier"%>" method="POST">
+	<form class="col s10 push-s1 l8 push-l2 center-align" action="<%= (unCheval == null) ? "ajouterCheval" : "chevalModifier"%>" method="POST">
 		
 		<input type="hidden" name="id" value="<%= (unCheval != null) ? unCheval.getId() : ""%>">
 

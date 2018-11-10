@@ -17,7 +17,7 @@
 %>
 
 <div class="row">
-	<form action="categorieVenteAjouter" method="POST" class="col s10 push-s1 l6 push-l3 center-align">
+	<form action="categorieVenteAjouter" method="POST" class="col s10 push-s1 l8 push-l2 center-align">
 		<div class="row">
 			<div class="input-field col s12">
 				<input id="code" type="text" name="code" size="4" maxlength="4" class="validate">

@@ -12,81 +12,80 @@
 
 <jsp:include page="/vues/include/header.jsp" />
 
-<div class="container">
-<h1>Nouveau client</h1>
-</div>
+<h2 class="center-align">Nouveau client</h2>
 
 <%
 	   //Client client=(Client)request.getAttribute("client");
 	   ClientForm form = (ClientForm)request.getAttribute("form");
 %>
+<div class="row">
+	<form class="col s10 push-s1 l8 push-l2 center-align" action="ajouterClient" method="POST">
+		<div class="row">
+			<div class="input-field col s12 l6">
+				<input id="nom" type="text" name="nom" size="30" maxlength="30" class="validate">
+				<label for="nom">Nom : </label>
+			</div>
 
-<form class="form-inline" action="ajouterClient" method="POST">
-	<label for="nom">Nom : </label>
-	<input id="nom" type="text" name="nom"  size="30" maxlength="30">
-	</br>
+			<div class="input-field col s12 l6">
+				<input id="prenom"  type="text"  name="prenom" size="30" maxlength="30" class="validate">      
+				<label for="prenom">Prénom : </label>
+			</div>
+		</div>
 
-	<label for="prenom">Prénom : </label>
-	<input id="prenom"  type="text"  name="prenom" size="30" maxlength="30">      
-	</br>
+		<div class="row">
+			<div class="input-field col s12">
+				<input id="rue"  type="text"  name="rue" size="30" maxlength="50" class="validate">
+				<label for="rue">Adresse : </label>
+			</div>
+		</div>
+					
+		<div class="row">
+			<div class="input-field col s12 l6">
+				<label for="copos">Code postal : </label>
+				<input id="copos"  type="text"  name="copos" size="5" maxlength="5" class="validate">
+			</div>
 
-	<label for="rue">Adresse : </label>
-	<input id="rue"  type="text"  name="rue" size="30" maxlength="50">
-	</br>
-
-
-	<label for="copos">Code postal : </label>
-	<input id="copos"  type="text"  name="copos" size="5" maxlength="5">
-	</br>
-
-	<label for="ville">Ville : </label>
-	<input id="ville"  type="text"  name="ville" size="40" maxlength="40">
-	</br>
-
-	<%-- Champ Liste des pays --%>
-	<label for="pays">Pays : </label>
-	<input list="listePays" name="pays" id="choix_pays">
-
-	<datalist id="codePays">
-		<%
-			ArrayList<Pays> lesPays = (ArrayList)request.getAttribute("pLesPays");
-			for (int i=0; i<lesPays.size();i++){
-				Pays p = lesPays.get(i);
-				out.println("<option value='" + p.getCode()+"'>" + p.getNom()+"</option>" );
-			}
-		%>
-	</datalist>
-	</br>            
-
-	<label for="categVente">Categorie Vente : </label>
-	<select name="categVente" size="5" multiple>
-        <%
-                ArrayList<CategVente> lesCategVente = (ArrayList)request.getAttribute("pLesCategVente");
-                for (int i=0; i<lesCategVente.size();i++){
-                    CategVente cv = lesCategVente.get(i);
-                    out.println("<option value ='" + cv.getCode() + "'>" + cv.getLibelle() + "</option>"); 
-
-                }
-		%>
-	</select></br>
+			<div class="input-field col s12 l6">
+				<input id="ville"  type="text"  name="ville" size="40" maxlength="40" class="validate">
+				<label for="ville">Ville : </label>
+			</div>
+		</div>
 
 
 
-	<%--Cases à cocher permettant de choisir les différentes catégories de vente auxquelles le client souhaite s'inscrire 
-   <label for="categVente">Categories de vente : </label></br>
-	<%
-		   ArrayList<CategVente> lesCategVente = (ArrayList)request.getAttribute("pLesCategVente");
-		   for (int i=0; i<lesCategVente.size();i++){
-			   CategVente cv = lesCategVente.get(i);
-			   out.println("<input type='checkbox' id='cb" + i + "' name='" + cv.getCode() + "'>"); 
-			   out.println(cv.getLibelle()); 
-			   out.println("</label></br>");
-		   }
-%>--%>
-	</br>
+
+		<div class="row">
+			<div class="input-field col s12 l6">
+				<select name="pays" id="choix_pays">
+				<%
+					ArrayList<Pays> lesPays = (ArrayList)request.getAttribute("pLesPays");
+					for (int i=0; i<lesPays.size();i++){
+						Pays p = lesPays.get(i);
+						out.println("<option value='" + p.getCode()+"'>" + p.getNom()+"</option>" );
+					}
+				%>
+				</select>
+				<label for="pays">Pays : </label>
+			</div>
+     
+			<div class="input-field col s12 l6">
+				<select name="categVente" size="5" multiple>
+					<%
+							ArrayList<CategVente> lesCategVente = (ArrayList)request.getAttribute("pLesCategVente");
+							for (int i=0; i<lesCategVente.size();i++){
+								CategVente cv = lesCategVente.get(i);
+								out.println("<option value ='" + cv.getCode() + "'>" + cv.getLibelle() + "</option>"); 
+
+							}
+					%>
+				</select>
+				<label for="categVente">Categorie Vente : </label>
+			</div>
+		
+		</div>
 
 
-
-    <input type="submit" name="valider" id="valider" value="Valider"/>
-</form>
+		<input type="submit" name="valider" id="valider" value="Valider"/>
+	</form>
+</div>
 <jsp:include page="/vues/include/footer.jsp" />

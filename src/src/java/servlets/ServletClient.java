@@ -75,6 +75,27 @@ public class ServletClient extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
+		
+		if (url.equals("/EquidaWebG2/ServletClient/clientConsulter")) {
+			if(user instanceof DirecteurGeneral) {
+				int idClient = 0;
+				try {
+					idClient = Integer.valueOf(request.getParameter("id"));
+				} catch(Exception e) {
+					redirigerVersAcceuil(response);
+					return;
+				}
+				
+				Client client = ClientDAO.getClient(connection, idClient);
+
+				request.setAttribute("pClient", client);
+				changerTitrePage("Client " + client.getNom() + " " + client.getPrenom(), request);
+
+				getServletContext().getRequestDispatcher("/vues/client/clientConsulter.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
 	}
 
 	/**
@@ -105,8 +126,8 @@ public class ServletClient extends ServletBase {
 
 				if (form.getErreurs().isEmpty()) {
 					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-					ClientDAO.ajouterClient(connection, unClient);
-					this.getServletContext().getRequestDispatcher("/vues/client/clientConsulter.jsp").forward(request, response);
+					int idClient = ClientDAO.ajouterClient(connection, unClient);
+					response.sendRedirect("/EquidaWebG2/ServletClient/clientConsulter?id="+idClient);
 				} else {
 					// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
 					ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
