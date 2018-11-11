@@ -42,7 +42,7 @@ public class ServletLot extends ServletBase {
 
 		String url = request.getRequestURI();
 		if (url.equals("/EquidaWebG2/ServletLot/listerLesLots")) {
-			ArrayList<Lot> lesLots = LotDAO.getLesLots(connection);
+			ArrayList<Lot> lesLots = LotDAO.getLesLotsNonVendu(connection);
 
 			request.setAttribute("pLots", lesLots);
 			changerTitrePage("Lister les lots", request);

@@ -52,11 +52,11 @@ public class LotDAO {
 		return lesLots;
 	}
 
-	public static ArrayList<Lot> getLesLots(Connection connection) {
+	public static ArrayList<Lot> getLesLotsNonVendu(Connection connection) {
 		ArrayList<Lot> lesLots = new ArrayList<Lot>();
 		try {
 			//preparation de la requete     
-			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lot");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lot WHERE id NOT IN (SELECT lot FROM enchere WHERE montant != 0) ORDER BY prixDepart DESC");
 
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
