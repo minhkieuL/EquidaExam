@@ -6,25 +6,18 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<script>
-	$(document).ready(function () {
-		$(".dropdown-button").dropdown();
-	});
-</script>
 
-<nav>
-	<div class="nav-wrapper light-green lighten-2">
-		<ul class="right hide-on-med-and-down">
-			<!-- Dropdown Trigger -->
-			<li><a class="dropdown-button" href="#!" data-target="dropdownClient">Client<i class="material-icons right">arrow_drop_down</i></a></li>
-			<li><a class="dropdown-button" href="#!" data-target="dropdownCheval">Cheval<i class="material-icons right">arrow_drop_down</i></a></li>
-			<li><a class="dropdown-button" href="#!" data-target="dropdownVente">Vente<i class="material-icons right">arrow_drop_down</i></a></li>
-			<li><a class="dropdown-button" href="#!" data-target="dropdownPays">Pays<i class="material-icons right">arrow_drop_down</i></a></li>
-			<li><a class="dropdown-button" href="#!" data-target="dropdownLieu">Lieu<i class="material-icons right">arrow_drop_down</i></a></li>
-			<li><a class="dropdown-button" href="#!" data-target="dropdownCourses">Courses<i class="material-icons right">arrow_drop_down</i></a></li>
-		</ul>
-	</div>
-</nav>
+<!-- Dropdown Trigger -->
+
+<ul class="left hide-on-med-and-down">
+	<li><a class="dropdown-button" href="#!" data-target="dropdownClient">Client<i class="material-icons right">arrow_drop_down</i></a></li>
+	<li><a class="dropdown-button" href="#!" data-target="dropdownCheval">Cheval<i class="material-icons right">arrow_drop_down</i></a></li>
+	<li><a class="dropdown-button" href="#!" data-target="dropdownVente">Vente<i class="material-icons right">arrow_drop_down</i></a></li>
+	<li><a class="dropdown-button" href="#!" data-target="dropdownPays">Pays<i class="material-icons right">arrow_drop_down</i></a></li>
+	<li><a class="dropdown-button" href="#!" data-target="dropdownLieu">Lieu<i class="material-icons right">arrow_drop_down</i></a></li>
+	<li><a class="dropdown-button" href="#!" data-target="dropdownCourses">Courses<i class="material-icons right">arrow_drop_down</i></a></li>
+</ul>
+
 
 <!-- Dropdown Structure -->
 <ul id="dropdownVente" class="dropdown-content">
@@ -32,24 +25,29 @@
 	<li class="divider"></li>
 	<li><a href="/EquidaWebG2/ServletCategVente/categorieVenteAjouter">Ajouter catégorie de vente</a></li>
 </ul>
+
 <ul id="dropdownClient" class="dropdown-content">
 	<li><a href="/EquidaWebG2/ServletClient/listerLesClients">Lister</a></li>
 	<li class="divider"></li>
 	<li><a href="/EquidaWebG2/ServletClient/ajouterClient">Ajouter</a></li>
 </ul>
+
 <ul id="dropdownCheval" class="dropdown-content">
 	<li><a href="/EquidaWebG2/ServletTypeCheval/typeChevalAjouter">Ajouter une race</a></li>
 	<li class="divider"></li>
 	<li><a href="/EquidaWebG2/ServletTypeCheval/listerLesTypeCheval">Lister les races de chevaux</a></li>
 </ul>
+
 <ul id="dropdownPays" class="dropdown-content">
 	<li><a href="/EquidaWebG2/ServletPays/paysAjouter">Ajouter un pays</a></li>
 	<li class="divider"></li>
 	<li><a href="/EquidaWebG2/ServletPays/listerLesPays">Lister les pays</a></li>
 </ul>
+
 <ul id="dropdownLieu" class="dropdown-content">
 	<li><a href="/EquidaWebG2/ServletLieu/ajouterLieu">Ajouter un lieu</a></li>
 </ul>
+
 <ul id="dropdownCourses" class="dropdown-content">
 	<li><a href="/EquidaWebG2/ServletCourse/courseAjouter">Ajouter une course</a></li>
 	<li class="divider"></li>

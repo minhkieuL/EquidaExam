@@ -21,7 +21,7 @@
 
     <div class="row">
         <ul class="col s12 l6 left collection with-header">
-            <li class="collection-header"><h4>Nouveaux chevaux inscrits</h4></li>
+            <li class="collection-header"><h4>Nouveaux chevaux</h4></li>
             <li class="collection-item">Alvin</li>
             <li class="collection-item">Alvin</li>
             <li class="collection-item">Alvin</li>

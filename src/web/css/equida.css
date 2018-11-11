@@ -1,0 +1,14 @@
+/* 
+    Created on : 10 nov. 2018, 22:20:09
+    Author     : MartinJ
+*/
+
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}

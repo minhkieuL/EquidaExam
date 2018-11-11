@@ -6,7 +6,4 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
-      <ul class="tabs tabs-transparent light-green lighten-2">
-        <li class="tab"><a href="/EquidaWebG2/ServletCheval/ajouterCheval">Ajouter un cheval</a></li>
-      </ul>
+<li><a href="/EquidaWebG2/ServletCheval/ajouterCheval">Ajouter un cheval</a></li>
