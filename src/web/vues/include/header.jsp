@@ -53,22 +53,20 @@
 				</div>
 				<div class="nav-wrapper light-green darken-3">
 					<div class="nav-mobile">
-						<%
-							//On verifie si un dircteur general ou un client est connecte et on affiche le menu correspondant
-							if (user instanceof DirecteurGeneral) {
-						%>
-						<jsp:include page="/vues/include/nav_directeur_general.jsp" />	
-						<%
-						}%>
-						<ul class="right hide-on-med-and-down">
+						<ul class="left hide-on-med-and-down">
 							<%
-								if (user instanceof Client) {
+								//On verifie si un dircteur general ou un client est connecte et on affiche le menu correspondant
+								if (user instanceof DirecteurGeneral) {
+							%>
+							<jsp:include page="/vues/include/nav_directeur_general.jsp" />	
+							<%
+							} else if (user instanceof Client) {
 							%>
 							<jsp:include page="/vues/include/nav_client.jsp" />	
 							<%
-								}
-
-							%>
+							}%>
+						</ul>
+						<ul class="right hide-on-med-and-down">
 							<jsp:include page="/vues/include/nav_public.jsp" />	
 						</ul>
 					</div>

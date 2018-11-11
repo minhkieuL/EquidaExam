@@ -18,6 +18,8 @@ import modele.Utilisateur;
  */
 public class ServletCourriel extends ServletBase {
 
+	private static final String URL_LISTER_COURIELS = "/EquidaWebG2/ServletCourriel/listerLesCourriels";
+	
 	Connection connection;
 
 	@Override
@@ -40,7 +42,7 @@ public class ServletCourriel extends ServletBase {
 		
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-		if (url.equals("/EquidaWebG2/ServletCourriel/listerLesCourriels")) {
+		if (url.equals(URL_LISTER_COURIELS)) {
 			if(user instanceof DirecteurGeneral) {
 				String codeVente = (String) request.getParameter("codeVente");
 				ArrayList<Courriel> lesCourriels = CourrielDAO.getLesCourriels(connection, codeVente);

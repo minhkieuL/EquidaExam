@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ServletFooter extends ServletBase {
 
+	private static final String URL_MENTIONS_LEGALES = "/EquidaWebG2/ServletFooter/mentions_legales";
+	private static final String URL_QUI_SOMMES_NOUS = "/EquidaWebG2/ServletFooter/qui_sommes_nous";
+	
 	Connection connection;
 
 	@Override
@@ -33,13 +36,13 @@ public class ServletFooter extends ServletBase {
 		super.doGet(request, response);
 		String url = request.getRequestURI();
 
-		if (url.equals("/EquidaWebG2/ServletFooter/mentions_legales")) {
+		if (url.equals(URL_MENTIONS_LEGALES)) {
 			changerTitrePage("Mentions legales", request);
 
 			getServletContext().getRequestDispatcher("/vues/informations/mentions_legales.jsp").forward(request, response);
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletFooter/qui_sommes_nous")) {
+		if (url.equals(URL_QUI_SOMMES_NOUS)) {
 			changerTitrePage("Qui sommes-nous", request);
 
 			getServletContext().getRequestDispatcher("/vues/informations/qui_sommes_nous.jsp").forward(request, response);

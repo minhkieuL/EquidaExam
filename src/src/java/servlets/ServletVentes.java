@@ -26,6 +26,10 @@ import modele.Vente;
  */
 public class ServletVentes extends ServletBase {
 
+	public static final String URL_LISTER_VENTES = "/EquidaWebG2/ServletVentes/listerLesVentes";
+	public static final String URL_CONSULTER_VENTE = "/EquidaWebG2/ServletVentes/venteConsulter";
+	public static final String URL_LISTER_VENTES_A_VENIR = "/EquidaWebG2/ServletVentes/listerLesVentesAVenir";
+	
 	Connection connection;
 
 	@Override
@@ -47,7 +51,7 @@ public class ServletVentes extends ServletBase {
 		String url = request.getRequestURI();
 
 		// Récup et affichage par date décroissante de toutes les ventes   
-		if (url.equals("/EquidaWebG2/ServletVentes/listerLesVentes")) {
+		if (url.equals(URL_LISTER_VENTES)) {
 			String catVente = (String) request.getParameter("catVente");
 			ArrayList<Vente> lesVentes = VenteDAO.getLesVentes(connection, catVente);
 			ArrayList<CategVente> lesCatVentes = CategVenteDAO.getLesCategVentes(connection);
@@ -59,7 +63,7 @@ public class ServletVentes extends ServletBase {
 			getServletContext().getRequestDispatcher("/vues/ventes/listerLesVentes.jsp").forward(request, response);
 		}
 		 
-		if (url.equals("/EquidaWebG2/ServletVentes/venteConsulter")) {
+		if (url.equals(URL_CONSULTER_VENTE)) {
 			int idVente = 0;
 			try {
 				idVente = Integer.valueOf(request.getParameter("id"));
@@ -75,7 +79,7 @@ public class ServletVentes extends ServletBase {
 			getServletContext().getRequestDispatcher("/vues/ventes/venteConsulter.jsp").forward(request, response);
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletVentes/listerLesVentesAVenir")) {
+		if (url.equals(URL_LISTER_VENTES_A_VENIR)) {
 			String catVente = (String) request.getParameter("catVente");
 			ArrayList<Vente> lesVentes = VenteDAO.getLesVentesAVenir(connection, catVente);
 			ArrayList<CategVente> lesCatVentes = CategVenteDAO.getLesCategVentes(connection);

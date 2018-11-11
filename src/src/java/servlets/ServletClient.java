@@ -25,6 +25,10 @@ import modele.Utilisateur;
  */
 public class ServletClient extends ServletBase {
 
+	public static final String URL_AJOUTER_CLIENT = "/EquidaWebG2/ServletClient/ajouterClient";
+	public static final String URL_LISTER_CLIENTS = "/EquidaWebG2/ServletClient/listerLesClients";
+	public static final String URL_CONSULTER_CLIENT = "/EquidaWebG2/ServletClient/clientConsulter";
+	
 	Connection connection;
 
 	@Override
@@ -47,7 +51,7 @@ public class ServletClient extends ServletBase {
 		
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-		if (url.equals("/EquidaWebG2/ServletClient/ajouterClient")) {
+		if (url.equals(URL_AJOUTER_CLIENT)) {
 			if(user instanceof DirecteurGeneral) {
 				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
 				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
@@ -62,7 +66,7 @@ public class ServletClient extends ServletBase {
 			}
 		}
         
-		if (url.equals("/EquidaWebG2/ServletClient/listerLesClients")) {
+		if (url.equals(URL_LISTER_CLIENTS)) {
 			if(user instanceof DirecteurGeneral) {
 				String codeCat = (String) request.getParameter("codeCat");
 				ArrayList<Client> lesClients = ClientDAO.getLesClients(connection, codeCat);
@@ -76,7 +80,7 @@ public class ServletClient extends ServletBase {
 			}
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletClient/clientConsulter")) {
+		if (url.equals(URL_CONSULTER_CLIENT)) {
 			if(user instanceof DirecteurGeneral) {
 				int idClient = 0;
 				try {
@@ -112,7 +116,7 @@ public class ServletClient extends ServletBase {
         
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-        if (url.equals("/EquidaWebG2/ServletClient/ajouterClient")) {
+        if (url.equals(URL_AJOUTER_CLIENT)) {
 			if(user instanceof DirecteurGeneral) {
 				/* Préparation de l'objet formulaire */
 				ClientForm form = new ClientForm();
@@ -127,15 +131,9 @@ public class ServletClient extends ServletBase {
 				if (form.getErreurs().isEmpty()) {
 					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 					int idClient = ClientDAO.ajouterClient(connection, unClient);
-					response.sendRedirect("/EquidaWebG2/ServletClient/clientConsulter?id="+idClient);
+					response.sendRedirect(URL_CONSULTER_CLIENT+"?id="+idClient);
 				} else {
-					// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
-					ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
-					request.setAttribute("pLesPays", lesPays);
-
-					ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
-					request.setAttribute("pLesCategVente", lesCategVentes);
-					this.getServletContext().getRequestDispatcher("/vues/client/clientAjouter.jsp").forward(request, response);
+					response.sendRedirect(URL_AJOUTER_CLIENT);
 				}
 			} else {
 				redirigerVersAcceuil(response);

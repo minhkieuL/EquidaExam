@@ -23,7 +23,8 @@ import modele.Utilisateur;
  */
 public class ServletLieu extends ServletBase {
 	
-
+	private static final String URL_AJOUTER_LIEU = "/EquidaWebG2/ServletLieu/ajouterLieu";
+	
 	Connection connection;
 
 	@Override
@@ -46,7 +47,7 @@ public class ServletLieu extends ServletBase {
 		
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-		if (url.equals("/EquidaWebG2/ServletLieu/ajouterLieu")) {
+		if (url.equals(URL_AJOUTER_LIEU)) {
 			if(user instanceof DirecteurGeneral) {
 				changerTitrePage("Ajouter un lieu", request);
 
@@ -71,7 +72,7 @@ public class ServletLieu extends ServletBase {
         
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         String url = request.getRequestURI();
-        if (url.equals("/EquidaWebG2/ServletLieu/ajouterLieu")) {
+        if (url.equals(URL_AJOUTER_LIEU)) {
 			if(user instanceof DirecteurGeneral) {
 				/* Préparation de l'objet formulaire */
 				LieuForm formLieu = new LieuForm();
@@ -90,7 +91,7 @@ public class ServletLieu extends ServletBase {
 
 				} else {
 
-					this.getServletContext().getRequestDispatcher("/vues/lieu/lieuAjouter.jsp").forward(request, response);
+					response.sendRedirect(URL_AJOUTER_LIEU);
 				}
 			} else {
 				redirigerVersAcceuil(response);

@@ -19,6 +19,10 @@ import modele.Utilisateur;
  */
 public class ServletPays extends ServletBase {
 
+	public static final String URL_AJOUTER_PAYS = "/EquidaWebG2/ServletPays/paysAjouter";
+	public static final String URL_MODIFIER_PAYS = "/EquidaWebG2/ServletPays/paysModifier";
+	public static final String URL_LISTER_PAYS = "/EquidaWebG2/ServletPays/listerLesPays";
+	
 	Connection connection;
 
 	@Override
@@ -42,7 +46,7 @@ public class ServletPays extends ServletBase {
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
 
-		if (url.equals("/EquidaWebG2/ServletPays/paysAjouter")) {
+		if (url.equals(URL_AJOUTER_PAYS)) {
 			if (user instanceof DirecteurGeneral) {
 				changerTitrePage("Ajouter un pays", request);
 
@@ -52,7 +56,7 @@ public class ServletPays extends ServletBase {
 			}
 		}
 
-		if (url.equals("/EquidaWebG2/ServletPays/paysModifier")) {
+		if (url.equals(URL_MODIFIER_PAYS)) {
 			if (user instanceof DirecteurGeneral) {
 				String codePays = request.getParameter("code");
 				Pays unPays = PaysDAO.getPays(connection, codePays);
@@ -66,7 +70,7 @@ public class ServletPays extends ServletBase {
 			}
 		}
 
-		if (url.equals("/EquidaWebG2/ServletPays/listerLesPays")) {
+		if (url.equals(URL_LISTER_PAYS)) {
 			if(user instanceof DirecteurGeneral) {
 				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
 
@@ -94,7 +98,7 @@ public class ServletPays extends ServletBase {
 
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-		if (url.equals("/EquidaWebG2/ServletPays/paysAjouter")) {
+		if (url.equals(URL_AJOUTER_PAYS)) {
 			if(user instanceof DirecteurGeneral) {
 				/* Préparation de l'objet formulaire */
 				PaysForm formPays = new PaysForm();
@@ -109,18 +113,18 @@ public class ServletPays extends ServletBase {
 					request.setAttribute("form", formPays);
 					request.setAttribute("pPays", unPays);
 
-					response.sendRedirect("/EquidaWebG2/ServletPays/listerLesPays");
+					response.sendRedirect(URL_LISTER_PAYS);
 
 				} else {
 
-					this.getServletContext().getRequestDispatcher("/vues/pays/paysAjouter.jsp").forward(request, response);
+					response.sendRedirect(URL_AJOUTER_PAYS);
 				}
 			} else {
 				redirigerVersAcceuil(response);
 			}
 		}
 
-		if (url.equals("/EquidaWebG2/ServletPays/paysModifier")) {
+		if (url.equals(URL_MODIFIER_PAYS)) {
 			if(user instanceof DirecteurGeneral) {
 				/* Préparation de l'objet formulaire */
 				PaysForm form = new PaysForm();
@@ -136,10 +140,10 @@ public class ServletPays extends ServletBase {
 					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 
 					PaysDAO.modifierPays(connection, unPays, form.getPaysOrigin(request));
-					response.sendRedirect("/EquidaWebG2/ServletPays/listerLesPays");
+					response.sendRedirect(URL_LISTER_PAYS);
 
 				} else {
-					this.getServletContext().getRequestDispatcher("/vues/pays/paysAjouter.jsp").forward(request, response);
+					response.sendRedirect(URL_MODIFIER_PAYS+"?code="+unPays.getCode());
 				}
 			} else {
 				redirigerVersAcceuil(response);

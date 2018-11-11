@@ -20,6 +20,10 @@ import modele.Utilisateur;
  */
 public class ServletCourse extends ServletBase {
 
+	private static final String URL_AJOUTER_COURSE = "/EquidaWebG2/ServletCourse/courseAjouter";
+	private static final String URL_MODIFIER_COURSE = "/EquidaWebG2/ServletCourse/courseModifier";
+	private static final String URL_LISTER_COURSES = "/EquidaWebG2/ServletCourse/listerLesCourses";
+	
 	Connection connection;
 
 	@Override
@@ -42,7 +46,7 @@ public class ServletCourse extends ServletBase {
 		
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-		if (url.equals("/EquidaWebG2/ServletCourse/courseAjouter")) {
+		if (url.equals(URL_AJOUTER_COURSE)) {
 			if(user instanceof DirecteurGeneral) {
 				changerTitrePage("Ajouter une Course", request);
 
@@ -52,7 +56,7 @@ public class ServletCourse extends ServletBase {
 			}			
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletCourse/courseModifier")) {
+		if (url.equals(URL_MODIFIER_COURSE)) {
 			if (user instanceof DirecteurGeneral) {
 				int idCourse = Integer.valueOf(request.getParameter("code"));
 				Course uneCourse = CourseDAO.getCourse(connection, idCourse);
@@ -66,7 +70,7 @@ public class ServletCourse extends ServletBase {
 			}
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletCourse/listerLesCourses")) {
+		if (url.equals(URL_LISTER_COURSES)) {
 			if(user instanceof DirecteurGeneral) {
 				ArrayList <Course> lesCourses = CourseDAO.getLesCourses(connection);
 
@@ -94,7 +98,7 @@ public class ServletCourse extends ServletBase {
         
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         String url = request.getRequestURI();
-        if (url.equals("/EquidaWebG2/ServletCourse/courseAjouter")) {
+        if (url.equals(URL_AJOUTER_COURSE)) {
 			if(user instanceof DirecteurGeneral) {
 				/* Préparation de l'objet formulaire */
 				CourseForm formCourse = new CourseForm();
@@ -109,18 +113,17 @@ public class ServletCourse extends ServletBase {
 					request.setAttribute("form", formCourse);
 					request.setAttribute("pCourse", uneCourse);
 
-					response.sendRedirect("/EquidaWebG2/ServletCourse/listerLesCourses");
+					response.sendRedirect(URL_LISTER_COURSES);
 
 				} else {
-
-					this.getServletContext().getRequestDispatcher("/vues/course/courseAjouter.jsp").forward(request, response);
+					response.sendRedirect(URL_AJOUTER_COURSE);
 				}
 			} else {
 				redirigerVersAcceuil(response);
 			}
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletCourse/courseModifier")) {
+		if (url.equals(URL_MODIFIER_COURSE)) {
 			if(user instanceof DirecteurGeneral) {
 				/* Préparation de l'objet formulaire */
 				CourseForm form = new CourseForm();
@@ -136,9 +139,9 @@ public class ServletCourse extends ServletBase {
 					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 
 					CourseDAO.modifierCourse(connection, uneCourse, form.getCourseOrigin(request));
-					response.sendRedirect("/EquidaWebG2/ServletCourse/listerLesCourses");
+					response.sendRedirect(URL_LISTER_COURSES);
 				} else {
-					this.getServletContext().getRequestDispatcher("/vues/course/courseAjouter.jsp").forward(request, response);
+					response.sendRedirect(URL_MODIFIER_COURSE+"?code="+uneCourse.getId());
 				}
 			} else {
 				redirigerVersAcceuil(response);

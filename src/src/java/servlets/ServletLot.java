@@ -16,6 +16,8 @@ import modele.Lot;
  */
 public class ServletLot extends ServletBase {
 
+	public static final String URL_LISTER_LOTS = "/EquidaWebG2/ServletLot/listerLesLots";
+	
 	Connection connection;
 
 	@Override
@@ -37,7 +39,7 @@ public class ServletLot extends ServletBase {
 		super.doGet(request, response);
 
 		String url = request.getRequestURI();
-		if (url.equals("/EquidaWebG2/ServletLot/listerLesLots")) {
+		if (url.equals(URL_LISTER_LOTS)) {
 			ArrayList<Lot> lesLots = LotDAO.getLesLotsNonVendu(connection);
 
 			request.setAttribute("pLots", lesLots);

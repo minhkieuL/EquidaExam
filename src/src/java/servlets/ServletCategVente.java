@@ -18,7 +18,11 @@ import modele.Utilisateur;
  * @author slam
  */
 public class ServletCategVente extends ServletBase {
-
+	
+	public static final String URL_AJOUTER_CATEG_VENTE = "/EquidaWebG2/ServletCategVente/categorieVenteAjouter";
+	public static final String URL_LISTER_CATEG_VENTE = "/EquidaWebG2/ServletCategVente/listerLesCategVentes";
+	public static final String URL_MODIFIER_CATEG_VENTE = "/EquidaWebG2/ServletCategVente/categorieVenteModifier";
+	
 	Connection connection;
 
 	@Override
@@ -41,7 +45,7 @@ public class ServletCategVente extends ServletBase {
 		
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-		if (url.equals("/EquidaWebG2/ServletCategVente/categorieVenteAjouter")) {
+		if (url.equals(URL_AJOUTER_CATEG_VENTE)) {
 			if(user instanceof DirecteurGeneral) {
 				changerTitrePage("Ajouter une catégorie de vente", request);
 
@@ -51,7 +55,7 @@ public class ServletCategVente extends ServletBase {
 			}
 		}
         
-        if (url.equals("/EquidaWebG2/ServletCategVente/listerLesCategVentes")) {
+        if (url.equals(URL_LISTER_CATEG_VENTE)) {
 			if(user instanceof DirecteurGeneral) {
 				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
 
@@ -64,7 +68,7 @@ public class ServletCategVente extends ServletBase {
 			}
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletCategVente/categorieVenteModifier")) {
+		if (url.equals(URL_MODIFIER_CATEG_VENTE)) {
 			if(user instanceof DirecteurGeneral) {
 				String codeCateg = request.getParameter("code");
 				CategVente uneCategVente = CategVenteDAO.getCategVente(connection, codeCateg);
@@ -94,7 +98,7 @@ public class ServletCategVente extends ServletBase {
         
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         String url = request.getRequestURI();
-        if (url.equals("/EquidaWebG2/ServletCategVente/categorieVenteAjouter")) {
+        if (url.equals(URL_AJOUTER_CATEG_VENTE)) {
 			if(user instanceof DirecteurGeneral) {
 				/* Préparation de l'objet formulaire */
 				CategorieForm formCategorie = new CategorieForm();		
@@ -109,16 +113,16 @@ public class ServletCategVente extends ServletBase {
 					request.setAttribute("form", formCategorie);
 					request.setAttribute("pCategVente", uneCategVente);
 
-					response.sendRedirect("/EquidaWebG2/ServletCategVente/listerLesCategVentes");
+					response.sendRedirect(URL_LISTER_CATEG_VENTE);
 				} else {
-					response.sendRedirect("/EquidaWebG2/ServletCategVente/categorieVenteAjouter");
+					response.sendRedirect(URL_AJOUTER_CATEG_VENTE);
 				}
 			} else {
 				redirigerVersAcceuil(response);
 			}
 		}
         
-        if (url.equals("/EquidaWebG2/ServletCategVente/categorieVenteModifier")) {
+        if (url.equals(URL_MODIFIER_CATEG_VENTE)) {
 			if(user instanceof DirecteurGeneral) {
 				/* Préparation de l'objet formulaire */
 				CategorieForm form = new CategorieForm();
@@ -134,10 +138,10 @@ public class ServletCategVente extends ServletBase {
 					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 
 					CategVenteDAO.modifierCategVente(connection, uneCategVente, form.getCategVenteOrigin(request));
-					response.sendRedirect("/EquidaWebG2/ServletCategVente/listerLesCategVentes");
+					response.sendRedirect(URL_LISTER_CATEG_VENTE);
 
 				} else {
-					response.sendRedirect("/EquidaWebG2/ServletCategVente/categorieVenteModifier");
+					response.sendRedirect(URL_MODIFIER_CATEG_VENTE+"?code="+uneCategVente.getCode());
 				}
 			} else {
 				redirigerVersAcceuil(response);

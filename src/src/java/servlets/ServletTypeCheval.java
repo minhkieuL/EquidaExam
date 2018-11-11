@@ -21,6 +21,10 @@ import modele.Utilisateur;
  */
 public class ServletTypeCheval extends ServletBase {
     
+	public static final String URL_AJOUTER_TYPE_CHEVAL = "/EquidaWebG2/ServletTypeCheval/typeChevalAjouter";
+	public static final String URL_LISTER_TYPE_CHEVAL = "/EquidaWebG2/ServletTypeCheval/listerLesTypeCheval";
+	public static final String URL_MODIFIER_TYPE_CHEVAL = "/EquidaWebG2/ServletTypeCheval/typeChevalModifier";
+	
     Connection connection ;
     
     @Override
@@ -46,7 +50,7 @@ public class ServletTypeCheval extends ServletBase {
 	   
 	   Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
        String url = request.getRequestURI();       
-       if(url.equals("/EquidaWebG2/ServletTypeCheval/typeChevalAjouter")) { 
+       if(url.equals(URL_AJOUTER_TYPE_CHEVAL)) { 
 			if(user instanceof DirecteurGeneral) {
 				changerTitrePage("Ajouter race cheval", request);
 				getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp" ).forward( request, response );
@@ -55,7 +59,7 @@ public class ServletTypeCheval extends ServletBase {
 			}
         }
 	   
-	   if (url.equals("/EquidaWebG2/ServletTypeCheval/listerLesTypeCheval")) {
+	   if (url.equals(URL_LISTER_TYPE_CHEVAL)) {
 		   if(user instanceof DirecteurGeneral) {
 				ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
 
@@ -68,7 +72,7 @@ public class ServletTypeCheval extends ServletBase {
 		   }
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletTypeCheval/typeChevalModifier")) {
+		if (url.equals(URL_MODIFIER_TYPE_CHEVAL)) {
 			if(user instanceof DirecteurGeneral) {
 				int idTypeCheval = Integer.valueOf(request.getParameter("id"));
 				TypeCheval unTypeCheval = TypeChevalDAO.getTypeCheval(connection, idTypeCheval);
@@ -97,7 +101,7 @@ public class ServletTypeCheval extends ServletBase {
 		
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         String url = request.getRequestURI();
-        if(url.equals("/EquidaWebG2/ServletTypeCheval/typeChevalAjouter")){
+        if(url.equals(URL_AJOUTER_TYPE_CHEVAL)){
 			if(user instanceof DirecteurGeneral) {
 				TypeChevalForm formTypeCheval = new TypeChevalForm();
 				TypeCheval unTypeCheval = formTypeCheval.getTypeCheval(request);
@@ -107,16 +111,16 @@ public class ServletTypeCheval extends ServletBase {
 
 					TypeChevalDAO.ajouterTypeCheval(connection, unTypeCheval);
 					request.setAttribute( "pTypeCheval", unTypeCheval );
-					response.sendRedirect("/EquidaWebG2/ServletTypeCheval/listerLesTypeCheval");
+					response.sendRedirect(URL_LISTER_TYPE_CHEVAL);
 				} else { 
-				   this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp" ).forward( request, response );
+					response.sendRedirect(URL_AJOUTER_TYPE_CHEVAL);
 				}
 			} else {
 				redirigerVersAcceuil(response);
 			}
         }
 		
-		if (url.equals("/EquidaWebG2/ServletTypeCheval/typeChevalModifier")) {
+		if (url.equals(URL_MODIFIER_TYPE_CHEVAL)) {
 			if(user instanceof DirecteurGeneral) {
 				/* Préparation de l'objet formulaire */
 				TypeChevalForm form = new TypeChevalForm();
@@ -132,10 +136,10 @@ public class ServletTypeCheval extends ServletBase {
 					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 
 					TypeChevalDAO.modifierTypeCheval(connection, unTypeCheval, form.getTypeChevalOrigin(request));
-					response.sendRedirect("/EquidaWebG2/ServletTypeCheval/listerLesTypeCheval");
+					response.sendRedirect(URL_LISTER_TYPE_CHEVAL);
 
 				} else {
-					this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp").forward(request, response);
+					response.sendRedirect(URL_MODIFIER_TYPE_CHEVAL+"?id="+unTypeCheval.getId());
 				}
 			} else {
 				redirigerVersAcceuil(response);
