@@ -56,7 +56,7 @@ public class LotDAO {
 		ArrayList<Lot> lesLots = new ArrayList<Lot>();
 		try {
 			//preparation de la requete     
-			PreparedStatement requete = connection.prepareStatement("select * from lot");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lot");
 
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
@@ -64,9 +64,12 @@ public class LotDAO {
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
 				Lot unLot = new Lot();
-				unLot.setId(rs.getInt("Id"));
+				unLot.setId(rs.getInt("id"));
+				unLot.setCheval(ChevalDAO.getCheval(connection, rs.getInt("idCheval")));
+				unLot.setVente(VenteDAO.getVente(connection, rs.getInt("idVente")));
 				unLot.setPrixDepart(rs.getFloat("prixDepart"));
 
+				lesLots.add(unLot);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

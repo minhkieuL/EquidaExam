@@ -73,6 +73,11 @@
 	</servlet>
 	
 	<servlet>
+		<servlet-name>ServletLot</servlet-name>
+		<servlet-class>servlets.ServletLot</servlet-class>
+	</servlet>
+	
+	<servlet>
 		<servlet-name>ServletPays</servlet-name>
 		<servlet-class>servlets.ServletPays</servlet-class>
 	</servlet>
@@ -181,6 +186,11 @@
 	<servlet-mapping>
 		<servlet-name>ServletLieu</servlet-name>
 		<url-pattern>/ServletLieu/ajouterLieu</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletLot</servlet-name>
+		<url-pattern>/ServletLot/listerLesLots</url-pattern>
 	</servlet-mapping> 
 	
 	<servlet-mapping>

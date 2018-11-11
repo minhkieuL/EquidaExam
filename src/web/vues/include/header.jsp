@@ -33,7 +33,7 @@
 		<header>
 			<nav class="nav-extended">
 				<div class="nav-wrapper light-green darken-4">
-					<a href="<%=request.getContextPath()%>/" class="brand-logo">Logo</a>
+					<a href="<%=request.getContextPath()%>/" class="brand-logo">Accueil</a>
 					<a href="#" data-target="mobileNav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down nav-mobile">
 						<%
