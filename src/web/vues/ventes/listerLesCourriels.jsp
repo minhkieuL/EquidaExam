@@ -13,9 +13,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<div class="container">
-<h1>Liste des courriels pour une vente</h1>
-</div>
+
+<h1 class="center-align">Liste des courriels pour une vente</h1>
+
 <%
 ArrayList<Courriel> lesCourriels = (ArrayList)request.getAttribute("pLesCourriels");
 
@@ -38,7 +38,7 @@ for(Courriel courriel : lesCourriels)
             Pattern r = Pattern.compile("^(.){0,}\\.(?:png|gif|bmp|jpg|jpeg)$");
 
             if(r.matcher(pj.getChemin()).matches()) {
-                out.println("<img src=\""+pj.getChemin()+"\"/>");
+                out.println("<img src=\""+pj.getChemin()+"\" class=\"responsive-img\"/>");
             } else {
                 out.println("<a href=\""+pj.getChemin()+"\" target=\"_blank\">"+pj.getChemin()+"</a>");  
             }
