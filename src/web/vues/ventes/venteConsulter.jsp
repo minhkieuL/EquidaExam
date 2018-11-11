@@ -20,7 +20,14 @@
 %>
 
 <div class="row">
-	<div class="col s12 l6 right valign-wrapper">
+	<div class="col s12 l6 right">
+		<%
+			if(user instanceof DirecteurGeneral) {%>
+			<p><a href="../ServletCourriel/listerLesCourriels?codeVente=<%=uneVente.getId()%>">Lister les courriels</a></p>
+			<p><a href="#">Modifier la vente</a></p>
+			<%
+				}
+			%>
 	</div>
 
 	<div class="col s12 l6 left">
