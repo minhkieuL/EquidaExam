@@ -20,10 +20,6 @@ import modele.Vente;
  */
 public class VenteDAO {
 
-	Connection connection = null;
-	static PreparedStatement requete = null;
-	static ResultSet rs = null;
-
 	/* @author Zakina - 22/06/2017
     /* Méthode permettant de lister toutes les ventes enregistrées en base, triées par date décroissante.
     /* Pour chaque vente, on récupère aussi sa catégorie.
@@ -38,9 +34,9 @@ public class VenteDAO {
 		try {
 			String selectionCatVente = (catVente != null) ? "AND code='" + catVente + "'" : "";
 			//preparation de la requete     
-			requete = connection.prepareStatement("SELECT * FROM vente, categvente WHERE codeCategVente=code " + selectionCatVente + " ORDER BY dateDebut DESC");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM vente, categvente WHERE codeCategVente=code " + selectionCatVente + " ORDER BY dateDebut DESC");
 			//executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
@@ -68,9 +64,9 @@ public class VenteDAO {
 		try {
 			String selectionCatVente = (catVente != null) ? "AND code='" + catVente + "'" : "";
 			//preparation de la requete     
-			requete = connection.prepareStatement("SELECT * FROM vente, categvente WHERE vente.dateDebut>NOW() AND codeCategVente=code " + selectionCatVente + "  ORDER BY dateDebut DESC");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM vente, categvente WHERE vente.dateDebut>NOW() AND codeCategVente=code " + selectionCatVente + "  ORDER BY dateDebut DESC");
 			//executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {

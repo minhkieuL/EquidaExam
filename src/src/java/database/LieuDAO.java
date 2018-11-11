@@ -5,7 +5,6 @@
  */
 package database;
 
-import static database.PaysDAO.requete;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,19 +18,14 @@ import modele.Lieu;
  */
 public class LieuDAO {
 
-	
-	Connection connection = null;
-	static PreparedStatement requete = null;
-	static ResultSet rs = null;
-	
-		public static ArrayList<Lieu> getLesLieux(Connection connection) {
+	public static ArrayList<Lieu> getLesLieux(Connection connection) {
 		ArrayList<Lieu> lesLieux = new ArrayList<Lieu>();
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("SELECT * FROM lieu");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lieu");
 
 			//executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
@@ -47,15 +41,15 @@ public class LieuDAO {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
+		
 		return lesLieux;
 	}
-	
-	public static Lieu ajouterLieu(Connection connection, Lieu unLieu) {
 
+	public static Lieu ajouterLieu(Connection connection, Lieu unLieu) {
 		try {
-			requete = connection.prepareStatement("INSERT INTO `lieu`(`ville`, `nbBoxes`, `commentaire`)\n"
-					+ " VALUES (?,?,?)", requete.RETURN_GENERATED_KEYS);
-			
+			PreparedStatement requete = connection.prepareStatement("INSERT INTO `lieu`(`ville`, `nbBoxes`, `commentaire`)\n"
+					+ " VALUES (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+
 			requete.setString(1, unLieu.getVille());
 			requete.setInt(2, unLieu.getNbBoxes());
 			requete.setString(3, unLieu.getCommentaire());
@@ -66,9 +60,8 @@ public class LieuDAO {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
+		
 		return unLieu;
 	}
-	
-		
 
 }

@@ -12,17 +12,13 @@ import modele.Vente;
 
 public class LotDAO {
 
-	Connection connection = null;
-	static PreparedStatement requete = null;
-	static ResultSet rs = null;
-
 	public static ArrayList<Lot> getLesLotPourVente(Connection connection, String idVente) {
 		ArrayList<Lot> lesLots = new ArrayList<Lot>();
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("SELECT lot.id AS lotId, lot.idCheval, lot.idVente, lot.prixDepart, vente.nom AS nomVente, vente.dateDebut, cheval.nom AS nomCheval, cheval.sexe, cheval.sire, typecheval.libelle AS libelleTypeCheval, typecheval.description AS descTypeCheval FROM lot, vente, cheval, typecheval WHERE lot.idVente=vente.id AND lot.idCheval=cheval.id AND typecheval.id = cheval.typeCheval AND lot.idVente = '" + idVente + "';");
+			PreparedStatement requete = connection.prepareStatement("SELECT lot.id AS lotId, lot.idCheval, lot.idVente, lot.prixDepart, vente.nom AS nomVente, vente.dateDebut, cheval.nom AS nomCheval, cheval.sexe, cheval.sire, typecheval.libelle AS libelleTypeCheval, typecheval.description AS descTypeCheval FROM lot, vente, cheval, typecheval WHERE lot.idVente=vente.id AND lot.idCheval=cheval.id AND typecheval.id = cheval.typeCheval AND lot.idVente = '" + idVente + "';");
 			//executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
@@ -60,10 +56,10 @@ public class LotDAO {
 		ArrayList<Lot> lesLots = new ArrayList<Lot>();
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("select * from lot");
+			PreparedStatement requete = connection.prepareStatement("select * from lot");
 
 			//executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {

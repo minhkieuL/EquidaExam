@@ -19,16 +19,12 @@ import modele.PieceJointe;
  */
 public class CourrielDAO {
 
-	Connection connection = null;
-	static PreparedStatement requete = null;
-	static ResultSet rs = null;
-
 	public static ArrayList<Courriel> getLesCourriels(Connection connection, String codeVente) {
 		ArrayList<Courriel> lesCourriels = new ArrayList<Courriel>();
 		try {
-			requete = connection.prepareStatement("SELECT courriel.*, vente.* FROM courriel, vente WHERE courriel.vente=vente.id AND vente.id=?");
+			PreparedStatement requete = connection.prepareStatement("SELECT courriel.*, vente.* FROM courriel, vente WHERE courriel.vente=vente.id AND vente.id=?");
 			requete.setString(1, codeVente);
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
