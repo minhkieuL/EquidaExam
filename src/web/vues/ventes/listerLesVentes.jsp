@@ -4,6 +4,7 @@
     Author     : Zakina
 --%>
 
+<%@page import="servlets.ServletVentes"%>
 <%@page import="modele.DirecteurGeneral"%>
 <%@page import="modele.Utilisateur"%>
 <%@page import="modele.CategVente"%>
@@ -74,18 +75,8 @@
 					out.println(uneVente.getUneCategVente().getLibelle());
 					out.println("</td>");
 
-					if (user instanceof DirecteurGeneral) {
-						out.println("<td><a href ='../ServletClient/listerLesClients?codeCat=" + uneVente.getUneCategVente().getCode() + "'>");
-						out.println("Lister les clients interessés");
-						out.println("</td>");
-
-						out.println("<td><a href ='../ServletCourriel/listerLesCourriels?codeVente=" + uneVente.getId() + "'>");
-						out.println("Lister les courriels");
-						out.println("</td>");
-					}
-
-					out.println("<td><a href ='../ServletCheval/listerLesChevauxParVentes?idVente=" + uneVente.getId() + "'>");
-					out.println("Lister les chevaux");
+					out.println("<td><a href='"+ServletVentes.URL_CONSULTER_VENTE+"?id=" + uneVente.getId() + "'>");
+					out.println("Voir plus");
 					out.println("</td>");
 
 				}
