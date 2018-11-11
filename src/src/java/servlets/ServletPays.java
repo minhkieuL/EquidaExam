@@ -110,7 +110,7 @@ public class ServletPays extends ServletBase {
 					request.setAttribute("form", formPays);
 					request.setAttribute("pPays", unPays);
 
-					this.getServletContext().getRequestDispatcher("/vues/pays/paysConsulter.jsp").forward(request, response);
+					response.sendRedirect("/EquidaWebG2/ServletPays/listerLesPays");
 
 				} else {
 
@@ -137,7 +137,7 @@ public class ServletPays extends ServletBase {
 					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 
 					PaysDAO.modifierPays(connection, unPays, form.getPaysOrigin(request));
-					this.getServletContext().getRequestDispatcher("/vues/pays/paysConsulter.jsp").forward(request, response);
+					response.sendRedirect("/EquidaWebG2/ServletPays/listerLesPays");
 
 				} else {
 					this.getServletContext().getRequestDispatcher("/vues/pays/paysAjouter.jsp").forward(request, response);
