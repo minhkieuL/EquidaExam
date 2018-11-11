@@ -110,8 +110,7 @@ public class ServletTypeCheval extends ServletBase {
 
 					TypeChevalDAO.ajouterTypeCheval(connection, unTypeCheval);
 					request.setAttribute( "pTypeCheval", unTypeCheval );
-					this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalConsulter.jsp" ).forward( request, response );
-
+					response.sendRedirect("/EquidaWebG2/ServletTypeCheval/listerLesTypeCheval");
 				} else { 
 				   this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp" ).forward( request, response );
 				}
@@ -136,7 +135,7 @@ public class ServletTypeCheval extends ServletBase {
 					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 
 					TypeChevalDAO.modifierTypeCheval(connection, unTypeCheval, form.getTypeChevalOrigin(request));
-					this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalConsulter.jsp").forward(request, response);
+					response.sendRedirect("/EquidaWebG2/ServletTypeCheval/listerLesTypeCheval");
 
 				} else {
 					this.getServletContext().getRequestDispatcher("/vues/type_cheval/typeChevalAjouter.jsp").forward(request, response);
