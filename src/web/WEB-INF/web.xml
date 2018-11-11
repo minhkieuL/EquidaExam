@@ -233,11 +233,6 @@
 		<url-pattern>/ServletVentes/listerLesVentes</url-pattern>
 	</servlet-mapping>
 	
-	<servlet-mapping>
-		<servlet-name>ServletVentes</servlet-name>
-		<url-pattern>/ServletVentes/listerLesVentesAVenir</url-pattern>
-	</servlet-mapping>
-	
 	<!-- Autre -->
 	<session-config>
 		<session-timeout>30</session-timeout>

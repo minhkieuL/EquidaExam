@@ -22,7 +22,7 @@ Cheval unCheval = (Cheval)request.getAttribute("pCheval");
 		<h2><%= unCheval.getNom()%></h2>
 		<p class="tooltipped" data-position="bottom" data-tooltip="<%= unCheval.getTypeCheval().getDesc()%>">Race : <%= unCheval.getTypeCheval().getLibelle() %></p>
 		<p>Sexe : <%= (unCheval.getMale()) ? "Male" : "Femelle"%></p>
-		<p>Sire : <%= unCheval.getSire() %></p>
+		<p>Sire : <%= (unCheval.getSire() != null) ? unCheval.getSire() : "Non renseigné" %></p>
 		<p>Mère : <%= (unCheval.getMere() != null) ? "<a href=?id="+unCheval.getMere().getId()+">"+unCheval.getMere().getSire()+"</a>" : "Non renseignée"%></p>
 		<p>Père : <%= (unCheval.getPere() != null) ? "<a href=?id="+unCheval.getPere().getId()+">"+unCheval.getPere().getSire()+"</a>" : "Non renseigné"%></p>
 	</div>

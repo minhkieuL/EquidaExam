@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import modele.Cheval;
 import modele.Utilisateur;
@@ -76,7 +77,7 @@ public class ChevalDAO {
 		}
 		return idGenere;
 	}
-
+	
 	public static Cheval getCheval(Connection connection, int idCheval) {
 		Cheval unCheval = null;
 

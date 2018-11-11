@@ -1,0 +1,5 @@
+ALTER TABLE lot ADD validation DATETIME NULL DEFAULT NULL AFTER prixDepart;
+ALTER TABLE cheval DROP valider;
+ALTER TABLE vente CHANGE dateDebut dateDebut DATETIME NOT NULL;
+ALTER TABLE vente CHANGE dateFin dateFin DATETIME NULL DEFAULT NULL;
+ALTER TABLE vente CHANGE dateDebutInscription dateDebutInscription DATETIME NULL DEFAULT NULL;

@@ -77,4 +77,30 @@ public class LotDAO {
 		}
 		return lesLots;
 	}
+	
+	public static ArrayList<Lot> getLesNouveauxLots(Connection connection) {
+		ArrayList<Lot> lesLots = new ArrayList<Lot>();
+		try {
+			//preparation de la requete     
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lot ORDER BY validation DESC LIMIT 5");
+
+			//executer la requete
+			ResultSet rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				Lot unLot = new Lot();
+				unLot.setId(rs.getInt("id"));
+				unLot.setCheval(ChevalDAO.getCheval(connection, rs.getInt("idCheval")));
+				unLot.setVente(VenteDAO.getVente(connection, rs.getInt("idVente")));
+				unLot.setPrixDepart(rs.getFloat("prixDepart"));
+
+				lesLots.add(unLot);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		return lesLots;
+	}
 }

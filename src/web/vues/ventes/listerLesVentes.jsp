@@ -47,7 +47,6 @@
 <table  class="table table-bordered table-striped table-condensed">  
     <thead>
         <tr>             
-            <th>Id</th>
             <th>Nom</th>
             <th>Date début</th>
             <th>Catégorie</th>  
@@ -59,10 +58,7 @@
 				for (int i = 0; i < lesVentes.size(); i++) {
 
 					Vente uneVente = lesVentes.get(i);
-					out.println("<tr><td>");
-					out.println(uneVente.getId());
-					out.println("</a></td>");
-
+					out.println("<tr>");
 					out.println("<td>");
 					out.println(uneVente.getNom());
 					out.println("</td>");
@@ -78,6 +74,7 @@
 					out.println("<td><a href='"+ServletVentes.URL_CONSULTER_VENTE+"?id=" + uneVente.getId() + "'>");
 					out.println("Voir plus");
 					out.println("</td>");
+					out.println("</tr>");
 
 				}
             %>

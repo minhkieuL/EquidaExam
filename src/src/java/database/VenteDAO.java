@@ -59,12 +59,11 @@ public class VenteDAO {
 	}
 	
 	
-	public static ArrayList<Vente> getLesVentesAVenir(Connection connection, String catVente) {
+	public static ArrayList<Vente> getLesVentesAVenir(Connection connection) {
 		ArrayList<Vente> lesVentes = new ArrayList<Vente>();
 		try {
-			String selectionCatVente = (catVente != null) ? "AND code='" + catVente + "'" : "";
 			//preparation de la requete     
-			PreparedStatement requete = connection.prepareStatement("SELECT * FROM vente, categvente WHERE vente.dateDebut>NOW() AND codeCategVente=code " + selectionCatVente + "  ORDER BY dateDebut DESC");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM vente ORDER BY dateDebut DESC LIMIT 5");
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
@@ -74,12 +73,7 @@ public class VenteDAO {
 				uneVente.setId(rs.getInt("id"));
 				uneVente.setNom(rs.getString("nom"));
 				uneVente.setDateDebut(rs.getString("dateDebut"));
-
-				CategVente uneCateg = new CategVente();
-				uneCateg.setCode(rs.getString("code"));  // on aurait aussi pu prendre CodeCateg
-				uneCateg.setLibelle(rs.getString("libelle"));
-
-				uneVente.setUneCategVente(uneCateg);
+				uneVente.setUneCategVente(CategVenteDAO.getCategVente(connection, rs.getString("codeCategVente")));
 				lesVentes.add(uneVente);
 			}
 		} catch (SQLException e) {

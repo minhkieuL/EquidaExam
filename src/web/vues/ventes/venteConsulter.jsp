@@ -22,12 +22,12 @@
 <div class="row">
 	<div class="col s12 l6 right">
 		<%
-			if(user instanceof DirecteurGeneral) {%>
-			<p><a href="../ServletCourriel/listerLesCourriels?codeVente=<%=uneVente.getId()%>">Lister les courriels</a></p>
-			<p><a href="#">Modifier la vente</a></p>
-			<%
-				}
-			%>
+			if (user instanceof DirecteurGeneral) {%>
+		<p><a href="../ServletCourriel/listerLesCourriels?codeVente=<%=uneVente.getId()%>">Lister les courriels</a></p>
+		<p><a href="#">Modifier la vente</a></p>
+		<%
+			}
+		%>
 	</div>
 
 	<div class="col s12 l6 left">
@@ -46,12 +46,18 @@
 					request.setAttribute("lot", lot);
 			%>
 			<jsp:include page="/vues/cheval/chevalEmbed.jsp"/>
-				<%
-					}
-				%>
-			</div>
+			<%
+				}
+
+				if (uneVente.getLots().size() == 0) {
+			%>
+			<p>Aucun cheval n'est actuellement en vente</p>		
+			<%
+				}
+			%>
 		</div>
 	</div>
+</div>
 
 
-	<jsp:include page="/vues/include/footer.jsp" />
+<jsp:include page="/vues/include/footer.jsp" />

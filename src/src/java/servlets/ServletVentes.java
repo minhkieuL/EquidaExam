@@ -28,7 +28,6 @@ public class ServletVentes extends ServletBase {
 
 	public static final String URL_LISTER_VENTES = "/EquidaWebG2/ServletVentes/listerLesVentes";
 	public static final String URL_CONSULTER_VENTE = "/EquidaWebG2/ServletVentes/venteConsulter";
-	public static final String URL_LISTER_VENTES_A_VENIR = "/EquidaWebG2/ServletVentes/listerLesVentesAVenir";
 	
 	Connection connection;
 
@@ -77,18 +76,6 @@ public class ServletVentes extends ServletBase {
 			changerTitrePage("Vente "+vente.getNom(), request);
 
 			getServletContext().getRequestDispatcher("/vues/ventes/venteConsulter.jsp").forward(request, response);
-		}
-		
-		if (url.equals(URL_LISTER_VENTES_A_VENIR)) {
-			String catVente = (String) request.getParameter("catVente");
-			ArrayList<Vente> lesVentes = VenteDAO.getLesVentesAVenir(connection, catVente);
-			ArrayList<CategVente> lesCatVentes = CategVenteDAO.getLesCategVentes(connection);
-
-			request.setAttribute("pLesCatVentes", lesCatVentes);
-			request.setAttribute("pLesVentes", lesVentes);
-			changerTitrePage("Liste des ventes à venir", request);
-
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesVentesAVenir.jsp").forward(request, response);
 		}
 	}
 
