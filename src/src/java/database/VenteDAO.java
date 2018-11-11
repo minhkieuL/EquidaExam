@@ -87,4 +87,30 @@ public class VenteDAO {
 		}
 		return lesVentes;
 	}
+	
+	public static Vente getVente(Connection connection, int idVente) {
+		Vente vente = null;
+		try {
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM vente, categvente WHERE codeCategVente=code AND id= ?");
+			requete.setInt(1, idVente);
+			//executer la requete
+			ResultSet rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				vente = new Vente();
+				vente.setId(rs.getInt("id"));
+				vente.setNom(rs.getString("nom"));
+				vente.setDateDebut(rs.getString("dateDebut"));
+				vente.setDateFin(rs.getString("dateFin"));
+				vente.setDateDebutInscription(rs.getString("dateDebutInscription"));
+				vente.setLieu(LieuDAO.getLieu(connection, rs.getInt("lieu")));
+				vente.setLots(LotDAO.getLesLotPourVente(connection, vente.getId()));
+				vente.setUneCategVente(CategVenteDAO.getCategVente(connection, rs.getString("codeCategVente")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vente;
+	}
 }

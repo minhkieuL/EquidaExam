@@ -63,16 +63,6 @@ public class ServletCheval extends ServletBase {
 			}
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletCheval/listerLesChevauxParVentes")) {
-			String idVente = (String) request.getParameter("idVente");
-			ArrayList<Lot> lesLots = LotDAO.getLesLotPourVente(connection, idVente);
-
-			request.setAttribute("pLesLots", lesLots);
-			changerTitrePage("Lister les chevaux par ventes", request);
-
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesChevauxParVentes.jsp").forward(request, response);
-		}
-		
 		if (url.equals("/EquidaWebG2/ServletCheval/consulterCheval")) {
 			int idCheval = 0;
 			try {

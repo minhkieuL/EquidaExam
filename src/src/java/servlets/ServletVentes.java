@@ -58,6 +58,23 @@ public class ServletVentes extends ServletBase {
 
 			getServletContext().getRequestDispatcher("/vues/ventes/listerLesVentes.jsp").forward(request, response);
 		}
+		 
+		if (url.equals("/EquidaWebG2/ServletVentes/venteConsulter")) {
+			int idVente = 0;
+			try {
+				idVente = Integer.valueOf(request.getParameter("id"));
+			} catch(Exception e) {
+				redirigerVersAcceuil(response);
+				return;
+			}
+			Vente vente = VenteDAO.getVente(connection, idVente);
+
+			request.setAttribute("pVente", vente);
+			changerTitrePage("Vente "+vente.getNom(), request);
+
+			getServletContext().getRequestDispatcher("/vues/ventes/venteConsulter.jsp").forward(request, response);
+		}
+		
 		if (url.equals("/EquidaWebG2/ServletVentes/listerLesVentesAVenir")) {
 			String catVente = (String) request.getParameter("catVente");
 			ArrayList<Vente> lesVentes = VenteDAO.getLesVentesAVenir(connection, catVente);

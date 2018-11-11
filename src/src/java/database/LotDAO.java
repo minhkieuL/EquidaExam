@@ -12,7 +12,7 @@ import modele.Vente;
 
 public class LotDAO {
 
-	public static ArrayList<Lot> getLesLotPourVente(Connection connection, String idVente) {
+	public static ArrayList<Lot> getLesLotPourVente(Connection connection, int idVente) {
 		ArrayList<Lot> lesLots = new ArrayList<Lot>();
 		try {
 			//preparation de la requete     

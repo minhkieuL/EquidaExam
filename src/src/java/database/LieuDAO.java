@@ -63,5 +63,31 @@ public class LieuDAO {
 		
 		return unLieu;
 	}
+	
+	public static Lieu getLieu(Connection connection, int idLieu) {
+		Lieu unLieu = null;
+		try {
+			//preparation de la requete     
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lieu WHERE id = ?");
+			requete.setInt(1, idLieu);
+
+			//executer la requete
+			ResultSet rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				unLieu = new Lieu();
+				unLieu.setId(rs.getInt("id"));
+				unLieu.setVille(rs.getString("ville"));
+				unLieu.setNbBoxes(rs.getInt("nbBoxes"));
+				unLieu.setCommentaire(rs.getString("commentaire"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		
+		return unLieu;
+	}
 
 }
