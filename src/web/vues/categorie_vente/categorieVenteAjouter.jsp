@@ -11,7 +11,6 @@
 
 <h2 class="center-align">Ajouter une catégorie de vente</h2>
 
-
 <%
 	CategorieForm form = (CategorieForm) request.getAttribute("form");
 %>
