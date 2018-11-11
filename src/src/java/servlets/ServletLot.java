@@ -1,6 +1,5 @@
 package servlets;
 
-import database.CourrielDAO;
 import database.LotDAO;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,10 +8,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.Courriel;
-import modele.DirecteurGeneral;
 import modele.Lot;
-import modele.Utilisateur;
 
 /**
  *

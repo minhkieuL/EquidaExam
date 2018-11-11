@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 import javax.servlet.http.HttpServletRequest;
 import modele.Cheval;
-import modele.TypeCheval;
 import modele.Utilisateur;
 
 /**

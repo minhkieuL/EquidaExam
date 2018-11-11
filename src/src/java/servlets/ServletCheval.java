@@ -1,11 +1,7 @@
 package servlets;
 
-import database.Autorisations;
-import database.CategVenteDAO;
 import database.ChevalDAO;
-import database.LotDAO;
 import database.TypeChevalDAO;
-import formulaires.CategorieForm;
 import formulaires.ChevalForm;
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,11 +10,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.CategVente;
 import modele.Cheval;
 import modele.Client;
-import modele.DirecteurGeneral;
-import modele.Lot;
 import modele.TypeCheval;
 import modele.Utilisateur;
 

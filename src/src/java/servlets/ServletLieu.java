@@ -5,21 +5,16 @@
  */
 package servlets;
 
-import database.Autorisations;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import database.LieuDAO;
 import formulaires.LieuForm;
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import modele.DirecteurGeneral;
 import modele.Lieu;
-
-import modele.Pays;
 import modele.Utilisateur;
 
 /**
