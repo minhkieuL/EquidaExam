@@ -180,6 +180,11 @@
 	
 	<servlet-mapping>
 		<servlet-name>ServletFooter</servlet-name>
+		<url-pattern>/ServletFooter/contact</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ServletFooter</servlet-name>
 		<url-pattern>/ServletFooter/mentions_legales</url-pattern>
 	</servlet-mapping>
 	
