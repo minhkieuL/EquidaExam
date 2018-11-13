@@ -1,12 +1,7 @@
 package servlets;
 
 import database.CategVenteDAO;
-import database.ChevalDAO;
-import database.PaysDAO;
-import database.TypeChevalDAO;
 import formulaires.CategorieForm;
-import formulaires.ChevalForm;
-import formulaires.PaysForm;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -15,16 +10,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
-import modele.Cheval;
-import modele.Pays;
-import modele.TypeCheval;
+import modele.DirecteurGeneral;
+import modele.Utilisateur;
 
 /**
  *
  * @author slam
  */
 public class ServletCategVente extends ServletBase {
-
+	
+	public static final String URL_AJOUTER_CATEG_VENTE = "/EquidaWebG2/ServletCategVente/categorieVenteAjouter";
+	public static final String URL_LISTER_CATEG_VENTE = "/EquidaWebG2/ServletCategVente/listerLesCategVentes";
+	public static final String URL_MODIFIER_CATEG_VENTE = "/EquidaWebG2/ServletCategVente/categorieVenteModifier";
+	
 	Connection connection;
 
 	@Override
@@ -44,31 +42,44 @@ public class ServletCategVente extends ServletBase {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
+		
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
+		if (url.equals(URL_AJOUTER_CATEG_VENTE)) {
+			if(user instanceof DirecteurGeneral) {
+				changerTitrePage("Ajouter une catégorie de vente", request);
 
-		if (url.equals("/EquidaWebG2/ServletCategVente/categorieVenteAjouter")) {
-			changerTitrePage("Ajouter une catégorie de vente", request);
-
-			getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
         
-        if (url.equals("/EquidaWebG2/ServletCategVente/listerLesCategVentes")) {
-			ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
+        if (url.equals(URL_LISTER_CATEG_VENTE)) {
+			if(user instanceof DirecteurGeneral) {
+				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
 
-			request.setAttribute("pLesCategVentes", lesCategVentes);
-			changerTitrePage("Lister les catégories de vente", request);
+				request.setAttribute("pLesCategVentes", lesCategVentes);
+				changerTitrePage("Lister les catégories de vente", request);
 
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesCategVentes.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/ventes/listerLesCategVentes.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletCategVente/categorieVenteModifier")) {
-			String codeCateg = request.getParameter("code");
-			CategVente uneCategVente = CategVenteDAO.getCategVente(connection, codeCateg);
-			
-			request.setAttribute("pCategVente", uneCategVente);
-			changerTitrePage("Modifier une catégorie de vente", request);
+		if (url.equals(URL_MODIFIER_CATEG_VENTE)) {
+			if(user instanceof DirecteurGeneral) {
+				String codeCateg = request.getParameter("code");
+				CategVente uneCategVente = CategVenteDAO.getCategVente(connection, codeCateg);
 
-			this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteModifier.jsp").forward(request, response);
+				request.setAttribute("pCategVente", uneCategVente);
+				changerTitrePage("Modifier une catégorie de vente", request);
+
+				this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteModifier.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
 		
 	}
@@ -85,46 +96,55 @@ public class ServletCategVente extends ServletBase {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doPost(request, response);
         
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         String url = request.getRequestURI();
-        if (url.equals("/EquidaWebG2/ServletCategVente/categorieVenteAjouter")) {
-            /* Préparation de l'objet formulaire */
-            CategorieForm formCategorie = new CategorieForm();		
-            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-            CategVente uneCategVente = formCategorie.getCategVente(request);
-            
-			if (formCategorie.getErreurs().isEmpty()) {
-				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-				CategVenteDAO.ajouterCategVente(connection, uneCategVente);
-                /* Stockage du formulaire et de l'objet dans l'objet request */
-                
-                request.setAttribute("form", formCategorie);
-                request.setAttribute("pCategVente", uneCategVente);
-                
-				this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteConsulter.jsp").forward(request, response);
+        if (url.equals(URL_AJOUTER_CATEG_VENTE)) {
+			if(user instanceof DirecteurGeneral) {
+				/* Préparation de l'objet formulaire */
+				CategorieForm formCategorie = new CategorieForm();		
+				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+				CategVente uneCategVente = formCategorie.getCategVente(request);
+
+				if (formCategorie.getErreurs().isEmpty()) {
+					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+					CategVenteDAO.ajouterCategVente(connection, uneCategVente);
+					/* Stockage du formulaire et de l'objet dans l'objet request */
+
+					request.setAttribute("form", formCategorie);
+					request.setAttribute("pCategVente", uneCategVente);
+
+					response.sendRedirect(URL_LISTER_CATEG_VENTE);
+				} else {
+					response.sendRedirect(URL_AJOUTER_CATEG_VENTE);
+				}
 			} else {
-				this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
+				redirigerVersAcceuil(response);
 			}
 		}
         
-        if (url.equals("/EquidaWebG2/ServletCategVente/categorieVenteModifier")) {
-            /* Préparation de l'objet formulaire */
-            CategorieForm form = new CategorieForm();
+        if (url.equals(URL_MODIFIER_CATEG_VENTE)) {
+			if(user instanceof DirecteurGeneral) {
+				/* Préparation de l'objet formulaire */
+				CategorieForm form = new CategorieForm();
 
-            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-            CategVente uneCategVente = form.getCategVente(request);
+				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+				CategVente uneCategVente = form.getCategVente(request);
 
-            /* Stockage du formulaire et de l'objet dans l'objet request */
-            request.setAttribute("form", form);
-            request.setAttribute("pCategVente", uneCategVente);
-            
-            if (form.getErreurs().isEmpty()) {
-				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-				
-				CategVenteDAO.modifierCategVente(connection, uneCategVente, form.getCategVenteOrigin(request));
-				this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteConsulter.jsp").forward(request, response);
+				/* Stockage du formulaire et de l'objet dans l'objet request */
+				request.setAttribute("form", form);
+				request.setAttribute("pCategVente", uneCategVente);
 
+				if (form.getErreurs().isEmpty()) {
+					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+
+					CategVenteDAO.modifierCategVente(connection, uneCategVente, form.getCategVenteOrigin(request));
+					response.sendRedirect(URL_LISTER_CATEG_VENTE);
+
+				} else {
+					response.sendRedirect(URL_MODIFIER_CATEG_VENTE+"?code="+uneCategVente.getCode());
+				}
 			} else {
-				this.getServletContext().getRequestDispatcher("/vues/categorie_vente/categorieVenteAjouter.jsp").forward(request, response);
+				redirigerVersAcceuil(response);
 			}
 		}
 	}

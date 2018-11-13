@@ -6,17 +6,19 @@ public class Lot {
 
 	private int id;
 	private float prixDepart;
+	private String validation;
 	private Vente vente;
 	private Cheval cheval;
 	private ArrayList<Enchere> encheres;
 
 	public Lot() {
-		this(0, 0, null, null, null);
+		this(0, 0, "", null, null, null);
 	}
 
-	public Lot(int id, float prixDepart, Vente vente, Cheval cheval, ArrayList<Enchere> encheres) {
+	public Lot(int id, float prixDepart, String validation, Vente vente, Cheval cheval, ArrayList<Enchere> encheres) {
 		this.id = id;
 		this.prixDepart = prixDepart;
+		this.validation = validation;
 		this.vente = vente;
 		this.cheval = cheval;
 		this.encheres = encheres;
@@ -40,6 +42,14 @@ public class Lot {
 
 	public void setPrixDepart(float prixDepart) {
 		this.prixDepart = prixDepart;
+	}
+
+	public String getValidation() {
+		return validation;
+	}
+
+	public void setValidation(String validation) {
+		this.validation = validation;
 	}
 
 	public Vente getVente() {

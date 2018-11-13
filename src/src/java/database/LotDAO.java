@@ -12,17 +12,13 @@ import modele.Vente;
 
 public class LotDAO {
 
-	Connection connection = null;
-	static PreparedStatement requete = null;
-	static ResultSet rs = null;
-
-	public static ArrayList<Lot> getLesLotPourVente(Connection connection, String idVente) {
+	public static ArrayList<Lot> getLesLotPourVente(Connection connection, int idVente) {
 		ArrayList<Lot> lesLots = new ArrayList<Lot>();
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("SELECT lot.id AS lotId, lot.idCheval, lot.idVente, lot.prixDepart, vente.nom AS nomVente, vente.dateDebut, cheval.nom AS nomCheval, cheval.sexe, cheval.sire, typecheval.libelle AS libelleTypeCheval, typecheval.description AS descTypeCheval FROM lot, vente, cheval, typecheval WHERE lot.idVente=vente.id AND lot.idCheval=cheval.id AND typecheval.id = cheval.typeCheval AND lot.idVente = '" + idVente + "';");
+			PreparedStatement requete = connection.prepareStatement("SELECT lot.id AS lotId, lot.idCheval, lot.idVente, lot.prixDepart, vente.nom AS nomVente, vente.dateDebut, cheval.nom AS nomCheval, cheval.sexe, cheval.sire, typecheval.libelle AS libelleTypeCheval, typecheval.description AS descTypeCheval FROM lot, vente, cheval, typecheval WHERE lot.idVente=vente.id AND lot.idCheval=cheval.id AND typecheval.id = cheval.typeCheval AND lot.idVente = '" + idVente + "';");
 			//executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
@@ -56,21 +52,50 @@ public class LotDAO {
 		return lesLots;
 	}
 
-	public static ArrayList<Lot> getLesLots(Connection connection) {
+	public static ArrayList<Lot> getLesLotsNonVendu(Connection connection) {
 		ArrayList<Lot> lesLots = new ArrayList<Lot>();
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("select * from lot");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lot WHERE id NOT IN (SELECT lot FROM enchere WHERE montant != 0) ORDER BY prixDepart DESC");
 
 			//executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
 				Lot unLot = new Lot();
-				unLot.setId(rs.getInt("Id"));
+				unLot.setId(rs.getInt("id"));
+				unLot.setCheval(ChevalDAO.getCheval(connection, rs.getInt("idCheval")));
+				unLot.setVente(VenteDAO.getVente(connection, rs.getInt("idVente")));
 				unLot.setPrixDepart(rs.getFloat("prixDepart"));
 
+				lesLots.add(unLot);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		return lesLots;
+	}
+	
+	public static ArrayList<Lot> getLesNouveauxLots(Connection connection) {
+		ArrayList<Lot> lesLots = new ArrayList<Lot>();
+		try {
+			//preparation de la requete     
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lot ORDER BY validation DESC LIMIT 5");
+
+			//executer la requete
+			ResultSet rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				Lot unLot = new Lot();
+				unLot.setId(rs.getInt("id"));
+				unLot.setCheval(ChevalDAO.getCheval(connection, rs.getInt("idCheval")));
+				unLot.setVente(VenteDAO.getVente(connection, rs.getInt("idVente")));
+				unLot.setPrixDepart(rs.getFloat("prixDepart"));
+
+				lesLots.add(unLot);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -28,4 +28,9 @@ public class TypeChevalForm extends Form {
                
         return unTypeCheval ;
     }
+	
+	public int getTypeChevalOrigin(HttpServletRequest request) {
+		int idTypeCheval = Integer.valueOf(getDataForm(request, "codeOrigin"));
+        return idTypeCheval;
+    }
 }

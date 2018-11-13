@@ -5,12 +5,12 @@
  */
 package database;
 
-import static database.VenteDAO.requete;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import modele.CategVente;
 import modele.Client;
 import modele.Pays;
 
@@ -21,21 +21,17 @@ import modele.Pays;
  */
 public class ClientDAO {
 
-	Connection connection = null;
-	static PreparedStatement requete = null;
-	static ResultSet rs = null;
-
 	// Méthode permettant d'insérer un client en base à partir de l'objet client passé en paramètre
 	// Cette méthode renvoie l'objet client
-	public static Client ajouterClient(Connection connection, Client unClient) {
+	public static int ajouterClient(Connection connection, Client unClient) {
 		int idGenere = -1;
 		try {
 			//preparation de la requete
 			// id (clé primaire de la table client) est en auto_increment,donc on ne renseigne pas cette valeur
 			// la paramètre RETURN_GENERATED_KEYS est ajouté à la requête afin de pouvoir récupérer l'id généré par la bdd (voir ci-dessous)
 			// supprimer ce paramètre en cas de requête sans auto_increment.
-			requete = connection.prepareStatement("INSERT INTO utilisateur ( nom, prenom, rue, copos, ville, codePays)\n"
-					+ "VALUES (?,?,?,?,?,?)", requete.RETURN_GENERATED_KEYS);
+			PreparedStatement requete = connection.prepareStatement("INSERT INTO utilisateur ( nom, prenom, rue, copos, ville, codePays)\n"
+					+ "VALUES (?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			requete.setString(1, unClient.getNom());
 			requete.setString(2, unClient.getPrenom());
 			requete.setString(3, unClient.getRue());
@@ -47,7 +43,7 @@ public class ClientDAO {
 			requete.executeUpdate();
 
 			// Récupération de id auto-généré par la bdd dans la table utilisateur
-			rs = requete.getGeneratedKeys();
+			ResultSet rs = requete.getGeneratedKeys();
 			while (rs.next()) {
 				idGenere = rs.getInt(1);
 				unClient.setId(idGenere);
@@ -70,7 +66,7 @@ public class ClientDAO {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
-		return unClient;
+		return idGenere;
 	}
 	
 	public static ArrayList<Client> getLesClients(Connection connection, String codeCateg) {
@@ -78,10 +74,10 @@ public class ClientDAO {
 		try {
 			//preparation de la requete     
 			//codeCateg="ETE";
-			requete = connection.prepareStatement("SELECT u.*, p.nom AS nomPays, cv.libelle FROM client c, pays p, clientcategvente cc, categvente cv, utilisateur u WHERE u.id = c.id AND u.codePays=p.code AND cc.codeClient=c.id AND cv.code=cc.codeCategVente AND codeCategVente= ? ");
+			PreparedStatement requete = connection.prepareStatement("SELECT u.*, p.nom AS nomPays, cv.libelle FROM client c, pays p, clientcategvente cc, categvente cv, utilisateur u WHERE u.id = c.id AND u.codePays=p.code AND cc.codeClient=c.id AND cv.code=cc.codeCategVente AND codeCategVente= ? ");
 			requete.setString(1, codeCateg);
 			//executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
@@ -109,6 +105,78 @@ public class ClientDAO {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
+		return lesClients;
+	}
+	
+	public static Client getClient(Connection connection, int idClient) {
+		Client client = null;
+		
+		try {
+
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM utilisateur WHERE id= ?");
+			requete.setInt(1, idClient);
+			//executer la requete
+			ResultSet rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				client = new Client();
+				client.setId(rs.getInt("id"));
+				client.setNom(rs.getString("nom"));
+				client.setPrenom(rs.getString("prenom"));
+				client.setCopos(rs.getString("copos"));
+				client.setRue(rs.getString("rue"));
+				client.setVille(rs.getString("ville"));
+				client.setMail(rs.getString("mail"));
+				
+				PreparedStatement requeteCategvente = connection.prepareStatement("SELECT * FROM utilisateur, categvente, clientcategvente WHERE utilisateur.id=codeClient AND codeCategVente=categvente.code AND utilisateur.id=?");
+				requeteCategvente.setInt(1, idClient);
+				ResultSet rsCategVente = requeteCategvente.executeQuery();
+				while(rsCategVente.next()) {
+					CategVente categVente = new CategVente();
+					categVente.setCode(rsCategVente.getString("code"));
+					categVente.setLibelle(rsCategVente.getString("libelle"));
+					client.addUneCategVente(categVente);
+				}
+								
+				client.setPays(PaysDAO.getPays(connection, rs.getString("codePays")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		
+		return client;
+	}
+
+	public static ArrayList<Client> getLesClientsPrDirGen(Connection connection) {
+		ArrayList<Client> lesClients = new ArrayList<Client>();
+		
+		try {
+
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM utilisateur");
+			//executer la requete
+			ResultSet rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				Client unClient = new Client();
+				unClient.setId(rs.getInt("id"));
+				unClient.setNom(rs.getString("nom"));
+				unClient.setPrenom(rs.getString("prenom"));
+				unClient.setCopos(rs.getString("copos"));
+				unClient.setRue(rs.getString("rue"));
+				unClient.setVille(rs.getString("ville"));
+				unClient.setMail(rs.getString("mail"));								
+				unClient.setPays(PaysDAO.getPays(connection, rs.getString("codePays")));
+				
+				lesClients.add(unClient);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		
 		return lesClients;
 	}
 

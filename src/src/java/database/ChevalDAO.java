@@ -5,11 +5,12 @@
  */
 package database;
 
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import modele.Cheval;
 import modele.Utilisateur;
@@ -18,39 +19,46 @@ import modele.Utilisateur;
  *
  * @author slam
  */
-public class ChevalDAO {
 
-	Connection connection = null;
-	static PreparedStatement requete = null;
-	static ResultSet rs = null;
+
+public class ChevalDAO {
 
 	// Méthode permettant d'insérer un client en base à partir de l'objet client passé en paramètre
 	// Cette méthode renvoie l'objet client
-	public static Cheval ajouterCheval(Connection connection, Cheval unCheval, HttpServletRequest request) {
+	public static int ajouterCheval(Connection connection, Cheval unCheval, HttpServletRequest request) {
 		int idGenere = -1;
 		try {
 			//preparation de la requete
 			// id (clé primaire de la table client) est en auto_increment,donc on ne renseigne pas cette valeur
 			// la paramètre RETURN_GENERATED_KEYS est ajouté à la requête afin de pouvoir récupérer l'id généré par la bdd (voir ci-dessous)
 			// supprimer ce paramètre en cas de requête sans auto_increment.
-			requete = connection.prepareStatement("INSERT INTO cheval ( nom, sexe, sire, typeCheval, pere, mere, client)\n"
-					+ "VALUES (?,?,?,?,?,?,?)", requete.RETURN_GENERATED_KEYS);
+			PreparedStatement requete = connection.prepareStatement("INSERT INTO cheval ( nom, sexe, sire, typeCheval, pere, mere, client)\n"
+					+ "VALUES (?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			requete.setString(1, unCheval.getNom());
 			requete.setInt(2, unCheval.getMale() ? 1 : 0);
 			requete.setString(3, unCheval.getSire());
 			requete.setInt(4, unCheval.getTypeCheval().getId());
-			requete.setInt(5, unCheval.getPere().getId());
-			requete.setInt(6, unCheval.getMere().getId());
-                        
-                        Utilisateur user = (Utilisateur)request.getSession().getAttribute("user");
-                        if(user != null) {
-                            requete.setInt(7, user.getId() );
-                        }
+			if (unCheval.getPere() != null) {
+				requete.setInt(5, unCheval.getPere().getId());
+			} else {
+				requete.setNull(5, Types.INTEGER);
+			}
+
+			if (unCheval.getMere() != null) {
+				requete.setInt(6, unCheval.getMere().getId());
+			} else {
+				requete.setNull(6, Types.INTEGER);
+			}
+
+			Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
+			if (user != null) {
+				requete.setInt(7, user.getId());
+			}
 			/* Exécution de la requête */
 			requete.executeUpdate();
 
 			// Récupération de id auto-généré par la bdd dans la table cheval
-			rs = requete.getGeneratedKeys();
+			ResultSet rs = requete.getGeneratedKeys();
 			while (rs.next()) {
 				idGenere = rs.getInt(1);
 				unCheval.setId(idGenere);
@@ -67,24 +75,73 @@ public class ChevalDAO {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
-		return unCheval;
+		return idGenere;
 	}
-
+	
 	public static Cheval getCheval(Connection connection, int idCheval) {
-		Cheval unCheval = new Cheval();
+		Cheval unCheval = null;
+
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("select * from cheval WHERE id=?");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE id=?");
 			requete.setInt(1, idCheval);
 
 			//executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Cheval avec les résultats de la requête
 			while (rs.next()) {
-				unCheval.setId(rs.getInt("id"));
+				unCheval = new Cheval();
+				unCheval.setId(idCheval);
 				unCheval.setNom(rs.getString("nom"));
+				unCheval.setSire(rs.getString("sire"));
+				unCheval.setMale(rs.getBoolean("sexe"));
+				
+				int typeCheval = rs.getInt("typeCheval");
+				if(typeCheval != 0) {
+					unCheval.setTypeCheval(TypeChevalDAO.getTypeCheval(connection, typeCheval));
+				}
+				
+				int idPere = rs.getInt("pere");	
+				if(idPere != 0) {
+					unCheval.setPere(getCheval(connection, idPere));
+				}
+				
+				int idMere = rs.getInt("mere");
+				if(idMere != 0) {	
+					unCheval.setMere(getCheval(connection, idMere));
+				}
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		return unCheval;
+	}
+
+	public static Cheval modifierChevalOrigin(Connection connection, Cheval unCheval) {
+		try {
+			//preparation de la requete 
+			PreparedStatement requete = connection.prepareStatement("UPDATE cheval SET nom = ?, sexe = ?, sire = ?, typeCheval = ?, mere = ?, pere = ? WHERE id = ?;");
+
+			requete.setString(1, unCheval.getNom());
+			requete.setBoolean(2, unCheval.getMale());
+			requete.setString(3, unCheval.getSire());
+			requete.setInt(4, unCheval.getTypeCheval().getId());
+			if(unCheval.getMere() != null)
+				requete.setInt(5, unCheval.getMere().getId());
+			else
+				requete.setNull(5, Types.INTEGER);
+			if(unCheval.getPere() != null)
+				requete.setInt(6, unCheval.getPere().getId());
+			else
+				requete.setNull(6, Types.INTEGER);
+			requete.setInt(7, unCheval.getId());
+
+			/* Exécution de la requête */
+			requete.executeUpdate();
+
+			//System.out.println("requete " +requete);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");

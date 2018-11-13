@@ -8,22 +8,20 @@ public class Cheval {
 	private String nom;
 	private boolean male;
 	private String sire;
-	private boolean valider;
 	private TypeCheval typeCheval;
 	private ArrayList<Lot> lots;
 	private Cheval pere;
 	private Cheval mere;
 
 	public Cheval() {
-		this(0, "", false, "", false, null, null, null, null);
+		this(0, "", false, "", null, null, null, null);
 	}
 
-	public Cheval(int id, String nom, boolean male, String sire, boolean valider, TypeCheval typeCheval, ArrayList<Lot> lots, Cheval pere, Cheval mere) {
+	public Cheval(int id, String nom, boolean male, String sire, TypeCheval typeCheval, ArrayList<Lot> lots, Cheval pere, Cheval mere) {
 		this.id = id;
 		this.nom = nom;
 		this.male = male;
 		this.sire = sire;
-		this.valider = valider;
 		this.typeCheval = typeCheval;
 		this.lots = lots;
 		this.pere = pere;
@@ -56,14 +54,6 @@ public class Cheval {
 
 	public void setSire(String sire) {
 		this.sire = sire;
-	}
-
-	public boolean getValider() {
-		return valider;
-	}
-
-	public void setValider(boolean valider) {
-		this.valider = valider;
 	}
 
 	public TypeCheval getTypeCheval() {

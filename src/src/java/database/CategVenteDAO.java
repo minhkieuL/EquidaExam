@@ -18,18 +18,14 @@ import modele.CategVente;
  */
 public class CategVenteDAO {
 
-	Connection connection = null;
-	static PreparedStatement requete = null;
-	static ResultSet rs = null;
-
 	public static ArrayList<CategVente> getLesCategVentes(Connection connection) {
 		ArrayList<CategVente> lesCategVentes = new ArrayList<CategVente>();
 		try {
 			//preparation de la requete     
-			requete = connection.prepareStatement("SELECT * FROM categvente");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM categvente");
 
 			//executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
@@ -50,8 +46,8 @@ public class CategVenteDAO {
 		try {
 			//preparation de la requete
 
-			requete = connection.prepareStatement("INSERT INTO categvente ( code, libelle)\n"
-					+ "VALUES (?,?)", requete.RETURN_GENERATED_KEYS);
+			PreparedStatement requete = connection.prepareStatement("INSERT INTO categvente ( code, libelle)\n"
+					+ "VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			requete.setString(1, uneCategVente.getCode());
 			requete.setString(2, uneCategVente.getLibelle());
 
@@ -70,11 +66,11 @@ public class CategVenteDAO {
         try
         {
             //preparation de la requete 
-            requete=connection.prepareStatement(" SELECT * FROM categvente WHERE code = ?; ");
+            PreparedStatement requete=connection.prepareStatement(" SELECT * FROM categvente WHERE code = ?; ");
             requete.setString(1, codeCateg);
             /* Exécution de la requête */
             //executer la requete
-			rs = requete.executeQuery();
+			ResultSet rs = requete.executeQuery();
 
 			//On hydrate l'objet métier Client avec les résultats de la requête
 			while (rs.next()) {
@@ -96,7 +92,7 @@ public class CategVenteDAO {
         try
         {
             //preparation de la requete 
-            requete=connection.prepareStatement(" UPDATE categvente SET libelle = ? WHERE code = ?; ");
+            PreparedStatement requete=connection.prepareStatement(" UPDATE categvente SET libelle = ? WHERE code = ?; ");
       
             requete.setString(1, uneCategVente.getLibelle());
 			requete.setString(2, codeCateg);

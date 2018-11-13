@@ -1,11 +1,6 @@
 package servlets;
 
-import database.ChevalDAO;
 import database.CourrielDAO;
-import database.PaysDAO;
-import database.TypeChevalDAO;
-import formulaires.ChevalForm;
-import formulaires.PaysForm;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -13,10 +8,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.Cheval;
 import modele.Courriel;
-import modele.Pays;
-import modele.TypeCheval;
+import modele.DirecteurGeneral;
+import modele.Utilisateur;
 
 /**
  *
@@ -24,6 +18,8 @@ import modele.TypeCheval;
  */
 public class ServletCourriel extends ServletBase {
 
+	private static final String URL_LISTER_COURIELS = "/EquidaWebG2/ServletCourriel/listerLesCourriels";
+	
 	Connection connection;
 
 	@Override
@@ -43,16 +39,21 @@ public class ServletCourriel extends ServletBase {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
+		
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
+		if (url.equals(URL_LISTER_COURIELS)) {
+			if(user instanceof DirecteurGeneral) {
+				String codeVente = (String) request.getParameter("codeVente");
+				ArrayList<Courriel> lesCourriels = CourrielDAO.getLesCourriels(connection, codeVente);
 
-		if (url.equals("/EquidaWebG2/ServletCourriel/listerLesCourriels")) {
-			String codeVente = (String) request.getParameter("codeVente");
-			ArrayList<Courriel> lesCourriels = CourrielDAO.getLesCourriels(connection, codeVente);
+				request.setAttribute("pLesCourriels", lesCourriels);
+				changerTitrePage("Lister les courriels", request);
 
-			request.setAttribute("pLesCourriels", lesCourriels);
-			changerTitrePage("Lister les courriels", request);
-
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
 	}
 }

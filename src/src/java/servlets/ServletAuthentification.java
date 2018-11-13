@@ -15,6 +15,9 @@ import modele.Utilisateur;
 
 public class ServletAuthentification extends ServletBase {
 
+	public static final String URL_CONNEXION = "/EquidaWebG2/ServletAuthentification/connexion";
+	public static final String URL_DECONNEXION = "/EquidaWebG2/ServletAuthentification/deconnexion";
+	
 	Connection connection;
 
 	@Override
@@ -35,11 +38,11 @@ public class ServletAuthentification extends ServletBase {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getRequestURI();
 
-		if (url.equals("/EquidaWebG2/ServletAuthentification/connexion")) {
+		if (url.equals(URL_CONNEXION)) {
 			changerTitrePage("Connexion", request);
 
 			this.getServletContext().getRequestDispatcher("/vues/authentification/connexion.jsp").forward(request, response);
-		} else if (url.equals("/EquidaWebG2/ServletAuthentification/deconnexion")) {
+		} else if (url.equals(URL_DECONNEXION)) {
 			request.getSession().invalidate();
 			redirigerVersAcceuil(response);
 		}
@@ -57,7 +60,7 @@ public class ServletAuthentification extends ServletBase {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getRequestURI();
 
-		if (url.equals("/EquidaWebG2/ServletAuthentification/connexion")) {
+		if (url.equals(URL_CONNEXION)) {
 			CompteForm compteForm = new CompteForm();
 			Compte compte = compteForm.getCompte(request);
 			Compte compteBdd = CompteDAO.getCompteParLogin(compte.getLogin(), connection);
@@ -78,7 +81,7 @@ public class ServletAuthentification extends ServletBase {
 			}
 
 			if (showError) {
-				response.sendRedirect("/EquidaWebG2/ServletAuthentification/connexion");
+				response.sendRedirect(URL_CONNEXION);
 			}
 
 		}

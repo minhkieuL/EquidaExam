@@ -4,7 +4,6 @@ import database.CategVenteDAO;
 import database.ClientDAO;
 import database.PaysDAO;
 import database.Utilitaire;
-import database.VenteDAO;
 import formulaires.ClientForm;
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
 import modele.Client;
+import modele.DirecteurGeneral;
 import modele.Pays;
+import modele.Utilisateur;
 
 /**
  *
@@ -24,6 +25,12 @@ import modele.Pays;
  */
 public class ServletClient extends ServletBase {
 
+	public static final String URL_AJOUTER_CLIENT = "/EquidaWebG2/ServletClient/ajouterClient";
+	public static final String URL_LISTER_CLIENTS = "/EquidaWebG2/ServletClient/listerLesClients";
+	public static final String URL_CONSULTER_CLIENT = "/EquidaWebG2/ServletClient/clientConsulter";
+	public static final String URL_LISTER_CLIENTS_DIR_GEN = "/EquidaWebG2/ServletClient/listerLesClientsPrDirGen";
+	public static final String URL_MODIFIER_CLIENT = "/EquidaWebG2/ServletClient/clientModifier";
+	
 	Connection connection;
 
 	@Override
@@ -43,27 +50,89 @@ public class ServletClient extends ServletBase {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
+		
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
+		if (url.equals(URL_AJOUTER_CLIENT)) {
+			if(user instanceof DirecteurGeneral) {
+				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
+				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
 
-		if (url.equals("/EquidaWebG2/ServletClient/ajouterClient")) {
-			ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
-			ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
+				request.setAttribute("pLesPays", lesPays);
+				request.setAttribute("pLesCategVente", lesCategVentes);
+				changerTitrePage("Ajouter un client", request);
 
-			request.setAttribute("pLesPays", lesPays);
-			request.setAttribute("pLesCategVente", lesCategVentes);
-			changerTitrePage("Ajouter un client", request);
-
-			this.getServletContext().getRequestDispatcher("/vues/client/clientAjouter.jsp").forward(request, response);
+				this.getServletContext().getRequestDispatcher("/vues/client/clientAjouter.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
         
-		if (url.equals("/EquidaWebG2/ServletClient/listerLesClients")) {
-			String codeCat = (String) request.getParameter("codeCat");
-			ArrayList<Client> lesClients = ClientDAO.getLesClients(connection, codeCat);
+		if (url.equals(URL_LISTER_CLIENTS)) {
+			if(user instanceof DirecteurGeneral) {
+				String codeCat = (String) request.getParameter("codeCat");
+				ArrayList<Client> lesClients = ClientDAO.getLesClients(connection, codeCat);
 
-			request.setAttribute("pLesClients", lesClients);
-			changerTitrePage("Lister les clients", request);
+				request.setAttribute("pLesClients", lesClients);
+				changerTitrePage("Lister les clients", request);
 
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
+		
+		if (url.equals(URL_LISTER_CLIENTS_DIR_GEN)) {
+			if(user instanceof DirecteurGeneral) {
+				ArrayList<Client> lesClients = ClientDAO.getLesClientsPrDirGen(connection);
+
+				request.setAttribute("pLesClients", lesClients);
+				changerTitrePage("Lister les clients", request);
+
+				getServletContext().getRequestDispatcher("/vues/client/listerLesClientsPrDirGen.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
+		
+		if (url.equals(URL_CONSULTER_CLIENT)) {
+			if(user instanceof DirecteurGeneral) {
+				int idClient = 0;
+				try {
+					idClient = Integer.valueOf(request.getParameter("id"));
+				} catch(Exception e) {
+					redirigerVersAcceuil(response);
+					return;
+				}
+				
+				Client client = ClientDAO.getClient(connection, idClient);
+
+				request.setAttribute("pClient", client);
+				changerTitrePage("Client " + client.getNom() + " " + client.getPrenom(), request);
+
+				getServletContext().getRequestDispatcher("/vues/client/clientConsulter.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
+		
+		if (url.equals(URL_MODIFIER_CLIENT)) {
+			if(user instanceof DirecteurGeneral) {
+				int idClient = Integer.valueOf(request.getParameter("id"));
+				Client unClient = ClientDAO.getClient(connection, idClient);
+				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
+				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
+
+				request.setAttribute("pLesPays", lesPays);
+				request.setAttribute("pLesCategVente", lesCategVentes);
+
+				request.setAttribute("pClient", unClient);
+				changerTitrePage("Modifier un client", request);
+
+				getServletContext().getRequestDispatcher("/vues/client/clientModifier.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
 	}
 
@@ -79,31 +148,30 @@ public class ServletClient extends ServletBase {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doPost(request, response);
         
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
-        if (url.equals("/EquidaWebG2/ServletClient/ajouterClient")) {
-            /* Préparation de l'objet formulaire */
-            ClientForm form = new ClientForm();
+        if (url.equals(URL_AJOUTER_CLIENT)) {
+			if(user instanceof DirecteurGeneral) {
+				/* Préparation de l'objet formulaire */
+				ClientForm form = new ClientForm();
 
-            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-            Client unClient = form.getClient(request);
+				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+				Client unClient = form.getClient(request);
 
-            /* Stockage du formulaire et de l'objet dans l'objet request */
-            request.setAttribute("form", form);
-            request.setAttribute("pClient", unClient);
+				/* Stockage du formulaire et de l'objet dans l'objet request */
+				request.setAttribute("form", form);
+				request.setAttribute("pClient", unClient);
 
-            if (form.getErreurs().isEmpty()) {
-                // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-                ClientDAO.ajouterClient(connection, unClient);
-                this.getServletContext().getRequestDispatcher("/vues/client/clientConsulter.jsp").forward(request, response);
-            } else {
-                // il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
-                ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
-                request.setAttribute("pLesPays", lesPays);
-
-                ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
-                request.setAttribute("pLesCategVente", lesCategVentes);
-                this.getServletContext().getRequestDispatcher("/vues/client/clientAjouter.jsp").forward(request, response);
-            }
+				if (form.getErreurs().isEmpty()) {
+					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+					int idClient = ClientDAO.ajouterClient(connection, unClient);
+					response.sendRedirect(URL_CONSULTER_CLIENT+"?id="+idClient);
+				} else {
+					response.sendRedirect(URL_AJOUTER_CLIENT);
+				}
+			} else {
+				redirigerVersAcceuil(response);
+			}
         }
 	}
 

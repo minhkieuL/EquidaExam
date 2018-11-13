@@ -9,10 +9,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1>LISTE DES PAYS</h1>
+<h1 class="center-align">Liste des pays</h1>
 
 <%
-ArrayList<Pays> lesPays = (ArrayList)request.getAttribute("pLesPays");
+	ArrayList<Pays> lesPays = (ArrayList) request.getAttribute("pLesPays");
 %>
 
 <table  class="table table-bordered table-striped table-condensed">  
@@ -20,29 +20,28 @@ ArrayList<Pays> lesPays = (ArrayList)request.getAttribute("pLesPays");
         <tr>             
             <th>code</th>
             <th>nom</th>
-            <th>modifier</th>
+
         </tr>
     </thead>
     <tbody>
         <tr>
             <%
-            for(int i = 0; i < lesPays.size();i++)
-            {
+				for (int i = 0; i < lesPays.size(); i++) {
 
-                Pays unPays = lesPays.get(i);
-                out.println("<tr><td>");
-                out.println(unPays.getCode());
-                out.println("</a></td>");
+					Pays unPays = lesPays.get(i);
+					out.println("<tr><td>");
+					out.println(unPays.getCode());
+					out.println("</a></td>");
 
-                out.println("<td>");
-                out.println(unPays.getNom());
-                out.println("</td>");
+					out.println("<td>");
+					out.println(unPays.getNom());
+					out.println("</td>");
 
-                out.println("<td><a href ='../ServletPays/paysModifier?code="+ unPays.getCode() + "'>");
-                out.println("Modifier");
-                out.println("</td>");
+					out.println("<td><a href ='../ServletPays/paysModifier?code=" + unPays.getCode() + "'>");
+					out.println("Modifier");
+					out.println("</td>");
 
-            }
+				}
             %>
         </tr>
     </tbody>

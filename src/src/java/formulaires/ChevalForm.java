@@ -27,13 +27,16 @@ public class ChevalForm extends Form {
 
 	public Cheval getCheval(HttpServletRequest request, Connection connection) {
 		Cheval unCheval = new Cheval();
-
+		
+		String idChevalStr = getDataForm(request, "id");
 		String nom = getDataForm(request, "nom");
 		boolean male = Integer.valueOf(getDataForm(request, "sexe")) == 1;
 		String sire = getDataForm(request, "sire");
 		int idTypeCheval = Integer.valueOf(getDataForm(request, "typeCheval"));
-		int pere = Integer.valueOf(getDataForm(request, "pere"));
-		int mere = Integer.valueOf(getDataForm(request, "mere"));
+		String pereStr = getDataForm(request, "pere");
+		String mereStr = getDataForm(request, "mere");
+		Integer pere = (pereStr == null) ? null : Integer.valueOf(pereStr);
+		Integer mere = (mereStr == null) ? null : Integer.valueOf(mereStr);
 
 		// Traitement de la liste à choix multiple
 		//Pour chq catégorie selectionné, on instancie une nouvelle catégorie et on l'ajoute au client
@@ -50,21 +53,27 @@ public class ChevalForm extends Form {
 		} catch (Exception e) {
 			setErreur("nom", e.getMessage());
 		}
-		unCheval.setNom(nom);
-
 		if (this.getErreurs().isEmpty()) {
 			this.setResultat("Succès de l'ajout.");
 		} else {
 			this.setResultat("Échec de l'ajout.");
 		}
+		
+		if(idChevalStr != null)
+			unCheval.setId(Integer.valueOf(idChevalStr));
 
 		unCheval.setNom(nom);
 		unCheval.setMale(male);
 		unCheval.setSire(sire);
 		unCheval.setTypeCheval(TypeChevalDAO.getTypeCheval(connection, idTypeCheval));
-		unCheval.setPere(ChevalDAO.getCheval(connection, pere));
-		unCheval.setMere(ChevalDAO.getCheval(connection, mere));
+		if(pere != null)
+			unCheval.setPere(ChevalDAO.getCheval(connection, pere));
+		if(mere != null)
+			unCheval.setMere(ChevalDAO.getCheval(connection, mere));
 
 		return unCheval;
 	}
+        public String getChevalOrigin(HttpServletRequest request) {
+            return getDataForm(request, "idOrigin");
+        }
 }

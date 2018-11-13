@@ -1,8 +1,6 @@
 package servlets;
 
-import database.Autorisations;
 import database.ChevalDAO;
-import database.LotDAO;
 import database.TypeChevalDAO;
 import formulaires.ChevalForm;
 import java.io.IOException;
@@ -13,7 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Cheval;
-import modele.Lot;
+import modele.Client;
 import modele.TypeCheval;
 import modele.Utilisateur;
 
@@ -23,6 +21,10 @@ import modele.Utilisateur;
  */
 public class ServletCheval extends ServletBase {
 
+	public static final String URL_AJOUTER_CHEVAL = "/EquidaWebG2/ServletCheval/ajouterCheval";
+	public static final String URL_CONSULTER_CHEVAL = "/EquidaWebG2/ServletCheval/consulterCheval";
+	public static final String URL_MODIFIER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalModifier";
+	
 	Connection connection;
 
 	@Override
@@ -42,34 +44,56 @@ public class ServletCheval extends ServletBase {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
-		String url = request.getRequestURI();
-                
-                
-                
-		if (url.equals("/EquidaWebG2/ServletCheval/ajouterCheval")) {
-                    Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
-                    if(user != null && user.estAutoriseA(Autorisations.CLIENT_AJOUTER)) {
-                        ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
+		
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
+		String url = request.getRequestURI();                
+		if (url.equals(URL_AJOUTER_CHEVAL)) {
+			if(user instanceof Client) {
+				ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
 
-			request.setAttribute("pLesTypeCheval", lesTypeCheval);
-			changerTitrePage("Ajouter un cheval", request);
+				request.setAttribute("pLesTypeCheval", lesTypeCheval);
+				changerTitrePage("Ajouter un cheval", request);
 
-			this.getServletContext().getRequestDispatcher("/vues/cheval/chevalAjouter.jsp").forward(request, response);
-                    } else {
-                        redirigerVersAcceuil(response);
-                    }
-			
+				this.getServletContext().getRequestDispatcher("/vues/cheval/chevalForm.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
 		
-		if (url.equals("/EquidaWebG2/ServletCheval/listerLesChevauxParVentes")) {
-			String idVente = (String) request.getParameter("idVente");
-			ArrayList<Lot> lesLots = LotDAO.getLesLotPourVente(connection, idVente);
+		if (url.equals(URL_CONSULTER_CHEVAL)) {
+			int idCheval = 0;
+			try {
+				idCheval = Integer.valueOf(request.getParameter("id"));
+			} catch(Exception e) {
+				redirigerVersAcceuil(response);
+				return;
+			}
+			
+			Cheval cheval = ChevalDAO.getCheval(connection, idCheval);
 
-			request.setAttribute("pLesLots", lesLots);
-			changerTitrePage("Lister les chevaux par ventes", request);
+			request.setAttribute("pCheval", cheval);
+			changerTitrePage("Cheval " + cheval.getNom(), request);
 
-			getServletContext().getRequestDispatcher("/vues/ventes/listerLesChevauxParVentes.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/vues/cheval/chevalConsulter.jsp").forward(request, response);
 		}
+        
+        if (url.equals(URL_MODIFIER_CHEVAL)) {	
+			int idCheval = 0;
+			try {
+				idCheval = Integer.valueOf(request.getParameter("id"));
+			} catch(Exception e) {
+				redirigerVersAcceuil(response);
+				return;
+			}
+			Cheval unCheval = ChevalDAO.getCheval(connection, idCheval);
+			ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
+
+			request.setAttribute("pCheval", unCheval);
+			request.setAttribute("pLesTypeCheval", lesTypeCheval);
+			changerTitrePage("Modifier un cheval", request);
+
+			this.getServletContext().getRequestDispatcher("/vues/cheval/chevalForm.jsp").forward(request, response);
+        }
 	}
 
 	/**
@@ -83,33 +107,56 @@ public class ServletCheval extends ServletBase {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doPost(request, response);
-        
+		
+        Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         String url = request.getRequestURI();
-        if (url.equals("/EquidaWebG2/ServletCheval/ajouterCheval")) {
+        if (url.equals(URL_AJOUTER_CHEVAL)) {
+			if(user instanceof Client) {
+				/* Préparation de l'objet formulaire */
+				ChevalForm form = new ChevalForm();
+
+				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+				Cheval unCheval = form.getCheval(request, connection);
+
+
+				/* Stockage du formulaire et de l'objet dans l'objet request */
+				request.setAttribute("form", form);
+				request.setAttribute("pCheval", unCheval);
+
+				if (form.getErreurs().isEmpty()) {
+					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+					int idCheval = ChevalDAO.ajouterCheval(connection, unCheval, request);
+					response.sendRedirect(URL_CONSULTER_CHEVAL+"?id="+idCheval);
+				} else {
+					response.sendRedirect(URL_AJOUTER_CHEVAL);
+				}
+			} else {
+				redirigerVersAcceuil(response);
+			}
+        }
+		
+        if (url.equals(URL_MODIFIER_CHEVAL)) {
             /* Préparation de l'objet formulaire */
             ChevalForm form = new ChevalForm();
 
             /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
             Cheval unCheval = form.getCheval(request, connection);
-            
 
             /* Stockage du formulaire et de l'objet dans l'objet request */
             request.setAttribute("form", form);
             request.setAttribute("pCheval", unCheval);
-
+            
             if (form.getErreurs().isEmpty()) {
-                // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-                ChevalDAO.ajouterCheval(connection, unCheval, request);
-                this.getServletContext().getRequestDispatcher("/vues/cheval/chevalConsulter.jsp").forward(request, response);
-            } else {
-                // il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
-                ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
-                request.setAttribute("pLesTypeCheval", lesTypeCheval);
+				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+				
+				ChevalDAO.modifierChevalOrigin(connection, unCheval);
+				response.sendRedirect(URL_CONSULTER_CHEVAL+"?id="+unCheval.getId());
 
-                /*ArrayList<Lot> lesLots = LotDAO.getLesLots(connection);
-                request.setAttribute("pLesLots", lesLots);*/
-                this.getServletContext().getRequestDispatcher("/vues/cheval/chevalAjouter.jsp").forward(request, response);
-            }
-        }
+			} else {
+				response.sendRedirect(URL_MODIFIER_CHEVAL+"?id="+unCheval.getId());
+			}
+		}
+	
 	}
+        
 }

@@ -8,7 +8,7 @@ public class Vente {
 	private String nom;
 	private String dateDebut;
 	private String dateFin;
-	private String dateDebutInscription;
+	private String dateVente;
 	private CategVente uneCategVente;
 	private Lieu lieu;
 	private ArrayList<Courriel> listeCourriels;
@@ -18,12 +18,12 @@ public class Vente {
 		this(0, "", "", "", "", null, null, null, null);
 	}
 
-	public Vente(int id, String nom, String dateDebut, String dateFin, String datedebutInscription, CategVente catVente, Lieu lieu, ArrayList<Courriel> listeCourriels, ArrayList<Lot> lots) {
+	public Vente(int id, String nom, String dateDebut, String dateFin, String dateVente, CategVente catVente, Lieu lieu, ArrayList<Courriel> listeCourriels, ArrayList<Lot> lots) {
 		this.id = id;
 		this.nom = nom;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
-		this.dateDebutInscription = datedebutInscription;
+		this.dateVente = dateVente;
 		this.uneCategVente = catVente;
 		this.lieu = lieu;
 		this.listeCourriels = listeCourriels;
@@ -70,12 +70,12 @@ public class Vente {
 		this.dateFin = dateFin;
 	}
 
-	public String getDateDebutInscription() {
-		return dateDebutInscription;
+	public String getDateVente() {
+		return dateVente;
 	}
 
-	public void setDateDebutInscription(String dateDebutInscription) {
-		this.dateDebutInscription = dateDebutInscription;
+	public void setDateVente(String dateVente) {
+		this.dateVente = dateVente;
 	}
 
 	public CategVente getUneCategVente() {
