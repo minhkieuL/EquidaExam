@@ -55,6 +55,24 @@ public class ServletLieu extends ServletBase {
 
 			getServletContext().getRequestDispatcher("/vues/lieu/lieuAjouter.jsp").forward(request, response);
 		} 	
+		
+		if (url.equals("/EquidaWebG2/ServletLieu/lieuLister")) {
+			ArrayList<Lieu> lesLieux = LieuDAO.getLesLieux(connection);
+
+			request.setAttribute("pLesLieux", lesLieux);
+			changerTitrePage("Lister un lieu", request);
+			getServletContext().getRequestDispatcher("/vues/lieu/lieuLister.jsp").forward(request, response);
+
+		}
+		if (url.equals("/EquidaWebG2/ServletLieu/lieuModifier")) {
+			int idLieu = Integer.valueOf(request.getParameter("id"));
+			Lieu unLieu = LieuDAO.getLieu(connection, idLieu);
+			
+			request.setAttribute("pLieu", unLieu);
+			changerTitrePage("Modifier un lieu", request);
+			getServletContext().getRequestDispatcher("/vues/lieu/lieuModifier.jsp").forward(request, response);
+
+		}
 	}
 
 	/**
@@ -91,6 +109,27 @@ public class ServletLieu extends ServletBase {
 				this.getServletContext().getRequestDispatcher("/vues/lieu/lieuAjouter.jsp").forward(request, response);
 			}
 			
+		}
+		if (url.equals("/EquidaWebG2/ServletLieu/lieuModifier")) {
+            /* Préparation de l'objet formulaire */
+            LieuForm form = new LieuForm();
+
+            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+            Lieu unLieu = form.getLieu(request);
+
+            /* Stockage du formulaire et de l'objet dans l'objet request */
+            request.setAttribute("form", form);
+            request.setAttribute("pLieu", unLieu);
+            
+            if (form.getErreurs().isEmpty()) {
+				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+				
+				LieuDAO.modifierLieu(connection, unLieu, form.getLieuOrigin(request));
+				this.getServletContext().getRequestDispatcher("/vues/lieu/lieuConsulter.jsp").forward(request, response);
+
+			} else {
+				this.getServletContext().getRequestDispatcher("/vues/lieu/lieuAjouter.jsp").forward(request, response);
+			}
 		}
 	}
 	

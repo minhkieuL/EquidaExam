@@ -33,7 +33,7 @@ public class LieuDAO {
 			//executer la requete
 			rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			
 			while (rs.next()) {
 				Lieu unLieu = new Lieu();
 				unLieu.setId(rs.getInt("id"));
@@ -68,6 +68,58 @@ public class LieuDAO {
 		}
 		return unLieu;
 	}
+		public static Lieu modifierLieu(Connection connection, Lieu unLieu, int idLieu){      
+     
+        try
+        {
+            //preparation de la requete 
+            requete=connection.prepareStatement(" UPDATE lieu SET ville = ?, nbBoxes = ?, commentaire = ? WHERE id = ?; ");
+      
+            requete.setString(1, unLieu.getVille());
+			requete.setInt(2, unLieu.getNbBoxes());
+			requete.setString(3, unLieu.getCommentaire());
+			requete.setInt(4, idLieu);
+            /* Exécution de la requête */
+            requete.executeUpdate();
+            
+            //System.out.println("requete " +requete);
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unLieu ; 
+    }
+		
+		public static Lieu getLieu(Connection connection, int idLieu){      
+     
+        Lieu unLieu = new Lieu();
+        try
+        {
+            //preparation de la requete 
+            requete=connection.prepareStatement(" SELECT * FROM Lieu WHERE id = ?; ");
+            requete.setInt(1, idLieu);
+            /* Exécution de la requête */
+            //executer la requete
+			rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Client avec les résultats de la requête
+			while (rs.next()) {
+				unLieu.setId(idLieu);
+				unLieu.setVille(rs.getString("ville"));
+				unLieu.setNbBoxes(rs.getInt("nbBoxes"));
+				unLieu.setCommentaire(rs.getString("commentaire"));
+			}
+            //System.out.println("requete " +requete);
+        }
+		catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unLieu ; 
+    }
 	
 		
 
