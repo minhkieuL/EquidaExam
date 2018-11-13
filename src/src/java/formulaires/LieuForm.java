@@ -27,5 +27,10 @@ public class LieuForm extends Form{
 
 		return unLieu;
 	}
+
+	public int getLieuOrigin(HttpServletRequest request) {
+        int idLieu = Integer.valueOf(getDataForm(request, "codeOrigin"));
+		return idLieu;
+    }
 	
 }

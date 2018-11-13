@@ -197,6 +197,16 @@
 		<servlet-name>ServletLieu</servlet-name>
 		<url-pattern>/ServletLieu/ajouterLieu</url-pattern>
 	</servlet-mapping>
+		
+	<servlet-mapping>
+		<servlet-name>ServletLieu</servlet-name>
+		<url-pattern>/ServletLieu/lieuLister</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletLieu</servlet-name>
+		<url-pattern>/ServletLieu/lieuModifier</url-pattern>
+	</servlet-mapping> 	
 
 	<servlet-mapping>
 		<servlet-name>ServletLot</servlet-name>
