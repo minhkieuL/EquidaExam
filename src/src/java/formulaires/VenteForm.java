@@ -25,11 +25,10 @@ public class VenteForm extends Form {
 		String nom = getDataForm(request, "nom");
 		String dateDebut = getDataForm(request, "dateDebut");
 		String dateFin = getDataForm(request, "dateFin");
-		String dateVente = getDataForm(request, "dateDebutInscription");
+		String dateVente = getDataForm(request, "dateVente");
 		int idLieu = Integer.valueOf(getDataForm(request, "lieu"));
 		String codeCategVente = getDataForm(request, "categVente");
 		
-
 		uneVente.setNom(nom);
 		uneVente.setDateDebut(dateDebut);
 		uneVente.setDateFin(dateFin);
@@ -42,7 +41,6 @@ public class VenteForm extends Form {
 		CategVente uneCategVente = new CategVente();
 		uneCategVente.setCode(codeCategVente);
 		uneVente.setUneCategVente(uneCategVente);
-		
 
 		return uneVente;
 	}
