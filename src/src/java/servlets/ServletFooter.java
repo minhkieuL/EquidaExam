@@ -14,6 +14,7 @@ public class ServletFooter extends ServletBase {
 
 	private static final String URL_MENTIONS_LEGALES = "/EquidaWebG2/ServletFooter/mentions_legales";
 	private static final String URL_QUI_SOMMES_NOUS = "/EquidaWebG2/ServletFooter/qui_sommes_nous";
+	private static final String URL_CONTACT = "/EquidaWebG2/ServletFooter/contact";
 	
 	Connection connection;
 
@@ -46,6 +47,12 @@ public class ServletFooter extends ServletBase {
 			changerTitrePage("Qui sommes-nous", request);
 
 			getServletContext().getRequestDispatcher("/vues/informations/qui_sommes_nous.jsp").forward(request, response);
+		}
+		
+		if (url.equals(URL_CONTACT)) {
+			changerTitrePage("Contact", request);
+
+			getServletContext().getRequestDispatcher("/vues/informations/contact.jsp").forward(request, response);
 		}
 	}
 }

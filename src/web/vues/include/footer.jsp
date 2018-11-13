@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="col s2">
 				<p><a href="/EquidaWebG2/ServletFooter/qui_sommes_nous" class="white-text"> Qui sommes-nous ? </a></p>
-				<p><a href="#" class="white-text"> Contact </a></p>
+				<p><a href="/EquidaWebG2/ServletFooter/contact" class="white-text"> Contact </a></p>
 			</div>
 
 			<div class="col s2"> 

@@ -5,8 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <!-- Dropdown Trigger -->
 
 
@@ -48,6 +46,8 @@
 
 <ul id="dropdownLieu" class="dropdown-content">
 	<li><a href="/EquidaWebG2/ServletLieu/ajouterLieu">Ajouter un lieu</a></li>
+	<li class="divider"></li>
+	<li><a href="/EquidaWebG2/ServletLieu/lieuLister">Lister les lieux</a></li>
 </ul>
 
 <ul id="dropdownCourses" class="dropdown-content">

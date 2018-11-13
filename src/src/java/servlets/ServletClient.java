@@ -3,6 +3,7 @@ package servlets;
 import database.CategVenteDAO;
 import database.ClientDAO;
 import database.PaysDAO;
+import database.UtilisateurDAO;
 import database.Utilitaire;
 import formulaires.ClientForm;
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class ServletClient extends ServletBase {
 	public static final String URL_CONSULTER_CLIENT = "/EquidaWebG2/ServletClient/clientConsulter";
 	public static final String URL_LISTER_CLIENTS_DIR_GEN = "/EquidaWebG2/ServletClient/listerLesClientsPrDirGen";
 	public static final String URL_MODIFIER_CLIENT = "/EquidaWebG2/ServletClient/clientModifier";
+	public static final String URL_ARCHIVER_CLIENT = "/EquidaWebG2/ServletClient/clientArchiver";
 	
 	Connection connection;
 
@@ -134,7 +136,25 @@ public class ServletClient extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
+		
+		if (url.equals(URL_ARCHIVER_CLIENT)) {
+			if(user instanceof DirecteurGeneral) {
+				int idUtilisateur = 0;
+				try {
+					idUtilisateur = Integer.valueOf(request.getParameter("id"));
+				} catch(Exception e) {
+					redirigerVersAcceuil(response);
+					return;
+				}
+				UtilisateurDAO.archiverUtilisateur(connection, idUtilisateur);
+				response.sendRedirect(URL_LISTER_CLIENTS_DIR_GEN);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
+ 
 	}
+
 
 	/**
 	 * Handles the HTTP <code>POST</code> method.

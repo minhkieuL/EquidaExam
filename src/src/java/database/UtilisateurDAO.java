@@ -60,4 +60,18 @@ public class UtilisateurDAO {
 
 		return utilisateur;
 	}
+	
+	public static void archiverUtilisateur(Connection connection, int idUtilisateur) {
+		try {
+			PreparedStatement requete = connection.prepareStatement("UPDATE utilisateur SET archiver = 1 WHERE id =?;");
+			requete.setInt(1, idUtilisateur);
+
+			requete.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+	}
+	
 }

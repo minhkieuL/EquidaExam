@@ -74,7 +74,7 @@ public class ClientDAO {
 		try {
 			//preparation de la requete     
 			//codeCateg="ETE";
-			PreparedStatement requete = connection.prepareStatement("SELECT u.*, p.nom AS nomPays, cv.libelle FROM client c, pays p, clientcategvente cc, categvente cv, utilisateur u WHERE u.id = c.id AND u.codePays=p.code AND cc.codeClient=c.id AND cv.code=cc.codeCategVente AND codeCategVente= ? ");
+			PreparedStatement requete = connection.prepareStatement("SELECT u.*, p.nom AS nomPays, cv.libelle FROM client c, pays p, clientcategvente cc, categvente cv, utilisateur u WHERE u.id = c.id AND u.codePays=p.code AND cc.codeClient=c.id AND cv.code=cc.codeCategVente AND codeCategVente= ? AND u.archiver=0");
 			requete.setString(1, codeCateg);
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
@@ -154,7 +154,7 @@ public class ClientDAO {
 		
 		try {
 
-			PreparedStatement requete = connection.prepareStatement("SELECT * FROM utilisateur");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM utilisateur WHERE archiver=0");
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 

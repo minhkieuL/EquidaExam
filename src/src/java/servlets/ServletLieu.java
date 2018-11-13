@@ -9,6 +9,7 @@ import database.LieuDAO;
 import formulaires.LieuForm;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,8 @@ import modele.Utilisateur;
 public class ServletLieu extends ServletBase {
 	
 	private static final String URL_AJOUTER_LIEU = "/EquidaWebG2/ServletLieu/ajouterLieu";
+	private static final String URL_LISTER_LIEU = "/EquidaWebG2/ServletLieu/lieuLister";
+	private static final String URL_MODIFIER_LIEU = "/EquidaWebG2/ServletLieu/lieuModifier";
 	
 	Connection connection;
 
@@ -56,6 +59,24 @@ public class ServletLieu extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		} 	
+		
+		if (url.equals(URL_LISTER_LIEU)) {
+			ArrayList<Lieu> lesLieux = LieuDAO.getLesLieux(connection);
+
+			request.setAttribute("pLesLieux", lesLieux);
+			changerTitrePage("Lister un lieu", request);
+			getServletContext().getRequestDispatcher("/vues/lieu/lieuLister.jsp").forward(request, response);
+
+		}
+		if (url.equals(URL_MODIFIER_LIEU)) {
+			int idLieu = Integer.valueOf(request.getParameter("id"));
+			Lieu unLieu = LieuDAO.getLieu(connection, idLieu);
+			
+			request.setAttribute("pLieu", unLieu);
+			changerTitrePage("Modifier un lieu", request);
+			getServletContext().getRequestDispatcher("/vues/lieu/lieuModifier.jsp").forward(request, response);
+
+		}
 	}
 
 	/**
@@ -97,6 +118,27 @@ public class ServletLieu extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 			
+		}
+		if (url.equals(URL_MODIFIER_LIEU)) {
+            /* Préparation de l'objet formulaire */
+            LieuForm form = new LieuForm();
+
+            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+            Lieu unLieu = form.getLieu(request);
+
+            /* Stockage du formulaire et de l'objet dans l'objet request */
+            request.setAttribute("form", form);
+            request.setAttribute("pLieu", unLieu);
+            
+            if (form.getErreurs().isEmpty()) {
+				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+				
+				LieuDAO.modifierLieu(connection, unLieu, form.getLieuOrigin(request));
+				response.sendRedirect(URL_LISTER_LIEU);
+
+			} else {
+				response.sendRedirect(URL_AJOUTER_LIEU);
+			}
 		}
 	}
 	
