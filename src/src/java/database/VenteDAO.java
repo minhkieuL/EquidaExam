@@ -97,7 +97,7 @@ public class VenteDAO {
 				vente.setNom(rs.getString("nom"));
 				vente.setDateDebut(rs.getString("dateDebut"));
 				vente.setDateFin(rs.getString("dateFin"));
-				vente.setDateDebutInscription(rs.getString("dateDebutInscription"));
+				vente.setDateVente(rs.getString("dateVente"));
 				vente.setLieu(LieuDAO.getLieu(connection, rs.getInt("lieu")));
 				vente.setLots(LotDAO.getLesLotPourVente(connection, vente.getId()));
 				vente.setUneCategVente(CategVenteDAO.getCategVente(connection, rs.getString("codeCategVente")));
@@ -106,5 +106,38 @@ public class VenteDAO {
 			e.printStackTrace();
 		}
 		return vente;
+	}
+
+	public static int ajouterVente(Connection connection, Vente uneVente) {
+		int idGenere = -1;
+		try {
+			//preparation de la requete
+			// id (clé primaire de la table vente) est en auto_increment, donc on ne renseigne pas cette valeur
+			// la paramètre RETURN_GENERATED_KEYS est ajouté à la requête afin de pouvoir récupérer l'id généré par la bdd (voir ci-dessous)
+			// supprimer ce paramètre en cas de requête sans auto_increment.
+			PreparedStatement requete = connection.prepareStatement("INSERT INTO vente ( nom, dateDebut, dateFin, dateVente, lieu, codeCategVente)\n"
+					+ "VALUES (?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			requete.setString(1, uneVente.getNom());
+			requete.setString(2, uneVente.getDateDebut());
+			requete.setString(3, uneVente.getDateFin());
+			requete.setString(4, uneVente.getDateVente());
+			requete.setInt(5, uneVente.getLieu().getId());
+			requete.setString(6, uneVente.getUneCategVente().getCode());
+
+			/* Exécution de la requête */
+			requete.executeUpdate();
+
+			// Récupération de id auto-généré par la bdd dans la table utilisateur
+			ResultSet rs = requete.getGeneratedKeys();
+			while (rs.next()) {
+				idGenere = rs.getInt(1);
+				uneVente.setId(idGenere);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		return idGenere;
 	}
 }

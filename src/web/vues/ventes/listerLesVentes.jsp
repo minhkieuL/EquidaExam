@@ -64,7 +64,7 @@
 					out.println("</td>");
 
 					out.println("<td>");
-					out.println(uneVente.getDateDebut());
+					out.println(uneVente.getDateVente());
 					out.println("</td>");
 
 					out.println("<td>");

@@ -1,0 +1,1 @@
+ALTER TABLE vente CHANGE dateDebutInscription dateVente DATE NULL DEFAULT NULL;

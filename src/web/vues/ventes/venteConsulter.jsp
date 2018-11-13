@@ -34,8 +34,8 @@
 		<h2><%= uneVente.getNom()%></h2>
 		<p><%= uneVente.getLieu().getVille() + ", " + uneVente.getLieu().getNbBoxes() + " boxes disponibles"%></p>
 		<p><%= uneVente.getUneCategVente().getLibelle()%></a></p>
-		<p><%= "Début d'inscription : " + uneVente.getDateDebutInscription()%></p>
-		<p><%= "Date de la vente : " + uneVente.getDateDebut()%></p>
+		<p><%= "Début d'inscription : " + uneVente.getDateDebut()%></p>
+		<p><%= "Date de la vente : " + uneVente.getDateVente()%></p>
 	</div>
 
 	<div class="row">

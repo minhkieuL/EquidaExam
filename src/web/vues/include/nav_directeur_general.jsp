@@ -21,6 +21,8 @@
 
 <!-- Dropdown Structure -->
 <ul id="dropdownVente" class="dropdown-content">
+        <li><a href="/EquidaWebG2/ServletVentes/venteAjouter">Ajouter une vente</a></li>
+	<li class="divider"></li>
 	<li><a href="/EquidaWebG2/ServletCategVente/listerLesCategVentes">Lister catégorie de vente</a></li>
 	<li class="divider"></li>
 	<li><a href="/EquidaWebG2/ServletCategVente/categorieVenteAjouter">Ajouter catégorie de vente</a></li>
