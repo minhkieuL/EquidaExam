@@ -12,7 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1 class="center-align">Modifier un Pays</h1>
+<h1 class="center-align">Modifier un client</h1>
 
 <%
         ClientForm form = (ClientForm) request.getAttribute("form");
