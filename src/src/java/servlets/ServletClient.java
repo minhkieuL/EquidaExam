@@ -28,6 +28,8 @@ public class ServletClient extends ServletBase {
 	public static final String URL_AJOUTER_CLIENT = "/EquidaWebG2/ServletClient/ajouterClient";
 	public static final String URL_LISTER_CLIENTS = "/EquidaWebG2/ServletClient/listerLesClients";
 	public static final String URL_CONSULTER_CLIENT = "/EquidaWebG2/ServletClient/clientConsulter";
+	public static final String URL_LISTER_CLIENTS_DIR_GEN = "/EquidaWebG2/ServletClient/listerLesClientsPrDirGen";
+	public static final String URL_MODIFIER_CLIENT = "/EquidaWebG2/ServletClient/clientModifier";
 	
 	Connection connection;
 
@@ -80,6 +82,19 @@ public class ServletClient extends ServletBase {
 			}
 		}
 		
+		if (url.equals(URL_LISTER_CLIENTS_DIR_GEN)) {
+			if(user instanceof DirecteurGeneral) {
+				ArrayList<Client> lesClients = ClientDAO.getLesClientsPrDirGen(connection);
+
+				request.setAttribute("pLesClients", lesClients);
+				changerTitrePage("Lister les clients", request);
+
+				getServletContext().getRequestDispatcher("/vues/client/listerLesClientsPrDirGen.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
+		
 		if (url.equals(URL_CONSULTER_CLIENT)) {
 			if(user instanceof DirecteurGeneral) {
 				int idClient = 0;
@@ -96,6 +111,25 @@ public class ServletClient extends ServletBase {
 				changerTitrePage("Client " + client.getNom() + " " + client.getPrenom(), request);
 
 				getServletContext().getRequestDispatcher("/vues/client/clientConsulter.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
+		
+		if (url.equals(URL_MODIFIER_CLIENT)) {
+			if(user instanceof DirecteurGeneral) {
+				int idClient = Integer.valueOf(request.getParameter("id"));
+				Client unClient = ClientDAO.getClient(connection, idClient);
+				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
+				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
+
+				request.setAttribute("pLesPays", lesPays);
+				request.setAttribute("pLesCategVente", lesCategVentes);
+
+				request.setAttribute("pClient", unClient);
+				changerTitrePage("Modifier un client", request);
+
+				getServletContext().getRequestDispatcher("/vues/client/clientModifier.jsp").forward(request, response);
 			} else {
 				redirigerVersAcceuil(response);
 			}

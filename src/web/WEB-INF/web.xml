@@ -150,7 +150,12 @@
 	
 	<servlet-mapping>
 		<servlet-name>ServletClient</servlet-name>
-		<url-pattern>/ServletClient/listerLesClients</url-pattern>
+		<url-pattern>/ServletClient/listerLesClientsPrDirGen</url-pattern>
+	</servlet-mapping>
+        
+        <servlet-mapping>
+		<servlet-name>ServletClient</servlet-name>
+		<url-pattern>/ServletClient/clientModifier</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

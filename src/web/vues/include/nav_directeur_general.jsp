@@ -29,7 +29,7 @@
 </ul>
 
 <ul id="dropdownClient" class="dropdown-content">
-	<li><a href="/EquidaWebG2/ServletClient/listerLesClients">Lister</a></li>
+	<li><a href="/EquidaWebG2/ServletClient/listerLesClientsPrDirGen">Lister</a></li>
 	<li class="divider"></li>
 	<li><a href="/EquidaWebG2/ServletClient/ajouterClient">Ajouter</a></li>
 </ul>
