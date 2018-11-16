@@ -175,8 +175,14 @@
 	
 	<servlet-mapping>
 		<servlet-name>ServletCourse</servlet-name>
+		<url-pattern>/ServletCourse/courseChevalRenseigner</url-pattern>
+	</servlet-mapping>
+        
+	<servlet-mapping>
+		<servlet-name>ServletCourse</servlet-name>
 		<url-pattern>/ServletCourse/courseModifier</url-pattern>
 	</servlet-mapping>
+        
 	
 	<servlet-mapping>
 		<servlet-name>ServletCourse</servlet-name>
