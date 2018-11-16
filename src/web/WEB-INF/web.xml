@@ -258,7 +258,17 @@
 		<servlet-name>ServletTypeCheval</servlet-name>
 		<url-pattern>/ServletTypeCheval/typeChevalModifier</url-pattern>
 	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletVentes</servlet-name>
+		<url-pattern>/ServletVentes/listerLesVentes</url-pattern>
+	</servlet-mapping>
 	
+    <servlet-mapping>
+		<servlet-name>ServletVentes</servlet-name>
+		<url-pattern>/ServletVentes/venteAjouter</url-pattern>
+	</servlet-mapping>
+		
 	<servlet-mapping>
 		<servlet-name>ServletVentes</servlet-name>
 		<url-pattern>/ServletVentes/venteConsulter</url-pattern>
@@ -266,12 +276,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>ServletVentes</servlet-name>
-		<url-pattern>/ServletVentes/listerLesVentes</url-pattern>
-	</servlet-mapping>
-	
-        <servlet-mapping>
-		<servlet-name>ServletVentes</servlet-name>
-		<url-pattern>/ServletVentes/venteAjouter</url-pattern>
+		<url-pattern>/ServletVentes/venteModifier</url-pattern>
 	</servlet-mapping>
         
 	<!-- Autre -->
