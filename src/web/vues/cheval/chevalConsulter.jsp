@@ -35,9 +35,9 @@
 		<p>Père : <%= (unCheval.getPere() != null) ? "<a href=?id="+unCheval.getPere().getId()+">"+unCheval.getPere().getSire()+"</a>" : "Non renseigné"%></p>
 		<% 
 			if(user instanceof DirecteurGeneral) {
-				out.println("<td><a href='"+ ServletCheval.URL_ARCHIVER_CHEVAL +"?id=" + unCheval.getId() + "'>");
+				out.println("<p><a href='"+ ServletCheval.URL_ARCHIVER_CHEVAL +"?id=" + unCheval.getId() + "'>");
 				out.println("Archiver");
-				out.println("</a></td>");
+				out.println("</a></p>");
 			} else {	
 			}
 		%>
