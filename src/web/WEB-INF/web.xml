@@ -139,8 +139,18 @@
 	</servlet-mapping>
 	
 	<servlet-mapping>
+		<servlet-name>ServletCheval</servlet-name>
+		<url-pattern>/ServletCheval/chevalArchiver</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
 		<servlet-name>ServletClient</servlet-name>
 		<url-pattern>/ServletClient/ajouterClient</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ServletClient</servlet-name>
+		<url-pattern>/ServletClient/clientArchiver</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
@@ -170,12 +180,23 @@
 	
 	<servlet-mapping>
 		<servlet-name>ServletCourse</servlet-name>
+		<url-pattern>/ServletCourse/courseChevalRenseigner</url-pattern>
+	</servlet-mapping>
+        
+	<servlet-mapping>
+		<servlet-name>ServletCourse</servlet-name>
 		<url-pattern>/ServletCourse/courseModifier</url-pattern>
 	</servlet-mapping>
+        
 	
 	<servlet-mapping>
 		<servlet-name>ServletCourse</servlet-name>
 		<url-pattern>/ServletCourse/listerLesCourses</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ServletFooter</servlet-name>
+		<url-pattern>/ServletFooter/contact</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
@@ -192,6 +213,16 @@
 		<servlet-name>ServletLieu</servlet-name>
 		<url-pattern>/ServletLieu/ajouterLieu</url-pattern>
 	</servlet-mapping>
+		
+	<servlet-mapping>
+		<servlet-name>ServletLieu</servlet-name>
+		<url-pattern>/ServletLieu/lieuLister</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletLieu</servlet-name>
+		<url-pattern>/ServletLieu/lieuModifier</url-pattern>
+	</servlet-mapping> 	
 
 	<servlet-mapping>
 		<servlet-name>ServletLot</servlet-name>
@@ -227,7 +258,17 @@
 		<servlet-name>ServletTypeCheval</servlet-name>
 		<url-pattern>/ServletTypeCheval/typeChevalModifier</url-pattern>
 	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletVentes</servlet-name>
+		<url-pattern>/ServletVentes/listerLesVentes</url-pattern>
+	</servlet-mapping>
 	
+    <servlet-mapping>
+		<servlet-name>ServletVentes</servlet-name>
+		<url-pattern>/ServletVentes/venteAjouter</url-pattern>
+	</servlet-mapping>
+		
 	<servlet-mapping>
 		<servlet-name>ServletVentes</servlet-name>
 		<url-pattern>/ServletVentes/venteConsulter</url-pattern>
@@ -235,12 +276,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>ServletVentes</servlet-name>
-		<url-pattern>/ServletVentes/listerLesVentes</url-pattern>
-	</servlet-mapping>
-	
-        <servlet-mapping>
-		<servlet-name>ServletVentes</servlet-name>
-		<url-pattern>/ServletVentes/venteAjouter</url-pattern>
+		<url-pattern>/ServletVentes/venteModifier</url-pattern>
 	</servlet-mapping>
         
 	<!-- Autre -->

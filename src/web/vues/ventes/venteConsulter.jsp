@@ -4,6 +4,7 @@
     Author     : MartinJ
 --%>
 
+<%@page import="servlets.ServletVentes"%>
 <%@page import="modele.Lot"%>
 <%@page import="modele.Vente"%>
 <%@page import="modele.CategVente"%>
@@ -17,6 +18,7 @@
 <%
 	Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 	Vente uneVente = (Vente) request.getAttribute("pVente");
+		
 %>
 
 <div class="row">
@@ -24,7 +26,7 @@
 		<%
 			if (user instanceof DirecteurGeneral) {%>
 		<p><a href="../ServletCourriel/listerLesCourriels?codeVente=<%=uneVente.getId()%>">Lister les courriels</a></p>
-		<p><a href="#">Modifier la vente</a></p>
+		<p><a href="<%= ServletVentes.URL_MODIFIER_VENTE%>?id=<%=uneVente.getId()%>">Modifier la vente</a></p>
 		<%
 			}
 		%>
