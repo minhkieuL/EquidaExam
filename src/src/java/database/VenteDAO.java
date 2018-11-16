@@ -140,4 +140,34 @@ public class VenteDAO {
 		}
 		return idGenere;
 	}
+
+	public static Vente getUneVente(Connection connection, int idVente) {
+		Vente vente = null;
+		try {
+			//preparation de la requete
+			// id (clé primaire de la table vente) est en auto_increment, donc on ne renseigne pas cette valeur
+			// la paramètre RETURN_GENERATED_KEYS est ajouté à la requête afin de pouvoir récupérer l'id généré par la bdd (voir ci-dessous)
+			// supprimer ce paramètre en cas de requête sans auto_increment.
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM vente WHERE id=?");
+			requete.setInt(1, idVente);
+			ResultSet rs = requete.executeQuery();
+			while (rs.next()) {
+				vente = new Vente();
+				vente.setId(rs.getInt("id"));
+				vente.setNom(rs.getString("nom"));
+				vente.setDateDebut(rs.getString("dateDebut"));
+				vente.setDateFin(rs.getString("dateFin"));
+				vente.setDateVente(rs.getString("dateVente"));
+				vente.setLieu(LieuDAO.getLieu(connection, rs.getInt("lieu")));
+				vente.setLots(LotDAO.getLesLotPourVente(connection, vente.getId()));
+				vente.setUneCategVente(CategVenteDAO.getCategVente(connection, rs.getString("codeCategVente")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+		return vente;
+	}
+	
+
 }
