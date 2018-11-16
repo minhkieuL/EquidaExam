@@ -29,11 +29,22 @@
 		<p><a href="mailto:<%= unClient.getMail()%>"><%= (unClient.getMail() != null) ? unClient.getMail() : ""%></a></p>
 		<p><%= unClient.getPays().getNom()%></p>
 		<p>Catégorie de vente : </p>
-		<ul>
-			<% for (CategVente categ : unClient.getLesCategVentes()) {%>
-			<li><%= categ.getLibelle()%></li>
-				<%}%>
-		</ul>
+			<%
+				if (unClient.getLesCategVentes() != null) {
+					for (CategVente categ : unClient.getLesCategVentes()) {
+			%>
+
+			<p>		- <%= categ.getLibelle()%></p>
+
+			<%
+				}
+			} else {
+			%>
+			<p>Ce client n'est inscrit à aucune catégorie de vente</p>
+				<%
+					}
+				%>
+
 
 		<% if (user instanceof DirecteurGeneral) {
 				//TODO afficher si le client est archivé ou non
