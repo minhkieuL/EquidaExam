@@ -179,5 +179,32 @@ public class ClientDAO {
 		
 		return lesClients;
 	}
+	
+	public static Client modifierClient(Connection connection, Client unClient){      
+        
+        try
+        {
+            //preparation de la requete 
+            PreparedStatement requete=connection.prepareStatement(" UPDATE utilisateur SET nom = ?, prenom = ?,rue = ?,copos = ?,ville = ?,mail = ?WHERE id = ?; ");
+      
+            requete.setString(1, unClient.getNom());
+			requete.setString(2, unClient.getPrenom());
+			requete.setString(3, unClient.getRue());
+			requete.setString(4, unClient.getCopos());
+			requete.setString(5, unClient.getVille());
+			requete.setString(6, unClient.getVille());
+			requete.setInt(7, unClient.getId());
+            /* Exécution de la requête */
+            requete.executeUpdate();
+            
+            //System.out.println("requete " +requete);
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unClient ; 
+    }
 
 }
