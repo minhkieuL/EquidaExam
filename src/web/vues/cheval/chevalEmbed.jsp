@@ -4,6 +4,9 @@
     Author     : MartinJ
 --%>
 
+<%@page import="modele.Utilisateur"%>
+<%@page import="modele.Cheval"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="modele.Lot"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 

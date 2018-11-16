@@ -9,6 +9,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="modele.Client"%>
 <%@page import="modele.Utilisateur"%>
+<%@page import="servlets.ServletCheval"%>
+<%@page import="modele.Utilisateur"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="modele.Cheval"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -32,61 +35,68 @@
         <p>Sire : <%= (unCheval.getSire() != null) ? unCheval.getSire() : "Non renseigné"%></p>
         <p>Mère : <%= (unCheval.getMere() != null) ? "<a href=?id=" + unCheval.getMere().getId() + ">" + unCheval.getMere().getSire() + "</a>" : "Non renseignée"%></p>
         <p>Père : <%= (unCheval.getPere() != null) ? "<a href=?id=" + unCheval.getPere().getId() + ">" + unCheval.getPere().getSire() + "</a>" : "Non renseigné"%></p>
+        <%
+                        if (user instanceof DirecteurGeneral) {
+                                out.println("<p><a href='" + ServletCheval.URL_ARCHIVER_CHEVAL + "?id=" + unCheval.getId() + "'>");
+                                out.println("Archiver");
+                                out.println("</a></p>");
+                        }
+        %>
     </div>
 
     <div class="row">
         <div class="col s12">
             <h3>Les courses</h3>
-            <% if(lesParticipations.size()!=0){
+            <% if (lesParticipations.size() != 0) {
             %>
-                <table><table class="col s12 table table-bordered table-striped table-condensed">  
-		<thead>
-			<tr>             
-				<th>Course</th>
-				<th>Date</th>
-				<th>Classement</th>  
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<%
-					for (int i = 0; i < lesParticipations.size(); i++) {
+            <table><table class="col s12 table table-bordered table-striped table-condensed">  
+                    <thead>
+                        <tr>             
+                            <th>Course</th>
+                            <th>Date</th>
+                            <th>Classement</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <%
+                                                                for (int i = 0; i < lesParticipations.size(); i++) {
 
-						Participer uneParticipation = lesParticipations.get(i);
+                                                                        Participer uneParticipation = lesParticipations.get(i);
 
-						out.println("<tr><td>");
-						out.println(uneParticipation.getCourse().getNom());
-						out.println("</td>");
+                                                                        out.println("<tr><td>");
+                                                                        out.println(uneParticipation.getCourse().getNom());
+                                                                        out.println("</td>");
 
-						out.println("<td>");
-						out.println(uneParticipation.getCourse().getDate());
-						out.println("</td>");
+                                                                        out.println("<td>");
+                                                                        out.println(uneParticipation.getCourse().getDate());
+                                                                        out.println("</td>");
 
-						out.println("<td>");
-						out.println(uneParticipation.getPlace());
-						out.println("</td>");
-                                                
-                                                if (user instanceof Client || user instanceof DirecteurGeneral){
-						out.println("<td><a href ='../ServletClient/clientModifier?id=" + uneParticipation.getCheval() + "'>");
-						out.println("Modifier");
-						out.println("</td>");
-                                                }
-					}
-				%>
-			</tr>
-		</tbody>
-            </table>
-            <%
-            }else { %>
-            <p>Aucune course n'a été enregistrée pour ce cheval</p>
-            <%
-                }
-                                if (user instanceof Client || user instanceof DirecteurGeneral) {
-            %>
-            <a href ='../ServletCourse/courseChevalRenseigner?id=<%= unCheval.getId() %>'>Ajouter une course</a>
-            <%
-                   }             
-            %>
+                                                                        out.println("<td>");
+                                                                        out.println(uneParticipation.getPlace());
+                                                                        out.println("</td>");
+
+                                                                        if (user instanceof Client || user instanceof DirecteurGeneral) {
+                                                                                out.println("<td><a href ='../ServletClient/clientModifier?id=" + uneParticipation.getCheval() + "'>");
+                                                                                out.println("Modifier");
+                                                                                out.println("</td>");
+                                                                        }
+                                                                }
+                            %>
+                        </tr>
+                    </tbody>
+                </table>
+                <%
+				} else { %>
+                <p>Aucune course n'a été enregistrée pour ce cheval</p>
+                <%
+                                        }
+                                        if (user instanceof Client || user instanceof DirecteurGeneral) {
+                %>
+                <a href ='../ServletCourse/courseChevalRenseigner?id=<%= unCheval.getId()%>'>Ajouter une course</a>
+                <%
+                                        }
+                %>
         </div>
     </div>
 

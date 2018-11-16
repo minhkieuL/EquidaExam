@@ -139,6 +139,11 @@
 	</servlet-mapping>
 	
 	<servlet-mapping>
+		<servlet-name>ServletCheval</servlet-name>
+		<url-pattern>/ServletCheval/chevalArchiver</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
 		<servlet-name>ServletClient</servlet-name>
 		<url-pattern>/ServletClient/ajouterClient</url-pattern>
 	</servlet-mapping>
