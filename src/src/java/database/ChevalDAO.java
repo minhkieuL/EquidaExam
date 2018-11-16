@@ -13,6 +13,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import modele.Cheval;
+import modele.Participer;
 import modele.Utilisateur;
 
 /**

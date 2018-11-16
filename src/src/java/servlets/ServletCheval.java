@@ -1,6 +1,7 @@
 package servlets;
 
 import database.ChevalDAO;
+import database.ParticiperDAO;
 import database.TypeChevalDAO;
 import formulaires.ChevalForm;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import modele.Cheval;
 import modele.Client;
 import modele.DirecteurGeneral;
+import modele.Participer;
 import modele.TypeCheval;
 import modele.Utilisateur;
 
@@ -73,7 +75,9 @@ public class ServletCheval extends ServletBase {
 			}
 			
 			Cheval cheval = ChevalDAO.getCheval(connection, idCheval);
-
+			ArrayList<Participer> lesParticipations = ParticiperDAO.getLesParticipationsCoursesCheval(connection, idCheval);
+			
+			request.setAttribute("pParticipations", lesParticipations);
 			request.setAttribute("pCheval", cheval);
 			changerTitrePage("Cheval " + cheval.getNom(), request);
 

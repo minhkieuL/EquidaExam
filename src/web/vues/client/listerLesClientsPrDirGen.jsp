@@ -16,7 +16,6 @@
 
 <%
 	ArrayList<Client> lesClients = (ArrayList) request.getAttribute("pLesClients");
-        
 	Utilisateur user = (Utilisateur) session.getAttribute("user");
 %>
 
