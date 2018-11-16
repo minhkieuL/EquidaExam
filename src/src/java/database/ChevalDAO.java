@@ -13,6 +13,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import modele.Cheval;
+import modele.Participer;
 import modele.Utilisateur;
 
 /**
@@ -83,7 +84,7 @@ public class ChevalDAO {
 
 		try {
 			//preparation de la requete     
-			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE id=?");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE id=?;");
 			requete.setInt(1, idCheval);
 
 			//executer la requete
@@ -147,5 +148,18 @@ public class ChevalDAO {
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 		return unCheval;
+	}
+	
+	public static void archiverCheval(Connection connection, int idCheval) {
+		try {
+			PreparedStatement requete = connection.prepareStatement("UPDATE cheval SET archiver = 1 WHERE id =?;");
+			requete.setInt(1, idCheval);
+
+			requete.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
 	}
 }
