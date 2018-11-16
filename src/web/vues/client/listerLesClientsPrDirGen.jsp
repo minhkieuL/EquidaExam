@@ -24,7 +24,7 @@
 		<thead>
 			<tr>             
 				<th>Nom</th>
-				<th>Prenomt</th>
+				<th>Prenom</th>
 				<th>Pays</th>  
 				<th>Rue</th>
 				<th>Ville</th>
