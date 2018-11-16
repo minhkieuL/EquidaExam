@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Cheval;
 import modele.Client;
+import modele.DirecteurGeneral;
 import modele.TypeCheval;
 import modele.Utilisateur;
 
@@ -24,6 +25,8 @@ public class ServletCheval extends ServletBase {
 	public static final String URL_AJOUTER_CHEVAL = "/EquidaWebG2/ServletCheval/ajouterCheval";
 	public static final String URL_CONSULTER_CHEVAL = "/EquidaWebG2/ServletCheval/consulterCheval";
 	public static final String URL_MODIFIER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalModifier";
+	public static final String URL_ARCHIVER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalArchiver";
+	public static final String URL_LISTER_LOTS = "/EquidaWebG2/ServletLot/listerLesLots";
 	
 	Connection connection;
 
@@ -94,6 +97,22 @@ public class ServletCheval extends ServletBase {
 
 			this.getServletContext().getRequestDispatcher("/vues/cheval/chevalForm.jsp").forward(request, response);
         }
+		
+		if (url.equals(URL_ARCHIVER_CHEVAL)) {
+			if(user instanceof DirecteurGeneral) {
+				int idCheval = 0;
+				try {
+					idCheval = Integer.valueOf(request.getParameter("id"));
+				} catch(Exception e) {
+					redirigerVersAcceuil(response);
+					return;
+				}
+				ChevalDAO.archiverCheval(connection, idCheval);
+				response.sendRedirect(URL_LISTER_LOTS);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
 	}
 
 	/**

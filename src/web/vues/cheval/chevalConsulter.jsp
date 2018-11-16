@@ -4,13 +4,21 @@
     Author     : slam
 --%>
 
+<%@page import="modele.DirecteurGeneral"%>
+<%@page import="servlets.ServletCheval"%>
+<%@page import="modele.Utilisateur"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="modele.Cheval"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
 
 <%
-Cheval unCheval = (Cheval)request.getAttribute("pCheval");
+	Cheval unCheval = (Cheval)request.getAttribute("pCheval");
+
+	ArrayList<Cheval> lesChevaux = (ArrayList) request.getAttribute("pLesChevaux");
+	
+	Utilisateur user = (Utilisateur) session.getAttribute("user");
 %>
 
 <div class="row">
@@ -25,6 +33,14 @@ Cheval unCheval = (Cheval)request.getAttribute("pCheval");
 		<p>Sire : <%= (unCheval.getSire() != null) ? unCheval.getSire() : "Non renseigné" %></p>
 		<p>Mère : <%= (unCheval.getMere() != null) ? "<a href=?id="+unCheval.getMere().getId()+">"+unCheval.getMere().getSire()+"</a>" : "Non renseignée"%></p>
 		<p>Père : <%= (unCheval.getPere() != null) ? "<a href=?id="+unCheval.getPere().getId()+">"+unCheval.getPere().getSire()+"</a>" : "Non renseigné"%></p>
+		<% 
+			if(user instanceof DirecteurGeneral) {
+				out.println("<td><a href='"+ ServletCheval.URL_ARCHIVER_CHEVAL +"?id=" + unCheval.getId() + "'>");
+				out.println("Archiver");
+				out.println("</a></td>");
+			} else {	
+			}
+		%>
 	</div>
 	
 	<div class="row">
