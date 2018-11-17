@@ -21,8 +21,6 @@ import modele.Utilisateur;
  *
  * @author slam
  */
-
-
 public class ChevalDAO {
 
 	// Méthode permettant d'insérer un client en base à partir de l'objet client passé en paramètre
@@ -95,6 +93,47 @@ public class ChevalDAO {
 			while (rs.next()) {
 				unCheval = new Cheval();
 				unCheval.setId(idCheval);
+				unCheval.setNom(rs.getString("nom"));
+				unCheval.setSire(rs.getString("sire"));
+				unCheval.setMale(rs.getBoolean("sexe"));
+				
+				int typeCheval = rs.getInt("typeCheval");
+				if(typeCheval != 0) {
+					unCheval.setTypeCheval(TypeChevalDAO.getTypeCheval(connection, typeCheval));
+				}
+				
+				int idPere = rs.getInt("pere");	
+				if(idPere != 0) {
+					unCheval.setPere(getCheval(connection, idPere));
+				}
+				
+				int idMere = rs.getInt("mere");
+				if(idMere != 0) {	
+					unCheval.setMere(getCheval(connection, idMere));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		return unCheval;
+	}
+	
+	public static Cheval getChevalParSire(Connection connection, String sireCheval) {
+		Cheval unCheval = null;
+
+		try {
+			//preparation de la requete     
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE sire=?;");
+			requete.setString(1, sireCheval);
+
+			//executer la requete
+			ResultSet rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Cheval avec les résultats de la requête
+			while (rs.next()) {
+				unCheval = new Cheval();
+				unCheval.setId(rs.getInt("id"));
 				unCheval.setNom(rs.getString("nom"));
 				unCheval.setSire(rs.getString("sire"));
 				unCheval.setMale(rs.getBoolean("sexe"));
