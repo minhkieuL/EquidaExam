@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
+import jdk.nashorn.internal.ir.RuntimeNode;
 import modele.Cheval;
 import modele.Utilisateur;
 
@@ -147,5 +148,47 @@ public class ChevalDAO {
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 		return unCheval;
+	}
+
+	public static ArrayList<Cheval> getChevauxClient(Connection connection, int idClient) {
+		ArrayList<Cheval> chevaux = new ArrayList<>();
+		try {
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE client = ?");
+			requete.setInt(1, idClient);
+			
+			ResultSet rs = requete.executeQuery();
+			while(rs.next()) {
+				Cheval cheval = new Cheval();
+				cheval.setId(rs.getInt("id"));
+				cheval.setSire(rs.getString("sire"));
+				cheval.setNom(rs.getString("nom"));
+				chevaux.add(cheval);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return chevaux;
+	}
+	
+	public static ArrayList<Cheval> getChevauxClientDispoVente(Connection connection, int idClient) {
+		ArrayList<Cheval> chevaux = new ArrayList<>();
+		try {
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE cheval.id NOT IN (SELECT lot.idCheval FROM lot WHERE lot.id NOT IN (SELECT enchere.lot FROM enchere) UNION SELECT lot.idCheval FROM lot, enchere WHERE lot.id = enchere.lot AND enchere.montant <> 0) AND client = ?");
+			requete.setInt(1, idClient);
+			
+			ResultSet rs = requete.executeQuery();
+			while(rs.next()) {
+				Cheval cheval = new Cheval();
+				cheval.setId(rs.getInt("id"));
+				cheval.setSire(rs.getString("sire"));
+				cheval.setNom(rs.getString("nom"));
+				chevaux.add(cheval);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return chevaux;
 	}
 }

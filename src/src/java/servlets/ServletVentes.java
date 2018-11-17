@@ -6,6 +6,7 @@
 package servlets;
 
 import database.CategVenteDAO;
+import database.ChevalDAO;
 import database.LieuDAO;
 import database.Utilitaire;
 import database.VenteDAO;
@@ -18,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
+import modele.Cheval;
 import modele.DirecteurGeneral;
 import modele.Lieu;
 import modele.Utilisateur;
@@ -78,7 +80,10 @@ public class ServletVentes extends ServletBase {
 				return;
 			}
 			Vente vente = VenteDAO.getVente(connection, idVente);
+			int idClient = (user != null) ? user.getId() : 0;
+			ArrayList<Cheval> chevauxClient = ChevalDAO.getChevauxClientDispoVente(connection, idClient);
 
+			request.setAttribute("pChevauxClient", chevauxClient);
 			request.setAttribute("pVente", vente);
 			changerTitrePage("Vente "+vente.getNom(), request);
 

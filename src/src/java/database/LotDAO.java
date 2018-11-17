@@ -103,4 +103,20 @@ public class LotDAO {
 		}
 		return lesLots;
 	}
+	
+	public static void ajouterLot(Connection connection, Lot lot) {
+		try {
+			PreparedStatement requete = connection.prepareStatement("INSERT INTO lot(idVente, idCheval, prixDepart) VALUES (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+
+			requete.setInt(1, lot.getVente().getId());
+			requete.setInt(2, lot.getCheval().getId());
+			requete.setFloat(3, lot.getPrixDepart());
+
+			requete.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+	}
 }
