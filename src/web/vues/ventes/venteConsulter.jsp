@@ -7,6 +7,7 @@
 <%@page import="servlets.ServletLot"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modele.Cheval"%>
+<%@page import="servlets.ServletVentes"%>
 <%@page import="modele.Lot"%>
 <%@page import="modele.Vente"%>
 <%@page import="modele.CategVente"%>
@@ -21,6 +22,7 @@
 	Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 	Vente uneVente = (Vente) request.getAttribute("pVente");
 	ArrayList<Cheval> chevauxClient = (ArrayList<Cheval>) request.getAttribute("pChevauxClient");
+
 %>
 
 <div class="row">
@@ -28,7 +30,7 @@
 		<%
 			if (user instanceof DirecteurGeneral) {%>
 		<p><a href="../ServletCourriel/listerLesCourriels?codeVente=<%=uneVente.getId()%>">Lister les courriels</a></p>
-		<p><a href="#">Modifier la vente</a></p>
+		<p><a href="<%= ServletVentes.URL_MODIFIER_VENTE%>?id=<%=uneVente.getId()%>">Modifier la vente</a></p>
 		<%
 			}
 		%>

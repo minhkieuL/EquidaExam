@@ -53,6 +53,12 @@
                 <label for="ville">Ville : </label>
             </div>
         </div>
+		 <div class="row">
+            <div class="input-field col s12 l6">
+                <label for="copos">Mail : </label>
+                <input id="mail"  type="text"  name="mail" size="40" maxlength="50" value="<%= unClient.getMail()%>" class="validate">
+            </div>
+		 </div>
 
         <div class="row">
             <div class="input-field col s12 l6">

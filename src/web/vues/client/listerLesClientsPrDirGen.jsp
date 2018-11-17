@@ -16,7 +16,6 @@
 
 <%
 	ArrayList<Client> lesClients = (ArrayList) request.getAttribute("pLesClients");
-        
 	Utilisateur user = (Utilisateur) session.getAttribute("user");
 %>
 
@@ -40,7 +39,7 @@
 
 						Client unClient = lesClients.get(i);
 
-						out.println("<tr><td>");
+						out.println("<tr><td><a href='"+ ServletClient.URL_CONSULTER_CLIENT +"?id=" + unClient.getId() + "'>");
 						out.println(unClient.getNom());
 						out.println("</td>");
 
