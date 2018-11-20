@@ -172,6 +172,11 @@
 		<servlet-name>ServletCourriel</servlet-name>
 		<url-pattern>/ServletCourriel/listerLesCourriels</url-pattern>
 	</servlet-mapping>
+		
+	<servlet-mapping>
+		<servlet-name>ServletCourriel</servlet-name>
+		<url-pattern>/ServletCourriel/ajouterCourriel</url-pattern>
+	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>ServletCourse</servlet-name>
@@ -188,7 +193,6 @@
 		<url-pattern>/ServletCourse/courseModifier</url-pattern>
 	</servlet-mapping>
         
-	
 	<servlet-mapping>
 		<servlet-name>ServletCourse</servlet-name>
 		<url-pattern>/ServletCourse/listerLesCourses</url-pattern>
@@ -227,12 +231,12 @@
 	<servlet-mapping>
 		<servlet-name>ServletLot</servlet-name>
 		<url-pattern>/ServletLot/ajouterLot</url-pattern>
-	</servlet-mapping> ServletLot/
+	</servlet-mapping> 
 	
 	<servlet-mapping>
 		<servlet-name>ServletLot</servlet-name>
 		<url-pattern>/ServletLot/listerLesLots</url-pattern>
-	</servlet-mapping> ServletLot/ajouterLot
+	</servlet-mapping> 
 	
 	<servlet-mapping>
 		<servlet-name>ServletPays</servlet-name>

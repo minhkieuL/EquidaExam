@@ -4,17 +4,17 @@
 	Author     : MartinJ
 --%>
 
+<%@page import="servlets.ServletCourriel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!-- Dropdown Trigger -->
-
-
 <li><a class="dropdown-button" href="#!" data-target="dropdownClient">Client<i class="material-icons right">arrow_drop_down</i></a></li>
 <li><a class="dropdown-button" href="#!" data-target="dropdownCheval">Cheval<i class="material-icons right">arrow_drop_down</i></a></li>
 <li><a class="dropdown-button" href="#!" data-target="dropdownVente">Vente<i class="material-icons right">arrow_drop_down</i></a></li>
 <li><a class="dropdown-button" href="#!" data-target="dropdownPays">Pays<i class="material-icons right">arrow_drop_down</i></a></li>
 <li><a class="dropdown-button" href="#!" data-target="dropdownLieu">Lieu<i class="material-icons right">arrow_drop_down</i></a></li>
 <li><a class="dropdown-button" href="#!" data-target="dropdownCourses">Courses<i class="material-icons right">arrow_drop_down</i></a></li>
-
+<li><a href="<%= ServletCourriel.URL_AJOUTER_COURIEL %>">Envoyer un mail</a></li>
 
 
 <!-- Dropdown Structure -->
