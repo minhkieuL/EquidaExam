@@ -202,6 +202,7 @@ public class ChevalDAO {
 				cheval.setId(rs.getInt("id"));
 				cheval.setSire(rs.getString("sire"));
 				cheval.setNom(rs.getString("nom"));
+				cheval.setMale(rs.getBoolean("sexe"));
 				chevaux.add(cheval);
 			}
 		} catch(Exception e) {

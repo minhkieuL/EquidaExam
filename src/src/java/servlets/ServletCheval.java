@@ -1,8 +1,10 @@
 package servlets;
 
+import database.CategVenteDAO;
 import database.ChevalDAO;
 import database.ParticiperDAO;
 import database.TypeChevalDAO;
+import database.VenteDAO;
 import formulaires.ChevalForm;
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,12 +13,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modele.CategVente;
 import modele.Cheval;
 import modele.Client;
 import modele.DirecteurGeneral;
 import modele.Participer;
 import modele.TypeCheval;
 import modele.Utilisateur;
+import modele.Vente;
 
 /**
  *
@@ -29,8 +33,9 @@ public class ServletCheval extends ServletBase {
 	public static final String URL_MODIFIER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalModifier";
 	public static final String URL_ARCHIVER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalArchiver";
 	public static final String URL_LISTER_LOTS = "/EquidaWebG2/ServletLot/listerLesLots";
+	public static final String URL_LISTER_MES_CHEVAUX = "/EquidaWebG2/ServletCheval/listerMesChevaux";
 	
-	Connection connection;
+			Connection connection;
 
 	@Override
 	public void init() {
@@ -83,6 +88,16 @@ public class ServletCheval extends ServletBase {
 
 			getServletContext().getRequestDispatcher("/vues/cheval/chevalConsulter.jsp").forward(request, response);
 		}
+		
+		if (url.equals(URL_LISTER_MES_CHEVAUX)) {
+			ArrayList<Cheval> mesChevaux = ChevalDAO.getChevauxClient(connection, user.getId());
+
+			request.setAttribute("pMesChevaux", mesChevaux);
+			changerTitrePage("Lister Mes Chevaux", request);
+
+			getServletContext().getRequestDispatcher("/vues/cheval/listerMesChevaux.jsp").forward(request, response);
+		}
+		
         
         if (url.equals(URL_MODIFIER_CHEVAL)) {	
 			int idCheval = 0;
