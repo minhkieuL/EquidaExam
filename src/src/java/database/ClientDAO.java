@@ -129,6 +129,9 @@ public class ClientDAO {
 				client.setVille(rs.getString("ville"));
 				client.setMail(rs.getString("mail"));
 				
+				client.setPays(new Pays());
+				client.setLesCategVentes(new ArrayList<>());
+				
 				PreparedStatement requeteCategvente = connection.prepareStatement("SELECT * FROM utilisateur, categvente, clientcategvente WHERE utilisateur.id=codeClient AND codeCategVente=categvente.code AND utilisateur.id=?");
 				requeteCategvente.setInt(1, idClient);
 				ResultSet rsCategVente = requeteCategvente.executeQuery();
@@ -219,5 +222,7 @@ public class ClientDAO {
         }
         return unClient ; 
     }
+	
+	
 
 }

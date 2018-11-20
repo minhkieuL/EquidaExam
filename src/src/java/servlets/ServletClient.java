@@ -33,6 +33,7 @@ public class ServletClient extends ServletBase {
 	public static final String URL_MODIFIER_CLIENT = "/EquidaWebG2/ServletClient/clientModifier";
 	public static final String URL_ARCHIVER_CLIENT = "/EquidaWebG2/ServletClient/clientArchiver";
 	
+	
 	Connection connection;
 
 	@Override
@@ -119,15 +120,22 @@ public class ServletClient extends ServletBase {
 		}
 		
 		if (url.equals(URL_MODIFIER_CLIENT)) {
-			if(user instanceof DirecteurGeneral) {
+			if(user instanceof DirecteurGeneral || user instanceof Client) {
 				int idClient = Integer.valueOf(request.getParameter("id"));
+				
+				if(user instanceof Client) {
+					if(idClient != user.getId()) {
+						redirigerVersAcceuil(response);
+						return;
+					}
+				}
+				
 				Client unClient = ClientDAO.getClient(connection, idClient);
 				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
 				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
 
 				request.setAttribute("pLesPays", lesPays);
 				request.setAttribute("pLesCategVente", lesCategVentes);
-
 				request.setAttribute("pClient", unClient);
 				changerTitrePage("Modifier un client", request);
 
@@ -152,6 +160,8 @@ public class ServletClient extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
+		
+	
  
 	}
 
@@ -195,7 +205,7 @@ public class ServletClient extends ServletBase {
         }
 		
 		 if (url.equals(URL_MODIFIER_CLIENT)) {
-			if(user instanceof DirecteurGeneral) {
+			if(user instanceof DirecteurGeneral || user instanceof Client) {
 				/* Préparation de l'objet formulaire */
 				ClientForm form = new ClientForm();
 
