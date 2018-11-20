@@ -17,6 +17,7 @@ import modele.Lot;
 public class ServletLot extends ServletBase {
 
 	public static final String URL_LISTER_LOTS = "/EquidaWebG2/ServletLot/listerLesLots";
+	public static final String URL_LISTER_NONVALIDER = "/EquidaWebG2/ServletLot/listerLesNonValides";
 	
 	Connection connection;
 
@@ -46,6 +47,17 @@ public class ServletLot extends ServletBase {
 			changerTitrePage("Lister les lots", request);
 
 			getServletContext().getRequestDispatcher("/vues/lot/listerLots.jsp").forward(request, response);
+
+		}
+		
+		
+		if (url.equals(URL_LISTER_NONVALIDER)) {
+			ArrayList<Lot> lesLots = LotDAO.getlesLotsNonValides(connection);
+
+			request.setAttribute("pLots", lesLots);
+			changerTitrePage("Lister les ventes non validés", request);
+
+			getServletContext().getRequestDispatcher("/vues/lot/lotsNonValides.jsp").forward(request, response);
 
 		}
 	}

@@ -103,4 +103,30 @@ public class LotDAO {
 		}
 		return lesLots;
 	}
+	
+	public static ArrayList<Lot> getlesLotsNonValides(Connection connection) {
+		ArrayList<Lot> lesLots = new ArrayList<>();
+		try {
+			//preparation de la requete     
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval,lot WHERE lot.idcheval = cheval.id AND lot.validation IS NULL");
+
+			//executer la requete
+			ResultSet rs = requete.executeQuery();
+			
+			while (rs.next()) {
+				Lot unLot = new Lot();
+				unLot.setId(rs.getInt("id"));
+				unLot.setCheval(ChevalDAO.getCheval(connection, rs.getInt("idCheval")));
+				unLot.setVente(VenteDAO.getVente(connection, rs.getInt("idVente")));
+				unLot.setPrixDepart(rs.getFloat("prixDepart"));
+
+				lesLots.add(unLot);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		return lesLots;
+	}
 }
