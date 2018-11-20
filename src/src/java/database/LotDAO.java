@@ -144,4 +144,23 @@ public class LotDAO {
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 	}
+	
+	public static Lot getLotCheval(Connection connection, int idCheval) {
+		Lot lot = null;
+		try {
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM `lot` WHERE `idCheval` = ? AND id NOT IN (SELECT enchere.lot FROM enchere WHERE enchere.montant = 0)", PreparedStatement.RETURN_GENERATED_KEYS);
+			requete.setInt(1, idCheval);
+			
+			ResultSet rs = requete.executeQuery();
+			while (rs.next()) {
+				lot = new Lot();
+				lot.setId(rs.getInt("id"));
+				lot.setPrixDepart(rs.getFloat("prixDepart"));
+				lot.setValidation(rs.getString("validation"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lot;
+	}
 }

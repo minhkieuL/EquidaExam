@@ -1,6 +1,7 @@
 package servlets;
 
 import database.ChevalDAO;
+import database.LotDAO;
 import database.ParticiperDAO;
 import database.TypeChevalDAO;
 import formulaires.ChevalForm;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import modele.Cheval;
 import modele.Client;
 import modele.DirecteurGeneral;
+import modele.Lot;
 import modele.Participer;
 import modele.TypeCheval;
 import modele.Utilisateur;
@@ -29,6 +31,7 @@ public class ServletCheval extends ServletBase {
 	public static final String URL_MODIFIER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalModifier";
 	public static final String URL_ARCHIVER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalArchiver";
 	public static final String URL_LISTER_LOTS = "/EquidaWebG2/ServletLot/listerLesLots";
+	public static final String URL_VALIDER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalValider";
 	
 	Connection connection;
 
@@ -76,7 +79,9 @@ public class ServletCheval extends ServletBase {
 			
 			Cheval cheval = ChevalDAO.getCheval(connection, idCheval);
 			ArrayList<Participer> lesParticipations = ParticiperDAO.getLesParticipationsCoursesCheval(connection, idCheval);
+			Lot lot = LotDAO.getLotCheval(connection, idCheval);
 			
+			request.setAttribute("pLot", lot);
 			request.setAttribute("pParticipations", lesParticipations);
 			request.setAttribute("pCheval", cheval);
 			changerTitrePage("Cheval " + cheval.getNom(), request);
@@ -101,6 +106,22 @@ public class ServletCheval extends ServletBase {
 
 			this.getServletContext().getRequestDispatcher("/vues/cheval/chevalForm.jsp").forward(request, response);
         }
+		
+		if (url.equals(URL_VALIDER_CHEVAL)) {
+			if(user instanceof DirecteurGeneral) {
+				int idCheval = 0;
+				try {
+					idCheval = Integer.valueOf(request.getParameter("id"));
+				} catch(Exception e) {
+					redirigerVersAcceuil(response);
+					return;
+				}
+				ChevalDAO.validerCheval(connection, idCheval);
+				response.sendRedirect(ServletLot.URL_LISTER_NONVALIDER);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
 		
 		if (url.equals(URL_ARCHIVER_CHEVAL)) {
 			if(user instanceof DirecteurGeneral) {

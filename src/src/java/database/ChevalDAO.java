@@ -244,4 +244,17 @@ public class ChevalDAO {
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 	}
+	
+	public static void validerCheval(Connection connection, int idCheval) {
+		try {
+			PreparedStatement requete = connection.prepareStatement("UPDATE lot SET validation = (NOW()) WHERE id = ?;");
+			requete.setInt(1, idCheval);
+
+			requete.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+	}
 }

@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Client;
+import modele.DirecteurGeneral;
 import modele.Lot;
 import modele.Utilisateur;
 
@@ -43,6 +44,7 @@ public class ServletLot extends ServletBase {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
 
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
 		if (url.equals(URL_LISTER_LOTS)) {
 			ArrayList<Lot> lesLots = LotDAO.getLesLotsNonVendu(connection);
@@ -56,13 +58,16 @@ public class ServletLot extends ServletBase {
 		
 		
 		if (url.equals(URL_LISTER_NONVALIDER)) {
-			ArrayList<Lot> lesLots = LotDAO.getlesLotsNonValides(connection);
+			if(user instanceof DirecteurGeneral) {
+				ArrayList<Lot> lesLots = LotDAO.getlesLotsNonValides(connection);
 
-			request.setAttribute("pLots", lesLots);
-			changerTitrePage("Lister les ventes non validés", request);
+				request.setAttribute("pLots", lesLots);
+				changerTitrePage("Lister les ventes non validés", request);
 
-			getServletContext().getRequestDispatcher("/vues/lot/lotsNonValides.jsp").forward(request, response);
-
+				getServletContext().getRequestDispatcher("/vues/lot/lotsNonValides.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
 	}
 

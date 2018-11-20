@@ -4,6 +4,7 @@
     Author     : slam
 --%>
 
+<%@page import="modele.Lot"%>
 <%@page import="modele.DirecteurGeneral"%>
 <%@page import="modele.Participer"%>
 <%@page import="java.util.ArrayList"%>
@@ -21,6 +22,7 @@
         Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         Cheval unCheval = (Cheval) request.getAttribute("pCheval");
         ArrayList<Participer> lesParticipations = (ArrayList<Participer>) request.getAttribute("pParticipations");
+        Lot lot = (Lot)request.getAttribute("pLot");
 %>
 
 <div class="row">
@@ -40,8 +42,18 @@
                                 out.println("<p><a href='" + ServletCheval.URL_ARCHIVER_CHEVAL + "?id=" + unCheval.getId() + "'>");
                                 out.println("Archiver");
                                 out.println("</a></p>");
+                                
+                                if(lot.getValidation() == null) {
+                                        //TODO Verifier que le cheval n'est pas deja ajouté
+                                    out.println("Voulez-vous valider le cheval afin de l'ajouter à la vente ?");
+                                    out.println("<p><a href='" + ServletCheval.URL_VALIDER_CHEVAL + "?id=" + lot.getId() + "'>");
+                                    out.println("Valider");
+                                    out.println("</a></p>");
+                                }
                         }
         %>
+        
+        
     </div>
 
     <div class="row">
