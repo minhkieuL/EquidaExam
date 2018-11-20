@@ -15,7 +15,7 @@ SET compte = 2
 WHERE id = 2;
 
 INSERT INTO directeurgeneral VALUES(2);
-DELETE FROM client WHERE id = 2
+DELETE FROM client WHERE id = 2;
 
 UPDATE cheval 
 SET client = 1

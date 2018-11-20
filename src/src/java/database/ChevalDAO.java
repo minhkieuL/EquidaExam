@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
+import jdk.nashorn.internal.ir.RuntimeNode;
 import modele.Cheval;
 import modele.Participer;
 import modele.Utilisateur;
@@ -20,8 +21,6 @@ import modele.Utilisateur;
  *
  * @author slam
  */
-
-
 public class ChevalDAO {
 
 	// Méthode permettant d'insérer un client en base à partir de l'objet client passé en paramètre
@@ -119,6 +118,47 @@ public class ChevalDAO {
 		}
 		return unCheval;
 	}
+	
+	public static Cheval getChevalParSire(Connection connection, String sireCheval) {
+		Cheval unCheval = null;
+
+		try {
+			//preparation de la requete     
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE sire=?;");
+			requete.setString(1, sireCheval);
+
+			//executer la requete
+			ResultSet rs = requete.executeQuery();
+
+			//On hydrate l'objet métier Cheval avec les résultats de la requête
+			while (rs.next()) {
+				unCheval = new Cheval();
+				unCheval.setId(rs.getInt("id"));
+				unCheval.setNom(rs.getString("nom"));
+				unCheval.setSire(rs.getString("sire"));
+				unCheval.setMale(rs.getBoolean("sexe"));
+				
+				int typeCheval = rs.getInt("typeCheval");
+				if(typeCheval != 0) {
+					unCheval.setTypeCheval(TypeChevalDAO.getTypeCheval(connection, typeCheval));
+				}
+				
+				int idPere = rs.getInt("pere");	
+				if(idPere != 0) {
+					unCheval.setPere(getCheval(connection, idPere));
+				}
+				
+				int idMere = rs.getInt("mere");
+				if(idMere != 0) {	
+					unCheval.setMere(getCheval(connection, idMere));
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		return unCheval;
+	}
 
 	public static Cheval modifierChevalOrigin(Connection connection, Cheval unCheval) {
 		try {
@@ -148,6 +188,48 @@ public class ChevalDAO {
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 		return unCheval;
+	}
+
+	public static ArrayList<Cheval> getChevauxClient(Connection connection, int idClient) {
+		ArrayList<Cheval> chevaux = new ArrayList<>();
+		try {
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE client = ?");
+			requete.setInt(1, idClient);
+			
+			ResultSet rs = requete.executeQuery();
+			while(rs.next()) {
+				Cheval cheval = new Cheval();
+				cheval.setId(rs.getInt("id"));
+				cheval.setSire(rs.getString("sire"));
+				cheval.setNom(rs.getString("nom"));
+				chevaux.add(cheval);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return chevaux;
+	}
+	
+	public static ArrayList<Cheval> getChevauxClientDispoVente(Connection connection, int idClient) {
+		ArrayList<Cheval> chevaux = new ArrayList<>();
+		try {
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE cheval.id NOT IN (SELECT lot.idCheval FROM lot WHERE lot.id NOT IN (SELECT enchere.lot FROM enchere) UNION SELECT lot.idCheval FROM lot, enchere WHERE lot.id = enchere.lot AND enchere.montant <> 0) AND client = ?");
+			requete.setInt(1, idClient);
+			
+			ResultSet rs = requete.executeQuery();
+			while(rs.next()) {
+				Cheval cheval = new Cheval();
+				cheval.setId(rs.getInt("id"));
+				cheval.setSire(rs.getString("sire"));
+				cheval.setNom(rs.getString("nom"));
+				chevaux.add(cheval);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return chevaux;
 	}
 	
 	public static void archiverCheval(Connection connection, int idCheval) {

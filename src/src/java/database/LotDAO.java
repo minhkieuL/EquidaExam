@@ -56,7 +56,7 @@ public class LotDAO {
 		ArrayList<Lot> lesLots = new ArrayList<Lot>();
 		try {
 			//preparation de la requete     
-			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lot, cheval WHERE lot.idCheval = cheval.id AND lot.id NOT IN (SELECT lot FROM enchere WHERE montant != 0) AND cheval.archiver = 0 ORDER BY prixDepart DESC");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lot, cheval WHERE lot.idCheval = cheval.id AND lot.id NOT IN (SELECT lot FROM enchere WHERE montant != 0) AND cheval.archiver = 0 AND lot.validation IS NOT NULL ORDER BY prixDepart DESC");
 
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
@@ -102,5 +102,21 @@ public class LotDAO {
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 		return lesLots;
+	}
+	
+	public static void ajouterLot(Connection connection, Lot lot) {
+		try {
+			PreparedStatement requete = connection.prepareStatement("INSERT INTO lot(idVente, idCheval, prixDepart) VALUES (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+
+			requete.setInt(1, lot.getVente().getId());
+			requete.setInt(2, lot.getCheval().getId());
+			requete.setFloat(3, lot.getPrixDepart());
+
+			requete.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
 	}
 }

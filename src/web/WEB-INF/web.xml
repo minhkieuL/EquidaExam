@@ -230,8 +230,13 @@
 
 	<servlet-mapping>
 		<servlet-name>ServletLot</servlet-name>
+		<url-pattern>/ServletLot/ajouterLot</url-pattern>
+	</servlet-mapping> ServletLot/
+	
+	<servlet-mapping>
+		<servlet-name>ServletLot</servlet-name>
 		<url-pattern>/ServletLot/listerLesLots</url-pattern>
-	</servlet-mapping> 
+	</servlet-mapping> ServletLot/ajouterLot
 	
 	<servlet-mapping>
 		<servlet-name>ServletPays</servlet-name>
