@@ -22,64 +22,50 @@
 
 	Utilisateur user = (Utilisateur) session.getAttribute("user");
 %>
-<form method="GET">
-    <select
-        name="catVente">
-        <%
-			for (CategVente catVente : lesCatVentes) {
-				String catCode = catVente.getCode();
-				String catLib = catVente.getLibelle();
+<div class="row">
+	<div class="col s12">
+		<form method="GET">
+			<select
+				name="catVente">
+				<%
+					for (CategVente catVente : lesCatVentes) {
+						String catCode = catVente.getCode();
+						String catLib = catVente.getLibelle();
 
-				String catVenteSelect = "";
-				if (request.getParameter("catVente") != null) {
-					catVenteSelect = (request.getParameter("catVente").equals(catCode)) ? "selected" : "";
-				}
+						String catVenteSelect = "";
+						if (request.getParameter("catVente") != null) {
+							catVenteSelect = (request.getParameter("catVente").equals(catCode)) ? "selected" : "";
+						}
 
-				out.println("<option value=\"" + catCode + "\"" + catVenteSelect + ">" + catLib + "</option>)");
-			}
-        %>
-    </select>
+						out.println("<option value=\"" + catCode + "\"" + catVenteSelect + ">" + catLib + "</option>)");
+					}
+				%>
+			</select>
 
-    <input type="submit"/>
-</form>
+			<input type="submit"/>
+		</form>
 
-<a href="listerLesVentes"><button>Reset</button></a>
-<table  class="table table-bordered table-striped table-condensed">  
-    <thead>
-        <tr>             
-            <th>Nom</th>
-            <th>Date début</th>
-            <th>Catégorie</th>  
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <%
-				for (int i = 0; i < lesVentes.size(); i++) {
+		<a href="<%= ServletVentes.URL_LISTER_VENTES%>"><button>Toutes Les Ventes</button></a>
+	</div>
+</div>
 
-					Vente uneVente = lesVentes.get(i);
-					out.println("<tr>");
-					out.println("<td>");
-					out.println(uneVente.getNom());
-					out.println("</td>");
+<div class="row">
+	<div class="col s12">
+		<%
+			for (int i = 0; i < lesVentes.size(); i++) {
 
-					out.println("<td>");
-					out.println(uneVente.getDateVente());
-					out.println("</td>");
+				Vente uneVente = lesVentes.get(i);
+		%>
+		<h2><%= uneVente.getNom()%></h2>
+		<p><%= uneVente.getUneCategVente().getLibelle()%></a></p>
+		<p><%= "Date de la vente : " + uneVente.getDateDebut()%></p>
+		<p><a href="<%= ServletVentes.URL_CONSULTER_VENTE%>?id=<%=uneVente.getId()%>">Plus d'Informations</a></p>
+		<hr/>
+		<% }
+		%>
+	</div>
+</div>
 
-					out.println("<td>");
-					out.println(uneVente.getUneCategVente().getLibelle());
-					out.println("</td>");
 
-					out.println("<td><a href='"+ServletVentes.URL_CONSULTER_VENTE+"?id=" + uneVente.getId() + "'>");
-					out.println("Voir plus");
-					out.println("</td>");
-					out.println("</tr>");
-
-				}
-            %>
-        </tr>
-    </tbody>
-</table>
 
 <jsp:include page="/vues/include/footer.jsp" />
