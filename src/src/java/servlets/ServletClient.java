@@ -119,7 +119,7 @@ public class ServletClient extends ServletBase {
 		}
 		
 		if (url.equals(URL_MODIFIER_CLIENT)) {
-			if(user instanceof DirecteurGeneral) {
+			if(user instanceof DirecteurGeneral || user instanceof Client) {
 				int idClient = Integer.valueOf(request.getParameter("id"));
 				Client unClient = ClientDAO.getClient(connection, idClient);
 				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
@@ -195,7 +195,7 @@ public class ServletClient extends ServletBase {
         }
 		
 		 if (url.equals(URL_MODIFIER_CLIENT)) {
-			if(user instanceof DirecteurGeneral) {
+			if(user instanceof DirecteurGeneral || user instanceof Client) {
 				/* Préparation de l'objet formulaire */
 				ClientForm form = new ClientForm();
 
