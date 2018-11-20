@@ -179,5 +179,45 @@ public class ClientDAO {
 		
 		return lesClients;
 	}
+	
+	public static Client modifierClient(Connection connection, Client unClient){      
+        
+        try
+        {
+            //preparation de la requete 
+            PreparedStatement requete=connection.prepareStatement(" UPDATE utilisateur SET nom = ?, prenom = ?,rue = ?,copos = ?,ville = ?,mail = ?, codePays = ? WHERE id = ?; ");
+      
+            requete.setString(1, unClient.getNom());
+			requete.setString(2, unClient.getPrenom());
+			requete.setString(3, unClient.getRue());
+			requete.setString(4, unClient.getCopos());
+			requete.setString(5, unClient.getVille());
+			requete.setString(6, unClient.getVille());
+			requete.setString(7, unClient.getPays().getCode());
+			requete.setInt(8, unClient.getId());
+            /* Exécution de la requête */
+            requete.executeUpdate();
+			
+			PreparedStatement requeteDeleteCategVente=connection.prepareStatement(" delete FROM clientcategvente WHERE codeClient = ? ; ");
+			requeteDeleteCategVente.setInt(1, unClient.getId());
+			requeteDeleteCategVente.executeUpdate();
+			
+            
+			for (int i = 0; i < unClient.getLesCategVentes().size(); i++) {
+				PreparedStatement requete2 = connection.prepareStatement("INSERT INTO clientcategvente (codeClient, codeCategVente )\n"
+						+ "VALUES (?,?)");
+				requete2.setInt(1, unClient.getId());
+				requete2.setString(2, unClient.getLesCategVentes().get(i).getCode());
+				requete2.executeUpdate();
+			}
+            //System.out.println("requete " +requete);
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            //out.println("Erreur lors de l’établissement de la connexion");
+        }
+        return unClient ; 
+    }
 
 }

@@ -20,13 +20,17 @@ public class ClientForm extends Form {
 
 	public Client getClient(HttpServletRequest request) {
 		Client unClient = new Client();
-
+		
+		String id =	getDataForm(request, "idOrigin");
+		
+		
 		String nom = getDataForm(request, "nom");
 		String prenom = getDataForm(request, "prenom");
 		String rue = getDataForm(request, "rue");
 		String copos = getDataForm(request, "copos");
 		String ville = getDataForm(request, "ville");
 		String pays = getDataForm(request, "pays");
+		String mail = getDataForm(request,"mail");
 
 		// Traitement de la liste à choix multiple
 		//Pour chq catégorie selectionné, on instancie une nouvelle catégorie et on l'ajoute au client
@@ -50,13 +54,21 @@ public class ClientForm extends Form {
 		} else {
 			this.setResultat("Échec de l'ajout.");
 		}
-
+		
+		if (id != null){
+			int idClient = Integer.parseInt(id);
+			unClient.setId(idClient);
+		}
+		
+		
 		unClient.setPrenom(prenom);
 		unClient.setRue(rue);
 		unClient.setCopos(copos);
 		unClient.setVille(ville);
 		unClient.setPays(new Pays(pays));
+		unClient.setMail(mail);
 
 		return unClient;
 	}
+	
 }
