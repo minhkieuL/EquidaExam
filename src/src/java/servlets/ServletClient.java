@@ -121,13 +121,20 @@ public class ServletClient extends ServletBase {
 		if (url.equals(URL_MODIFIER_CLIENT)) {
 			if(user instanceof DirecteurGeneral || user instanceof Client) {
 				int idClient = Integer.valueOf(request.getParameter("id"));
+				
+				if(user instanceof Client) {
+					if(idClient != user.getId()) {
+						redirigerVersAcceuil(response);
+						return;
+					}
+				}
+				
 				Client unClient = ClientDAO.getClient(connection, idClient);
 				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
 				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
 
 				request.setAttribute("pLesPays", lesPays);
 				request.setAttribute("pLesCategVente", lesCategVentes);
-
 				request.setAttribute("pClient", unClient);
 				changerTitrePage("Modifier un client", request);
 
