@@ -4,6 +4,7 @@
     Author     : slam
 --%>
 
+<%@page import="servlets.ServletCourse"%>
 <%@page import="modele.DirecteurGeneral"%>
 <%@page import="modele.Participer"%>
 <%@page import="java.util.ArrayList"%>
@@ -18,9 +19,9 @@
 <jsp:include page="/vues/include/header.jsp" />
 
 <%
-        Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
-        Cheval unCheval = (Cheval) request.getAttribute("pCheval");
-        ArrayList<Participer> lesParticipations = (ArrayList<Participer>) request.getAttribute("pParticipations");
+	Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
+	Cheval unCheval = (Cheval) request.getAttribute("pCheval");
+	ArrayList<Participer> lesParticipations = (ArrayList<Participer>) request.getAttribute("pParticipations");
 %>
 
 <div class="row">
@@ -36,11 +37,11 @@
         <p>Mère : <%= (unCheval.getMere() != null) ? "<a href=?id=" + unCheval.getMere().getId() + ">" + unCheval.getMere().getSire() + "</a>" : "Non renseignée"%></p>
         <p>Père : <%= (unCheval.getPere() != null) ? "<a href=?id=" + unCheval.getPere().getId() + ">" + unCheval.getPere().getSire() + "</a>" : "Non renseigné"%></p>
         <%
-                        if (user instanceof DirecteurGeneral) {
-                                out.println("<p><a href='" + ServletCheval.URL_ARCHIVER_CHEVAL + "?id=" + unCheval.getId() + "'>");
-                                out.println("Archiver");
-                                out.println("</a></p>");
-                        }
+			if (user instanceof DirecteurGeneral) {
+				out.println("<p><a href='" + ServletCheval.URL_ARCHIVER_CHEVAL + "?id=" + unCheval.getId() + "'>");
+				out.println("Archiver");
+				out.println("</a></p>");
+			}
         %>
     </div>
 
@@ -60,28 +61,34 @@
                     <tbody>
                         <tr>
                             <%
-                                                                for (int i = 0; i < lesParticipations.size(); i++) {
+								for (int i = 0; i < lesParticipations.size(); i++) {
 
-                                                                        Participer uneParticipation = lesParticipations.get(i);
+									Participer uneParticipation = lesParticipations.get(i);
 
-                                                                        out.println("<tr><td>");
-                                                                        out.println(uneParticipation.getCourse().getNom());
-                                                                        out.println("</td>");
+									out.println("<tr><td>");
+									out.println(uneParticipation.getCourse().getNom());
+									out.println("</td>");
 
-                                                                        out.println("<td>");
-                                                                        out.println(uneParticipation.getCourse().getDate());
-                                                                        out.println("</td>");
+									out.println("<td>");
+									out.println(uneParticipation.getCourse().getDate());
+									out.println("</td>");
 
-                                                                        out.println("<td>");
-                                                                        out.println(uneParticipation.getPlace());
-                                                                        out.println("</td>");
+									out.println("<td>");
+									out.println(uneParticipation.getPlace());
+									out.println("</td>");
 
-                                                                        if (user instanceof Client || user instanceof DirecteurGeneral) {
-                                                                                out.println("<td><a href ='../ServletClient/clientModifier?id=" + uneParticipation.getCheval() + "'>");
-                                                                                out.println("Modifier");
-                                                                                out.println("</td>");
-                                                                        }
-                                                                }
+									if (user instanceof Client || user instanceof DirecteurGeneral) {
+										out.println("<td><a href ='../ServletClient/clientModifier?id=" + uneParticipation.getCheval() + "'>");
+										out.println("Modifier");
+										out.println("</td>");
+									}
+
+									if (user instanceof Client) {
+										out.println("<td><a href ='"+ServletCourse.URL_SUPPRIMER_CLASSEMENT_CHEVAL+"?idCheval=" + uneParticipation.getCheval().getId() + "&idCourse="+uneParticipation.getCourse().getId()+"'>");
+										out.println("Supprimer");
+										out.println("</td>");
+									}
+								}
                             %>
                         </tr>
                     </tbody>
@@ -90,12 +97,12 @@
 				} else { %>
                 <p>Aucune course n'a été enregistrée pour ce cheval</p>
                 <%
-                                        }
-                                        if (user instanceof Client || user instanceof DirecteurGeneral) {
+					}
+					if (user instanceof Client || user instanceof DirecteurGeneral) {
                 %>
                 <a href ='../ServletCourse/courseChevalRenseigner?id=<%= unCheval.getId()%>'>Ajouter une course</a>
                 <%
-                                        }
+					}
                 %>
         </div>
     </div>

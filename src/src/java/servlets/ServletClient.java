@@ -33,6 +33,7 @@ public class ServletClient extends ServletBase {
 	public static final String URL_MODIFIER_CLIENT = "/EquidaWebG2/ServletClient/clientModifier";
 	public static final String URL_ARCHIVER_CLIENT = "/EquidaWebG2/ServletClient/clientArchiver";
 	
+	
 	Connection connection;
 
 	@Override
@@ -152,6 +153,8 @@ public class ServletClient extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
+		
+	
  
 	}
 

@@ -19,6 +19,7 @@ import modele.DirecteurGeneral;
 import modele.Participer;
 import modele.Utilisateur;
 
+
 /**
  *
  * @author slam
@@ -29,6 +30,7 @@ public class ServletCourse extends ServletBase {
 	private static final String URL_RENSEIGNER_COURSE_POUR_CHEVAL = "/EquidaWebG2/ServletCourse/courseChevalRenseigner";
 	private static final String URL_MODIFIER_COURSE = "/EquidaWebG2/ServletCourse/courseModifier";
 	private static final String URL_LISTER_COURSES = "/EquidaWebG2/ServletCourse/listerLesCourses";
+	public static final String URL_SUPPRIMER_CLASSEMENT_CHEVAL = "/EquidaWebG2/ServletCourse/courseSupprimer";
 	
 	Connection connection;
 
@@ -103,6 +105,19 @@ public class ServletCourse extends ServletBase {
 			} else {
 				redirigerVersAcceuil(response);
 			}
+		}
+		if (url.equals(URL_SUPPRIMER_CLASSEMENT_CHEVAL)) {
+			if(user instanceof Client) {
+				int idCheval = Integer.valueOf(request.getParameter("idCheval"));
+				int idCourse = Integer.valueOf(request.getParameter("idCourse"));
+				
+				ParticiperDAO.supprimerChevalVente(connection, idCheval, idCourse);
+			
+				response.sendRedirect(ServletCheval.URL_CONSULTER_CHEVAL+"?id="+idCheval);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+			
 		}
 	}
 

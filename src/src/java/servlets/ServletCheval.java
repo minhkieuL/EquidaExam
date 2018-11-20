@@ -30,6 +30,7 @@ public class ServletCheval extends ServletBase {
 	public static final String URL_ARCHIVER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalArchiver";
 	public static final String URL_LISTER_LOTS = "/EquidaWebG2/ServletLot/listerLesLots";
 	
+	
 	Connection connection;
 
 	@Override
@@ -117,6 +118,8 @@ public class ServletCheval extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
+		
+		
 	}
 
 	/**

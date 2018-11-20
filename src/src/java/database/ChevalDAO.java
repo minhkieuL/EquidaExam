@@ -162,4 +162,7 @@ public class ChevalDAO {
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 	}
+	
+	
+
 }
