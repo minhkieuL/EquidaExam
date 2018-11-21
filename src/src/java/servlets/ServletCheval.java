@@ -90,23 +90,36 @@ public class ServletCheval extends ServletBase {
 			getServletContext().getRequestDispatcher("/vues/cheval/chevalConsulter.jsp").forward(request, response);
 		}
         
-        if (url.equals(URL_MODIFIER_CHEVAL)) {	
-			int idCheval = 0;
-			try {
-				idCheval = Integer.valueOf(request.getParameter("id"));
-			} catch(Exception e) {
+        if (url.equals(URL_MODIFIER_CHEVAL)) {
+			
+			if(user instanceof DirecteurGeneral || user instanceof Client) {
+				int idCheval = 0;
+				try {
+					idCheval = Integer.valueOf(request.getParameter("id"));
+				} catch(Exception e) {
+					redirigerVersAcceuil(response);
+					return;
+				}
+				
+				Cheval unCheval = ChevalDAO.getCheval(connection, idCheval);
+				if(user instanceof Client) {
+					if(unCheval.getClient().getId() != user.getId()) {
+						redirigerVersAcceuil(response);
+						return;
+					}
+				}
+				
+				ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
+
+				request.setAttribute("pCheval", unCheval);
+				request.setAttribute("pLesTypeCheval", lesTypeCheval);
+				changerTitrePage("Modifier un cheval", request);
+
+				this.getServletContext().getRequestDispatcher("/vues/cheval/chevalForm.jsp").forward(request, response);
+			} else {
 				redirigerVersAcceuil(response);
-				return;
 			}
-			Cheval unCheval = ChevalDAO.getCheval(connection, idCheval);
-			ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
-
-			request.setAttribute("pCheval", unCheval);
-			request.setAttribute("pLesTypeCheval", lesTypeCheval);
-			changerTitrePage("Modifier un cheval", request);
-
-			this.getServletContext().getRequestDispatcher("/vues/cheval/chevalForm.jsp").forward(request, response);
-        }
+		}
 		
 		if (url.equals(URL_VALIDER_CHEVAL)) {
 			if(user instanceof DirecteurGeneral) {
@@ -188,6 +201,13 @@ public class ServletCheval extends ServletBase {
 
             /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
             Cheval unCheval = form.getCheval(request, connection);
+			
+			if(user instanceof Client) {
+				if(unCheval.getClient().getId() != user.getId()) {
+					redirigerVersAcceuil(response);
+					return;
+				}
+			}
 
             /* Stockage du formulaire et de l'objet dans l'objet request */
             request.setAttribute("form", form);

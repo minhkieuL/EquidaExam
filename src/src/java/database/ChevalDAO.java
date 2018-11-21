@@ -109,6 +109,8 @@ public class ChevalDAO {
 				if(idMere != 0) {	
 					unCheval.setMere(getCheval(connection, idMere));
 				}
+				
+				unCheval.setClient(ClientDAO.getClient(connection, rs.getInt("client")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
