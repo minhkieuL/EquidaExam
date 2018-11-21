@@ -17,10 +17,29 @@ public class PaysForm extends Form {
 
 	public Pays getPays(HttpServletRequest request) {
 		Pays unPays = new Pays();
+		
+		String nomChampCode = "code";
+		String nomChampNom = "nom";
 
-		String code = getDataForm(request, "code");
-		String nom = getDataForm(request, "nom");
+		String code = getDataForm(request, nomChampCode);
+		String nom = getDataForm(request, nomChampNom);
 
+		if(code == null) {
+			ajouterErreur(nomChampCode, "Le champ code est obligatoire");
+		} else {
+			if(code.length() == 0 || code.length() > 3) {
+				ajouterErreur(nomChampCode, "La longueur du code doit être compris entre 1 et 3 charactères");
+			}
+		}
+		
+		if(nom == null) {
+			ajouterErreur(nomChampNom, "Le champ nom est obligatoire");
+		} else {
+			if(nom.length() < 3 || nom.length() > 30) {
+				ajouterErreur(nomChampNom, "La longueur du nom doit être compris entre 3 et 30 charactères");
+			}
+		}
+		
 		unPays.setCode(code);
 		unPays.setNom(nom);
 

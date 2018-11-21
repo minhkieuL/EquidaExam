@@ -3,16 +3,28 @@
     Created on : 16 oct. 2018, 16:04:08
     Author     : slam
 --%>
+<%@page import="servlets.ServletBase"%>
 <%@page import="formulaires.PaysForm"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
+<%
+	PaysForm form = null;
+	try {
+		form = (PaysForm) ServletBase.getForm(request);
+	} catch (ClassCastException e) {
+		
+	}
+	
+	request.setAttribute("form", form);
+%>
 
 <jsp:include page="/vues/include/header.jsp" />
 
 <h1 class="center-align">Nouveau pays</h1>
 
-<%
-	PaysForm form = (PaysForm) request.getAttribute("form");
-%>
+<jsp:include page="/vues/include/erreurs_form.jsp" />
+
 <div class="row">
 	<form class="col s10 push-s1 l8 push-l2 center-align" action="paysAjouter" method="POST">
 		<div class="row">
