@@ -24,7 +24,7 @@
         <meta charset="UTF-8" />
 		<title>Equida <%= title%></title>
 		<link rel="stylesheet" href="<%= request.getContextPath()%>/css/materialize.min.css">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="<%= request.getContextPath()%>/css/google_font.css" rel="stylesheet">
 		<link href="<%= request.getContextPath()%>/css/equida.css" rel="stylesheet">
         <link rel="icon" href="<%= request.getContextPath()%>/img/favicon.ico">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
