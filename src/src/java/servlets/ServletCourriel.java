@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
@@ -22,6 +23,7 @@ import outils.EnvoieMail;
  *
  * @author slam
  */
+@MultipartConfig
 public class ServletCourriel extends ServletBase {
 
 	public static final String URL_LISTER_COURIELS = "/EquidaWebG2/ServletCourriel/listerLesCourriels";
@@ -86,9 +88,8 @@ public class ServletCourriel extends ServletBase {
 		if(url.equals(URL_AJOUTER_COURIEL)) {
 			if(user instanceof DirecteurGeneral) {
 				CourrielForm form = new CourrielForm();
-				
+				Courriel courriel = form.getCourriel(request);
 				if(form.getErreurs().isEmpty()) {
-					Courriel courriel = form.getCourriel(request);
 					EnvoieMail.envoyerMail(connection, courriel);
 					response.sendRedirect(URL_LISTER_COURIELS+"?codeVente="+courriel.getVente().getId());
 				} else {

@@ -19,7 +19,7 @@
 %>
 
 <div class="row">
-	<form class="col s10 push-s1 l8 push-l2 center-align" action="<%= ServletCourriel.URL_AJOUTER_COURIEL%>" method="POST">
+	<form class="col s10 push-s1 l8 push-l2 center-align" action="<%= ServletCourriel.URL_AJOUTER_COURIEL%>" method="POST"  enctype="multipart/form-data">
 		<div class="row">
 			<div class="input-field col s12 l6">
 				<input id="objet" type="text"  name="objet" class="validate">   
@@ -44,6 +44,12 @@
 			<div class="input-field col s12">
 				<textarea id="corps" name="corps" class="materialize-textarea"></textarea>
 				<label for="corps">Corps : </label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col s12 input-field">
+				<input type="file" name="file" multiple="true" />
 			</div>
 		</div>
 
