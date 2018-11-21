@@ -4,11 +4,8 @@
     Author     : slam
 --%>
 
-<<<<<<< HEAD
 <%@page import="modele.Lot"%>
-=======
 <%@page import="servlets.ServletCourse"%>
->>>>>>> 20c8e62004e7336c6ce0bc1e3052b56473bcc027
 <%@page import="modele.DirecteurGeneral"%>
 <%@page import="modele.Participer"%>
 <%@page import="java.util.ArrayList"%>
