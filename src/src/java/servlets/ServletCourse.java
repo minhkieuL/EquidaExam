@@ -1,6 +1,7 @@
 package servlets;
 
 
+import formulaires.ParticipationForm;
 import database.ChevalDAO;
 import database.CourseDAO;
 import database.ParticiperDAO;

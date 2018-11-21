@@ -45,7 +45,7 @@ public class ClientForm extends Form {
 		try {
 			validationNom(nom);
 		} catch (Exception e) {
-			setErreur("nom", e.getMessage());
+			//setErreur("nom", e.getMessage());
 		}
 		unClient.setNom(nom);
 

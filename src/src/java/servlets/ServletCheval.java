@@ -32,8 +32,7 @@ public class ServletCheval extends ServletBase {
 	public static final String URL_ARCHIVER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalArchiver";
 	public static final String URL_LISTER_LOTS = "/EquidaWebG2/ServletLot/listerLesLots";
 	public static final String URL_VALIDER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalValider";
-	
-	
+
 	Connection connection;
 
 	@Override
@@ -53,11 +52,11 @@ public class ServletCheval extends ServletBase {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
-		
+
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
-		String url = request.getRequestURI();                
+		String url = request.getRequestURI();
 		if (url.equals(URL_AJOUTER_CHEVAL)) {
-			if(user instanceof Client) {
+			if (user instanceof Client) {
 				ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
 
 				request.setAttribute("pLesTypeCheval", lesTypeCheval);
@@ -68,20 +67,20 @@ public class ServletCheval extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
-		
+
 		if (url.equals(URL_CONSULTER_CHEVAL)) {
 			int idCheval = 0;
 			try {
 				idCheval = Integer.valueOf(request.getParameter("id"));
-			} catch(Exception e) {
+			} catch (Exception e) {
 				redirigerVersAcceuil(response);
 				return;
 			}
-			
+
 			Cheval cheval = ChevalDAO.getCheval(connection, idCheval);
 			ArrayList<Participer> lesParticipations = ParticiperDAO.getLesParticipationsCoursesCheval(connection, idCheval);
 			Lot lot = LotDAO.getLotCheval(connection, idCheval);
-			
+
 			request.setAttribute("pLot", lot);
 			request.setAttribute("pParticipations", lesParticipations);
 			request.setAttribute("pCheval", cheval);
@@ -89,26 +88,26 @@ public class ServletCheval extends ServletBase {
 
 			getServletContext().getRequestDispatcher("/vues/cheval/chevalConsulter.jsp").forward(request, response);
 		}
-        
-        if (url.equals(URL_MODIFIER_CHEVAL)) {
-			
-			if(user instanceof DirecteurGeneral || user instanceof Client) {
+
+		if (url.equals(URL_MODIFIER_CHEVAL)) {
+
+			if (user instanceof DirecteurGeneral || user instanceof Client) {
 				int idCheval = 0;
 				try {
 					idCheval = Integer.valueOf(request.getParameter("id"));
-				} catch(Exception e) {
+				} catch (Exception e) {
 					redirigerVersAcceuil(response);
 					return;
 				}
-				
+
 				Cheval unCheval = ChevalDAO.getCheval(connection, idCheval);
-				if(user instanceof Client) {
-					if(unCheval.getClient().getId() != user.getId()) {
+				if (user instanceof Client) {
+					if (unCheval.getClient().getId() != user.getId()) {
 						redirigerVersAcceuil(response);
 						return;
 					}
 				}
-				
+
 				ArrayList<TypeCheval> lesTypeCheval = TypeChevalDAO.getLesTypeCheval(connection);
 
 				request.setAttribute("pCheval", unCheval);
@@ -120,13 +119,13 @@ public class ServletCheval extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
-		
+
 		if (url.equals(URL_VALIDER_CHEVAL)) {
-			if(user instanceof DirecteurGeneral) {
+			if (user instanceof DirecteurGeneral) {
 				int idCheval = 0;
 				try {
 					idCheval = Integer.valueOf(request.getParameter("id"));
-				} catch(Exception e) {
+				} catch (Exception e) {
 					redirigerVersAcceuil(response);
 					return;
 				}
@@ -136,13 +135,13 @@ public class ServletCheval extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
-		
+
 		if (url.equals(URL_ARCHIVER_CHEVAL)) {
-			if(user instanceof DirecteurGeneral) {
+			if (user instanceof DirecteurGeneral) {
 				int idCheval = 0;
 				try {
 					idCheval = Integer.valueOf(request.getParameter("id"));
-				} catch(Exception e) {
+				} catch (Exception e) {
 					redirigerVersAcceuil(response);
 					return;
 				}
@@ -152,8 +151,7 @@ public class ServletCheval extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
-		
-		
+
 	}
 
 	/**
@@ -167,63 +165,57 @@ public class ServletCheval extends ServletBase {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doPost(request, response);
-		
-        Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
-        String url = request.getRequestURI();
-        if (url.equals(URL_AJOUTER_CHEVAL)) {
-			if(user instanceof Client) {
+
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
+		String url = request.getRequestURI();
+		if (url.equals(URL_AJOUTER_CHEVAL)) {
+			if (user instanceof Client) {
 				/* Préparation de l'objet formulaire */
 				ChevalForm form = new ChevalForm();
 
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 				Cheval unCheval = form.getCheval(request, connection);
 
-
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pCheval", unCheval);
-
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 					int idCheval = ChevalDAO.ajouterCheval(connection, unCheval, request);
-					response.sendRedirect(URL_CONSULTER_CHEVAL+"?id="+idCheval);
+					response.sendRedirect(URL_CONSULTER_CHEVAL + "?id=" + idCheval);
 				} else {
+					request.getSession().setAttribute("form", form);
 					response.sendRedirect(URL_AJOUTER_CHEVAL);
 				}
 			} else {
 				redirigerVersAcceuil(response);
 			}
-        }
-		
-        if (url.equals(URL_MODIFIER_CHEVAL)) {
-            /* Préparation de l'objet formulaire */
-            ChevalForm form = new ChevalForm();
+		}
 
-            /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-            Cheval unCheval = form.getCheval(request, connection);
-			
-			if(user instanceof Client) {
-				if(unCheval.getClient().getId() != user.getId()) {
-					redirigerVersAcceuil(response);
-					return;
+		if (url.equals(URL_MODIFIER_CHEVAL)) {
+
+			if (user instanceof DirecteurGeneral || user instanceof Client) {
+				/* Préparation de l'objet formulaire */
+				ChevalForm form = new ChevalForm();
+
+				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+				Cheval unCheval = form.getCheval(request, connection);
+
+				if (user instanceof Client) {
+					if (ChevalDAO.getCheval(connection, unCheval.getId()).getClient().getId() != user.getId()) {
+						redirigerVersAcceuil(response);
+						return;
+					}
 				}
-			}
 
-            /* Stockage du formulaire et de l'objet dans l'objet request */
-            request.setAttribute("form", form);
-            request.setAttribute("pCheval", unCheval);
-            
-            if (form.getErreurs().isEmpty()) {
-				// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-				
-				ChevalDAO.modifierChevalOrigin(connection, unCheval);
-				response.sendRedirect(URL_CONSULTER_CHEVAL+"?id="+unCheval.getId());
-
+				if (form.getErreurs().isEmpty()) {
+					ChevalDAO.modifierChevalOrigin(connection, unCheval);
+					response.sendRedirect(URL_CONSULTER_CHEVAL + "?id=" + unCheval.getId());
+				} else {
+					request.getSession().setAttribute("form", form);
+					response.sendRedirect(URL_MODIFIER_CHEVAL + "?id=" + unCheval.getId());
+				}
 			} else {
-				response.sendRedirect(URL_MODIFIER_CHEVAL+"?id="+unCheval.getId());
+				redirigerVersAcceuil(response);
 			}
 		}
-	
+
 	}
-        
+
 }

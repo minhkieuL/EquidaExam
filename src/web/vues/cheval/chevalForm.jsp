@@ -4,6 +4,7 @@
     Author     : slam
 --%>
 
+<%@page import="servlets.ServletBase"%>
 <%@page import="modele.Cheval"%>
 <%@page import="modele.Lot"%>
 <%@page import="java.util.ArrayList"%>
@@ -11,18 +12,28 @@
 <%@page import="formulaires.ChevalForm"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="/vues/include/header.jsp" />
-
 <%
-	//On doit afficher les information du cheval dans les inputs si il est différent de null.
-	//On doit également changer l'action selon que le cheval soit null ou non
-	//De manière général, si le cheval est null alors on en ajoute un. Sinon on le modifie
-	ChevalForm form = (ChevalForm) request.getAttribute("form");
+	//On doit afficher les information du cheval dans les inputs si "unCheval" est différent de null.
+	//On doit également changer l'action selon que "unCheval" soit null ou non
+	//De manière général, si le "unCheval" est null alors on en ajoute un. Sinon on le modifie
 	ArrayList<TypeCheval> lesTypeCheval = (ArrayList) request.getAttribute("pLesTypeCheval");
 	Cheval unCheval = (Cheval) request.getAttribute("pCheval");
+	
+	ChevalForm form = null;
+	try {
+		form = (ChevalForm) ServletBase.getForm(request);
+	} catch (ClassCastException e) {
+		
+	}
+	
+	request.setAttribute("form", form);
 %>
 
+<jsp:include page="/vues/include/header.jsp" />
+
 <h2 class="center-align"><%= (unCheval == null) ? "Nouveau" : "Modifier un"%> cheval</h2>
+
+<jsp:include page="/vues/include/erreurs_form.jsp" />
 
 <div class="row">
 	<form class="col s10 push-s1 l8 push-l2 center-align" action="<%= (unCheval == null) ? "ajouterCheval" : "chevalModifier"%>" method="POST">

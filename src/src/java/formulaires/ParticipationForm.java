@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package formulaires;
 
 import formulaires.Form;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +15,7 @@ import modele.Participer;
  *
  * @author slam
  */
-class ParticipationForm extends Form {
+public class ParticipationForm extends Form {
 	
 	public Participer getParticipation(HttpServletRequest request) {
 		Participer uneParticipation = new Participer();
