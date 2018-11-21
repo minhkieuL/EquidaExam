@@ -15,13 +15,14 @@ L'application devra également prendre en compte :
 
 Le projet comporte 3 dossiers :
 - doc → Regroupe les différents documents importants du projet
-- sql → Contient l'historique de tous les scripts (SQL ou PHP) qui ont modifié la BDD. "bdd.sql" contient le script SQL de la BDD final.
+- sql → Contient l'historique de tous les scripts (SQL ou PHP) qui ont modifié la BDD.
 - src → Contient le code source de l'application
 
 # Bibliothèques/Framework utilisées
 
 - [JavaEE](https://www.oracle.com/technetwork/java/javaee/overview/index.html)
-- [Bootstrap](http://getbootstrap.com/) 
+- [Materialize](https://materializecss.com/) 
+- [JQuery](https://jquery.com/)
 
 # Collaborateurs
 
