@@ -9,13 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
-import javax.servlet.http.HttpServletRequest;
-import modele.CategVente;
-import modele.Cheval;
 import modele.Participer;
-import modele.Utilisateur;
 
 /**
  *

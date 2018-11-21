@@ -5,9 +5,7 @@
  */
 package formulaires;
 
-import database.LieuDAO;
 import static formulaires.Form.getDataForm;
-import java.sql.Connection;
 import javax.servlet.http.HttpServletRequest;
 import modele.CategVente;
 import modele.Lieu;

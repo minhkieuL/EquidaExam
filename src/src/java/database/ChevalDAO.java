@@ -12,9 +12,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
-import jdk.nashorn.internal.ir.RuntimeNode;
 import modele.Cheval;
-import modele.Participer;
 import modele.Utilisateur;
 
 /**
