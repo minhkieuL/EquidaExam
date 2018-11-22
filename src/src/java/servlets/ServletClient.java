@@ -189,15 +189,11 @@ public class ServletClient extends ServletBase {
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 				Client unClient = form.getClient(request);
 
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pClient", unClient);
-
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 					int idClient = ClientDAO.ajouterClient(connection, unClient);
 					response.sendRedirect(URL_CONSULTER_CLIENT+"?id="+idClient);
 				} else {
+					request.getSession().setAttribute("form", form);
 					response.sendRedirect(URL_AJOUTER_CLIENT);
 				}
 			} else {
@@ -218,18 +214,12 @@ public class ServletClient extends ServletBase {
 						return;
 					}
 				}
-				
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pClient", unClient);
 
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
 					ClientDAO.modifierClient(connection, unClient);
 					response.sendRedirect(URL_LISTER_CLIENTS_DIR_GEN);
-
 				} else {
+					request.getSession().setAttribute("form", form);
 					response.sendRedirect(URL_MODIFIER_CLIENT+"?id="+unClient.getId());
 				}
 			} else {
