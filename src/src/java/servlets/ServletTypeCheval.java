@@ -107,12 +107,10 @@ public class ServletTypeCheval extends ServletBase {
 				TypeCheval unTypeCheval = formTypeCheval.getTypeCheval(request);
 
 				if (formTypeCheval.getErreurs().isEmpty()){
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
 					TypeChevalDAO.ajouterTypeCheval(connection, unTypeCheval);
-					request.setAttribute( "pTypeCheval", unTypeCheval );
 					response.sendRedirect(URL_LISTER_TYPE_CHEVAL);
 				} else { 
+					request.getSession().setAttribute("form", formTypeCheval);
 					response.sendRedirect(URL_AJOUTER_TYPE_CHEVAL);
 				}
 			} else {
@@ -128,17 +126,12 @@ public class ServletTypeCheval extends ServletBase {
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 				TypeCheval unTypeCheval = form.getTypeCheval(request);
 
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pTypeCheval", unTypeCheval);
-
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
 					TypeChevalDAO.modifierTypeCheval(connection, unTypeCheval, form.getTypeChevalOrigin(request));
 					response.sendRedirect(URL_LISTER_TYPE_CHEVAL);
 
 				} else {
+					request.getSession().setAttribute("form", form);
 					response.sendRedirect(URL_MODIFIER_TYPE_CHEVAL+"?id="+unTypeCheval.getId());
 				}
 			} else {

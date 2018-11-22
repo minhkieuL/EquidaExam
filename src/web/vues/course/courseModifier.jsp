@@ -4,17 +4,28 @@
     Author     : slam
 --%>
 
+<%@page import="servlets.ServletBase"%>
 <%@page import="modele.Course"%>
 <%@page import="formulaires.CourseForm"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="/vues/include/header.jsp" />
-<h1 class="center-align">Modifier une Course</h1>
-
 <%
-	CourseForm form = (CourseForm) request.getAttribute("form");
+	CourseForm form = null;
+	try {
+		form = (CourseForm) ServletBase.getForm(request);
+	} catch (ClassCastException e) {
+		
+	}
+	
+	request.setAttribute("form", form);
 	Course uneCourse = (Course) request.getAttribute("pCourse");
 %>
+
+<jsp:include page="/vues/include/header.jsp" />
+
+<h1 class="center-align">Modifier une Course</h1>
+
+<jsp:include page="/vues/include/erreurs_form.jsp" />
 
 <div class="row">
 	<form class="col s10 push-s1 l8 push-l2 center-align" action="courseModifier" method="POST">

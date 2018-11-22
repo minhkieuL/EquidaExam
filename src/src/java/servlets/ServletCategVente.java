@@ -106,15 +106,11 @@ public class ServletCategVente extends ServletBase {
 				CategVente uneCategVente = formCategorie.getCategVente(request);
 
 				if (formCategorie.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 					CategVenteDAO.ajouterCategVente(connection, uneCategVente);
-					/* Stockage du formulaire et de l'objet dans l'objet request */
-
-					request.setAttribute("form", formCategorie);
-					request.setAttribute("pCategVente", uneCategVente);
 
 					response.sendRedirect(URL_LISTER_CATEG_VENTE);
 				} else {
+					request.getSession().setAttribute("form", formCategorie);
 					response.sendRedirect(URL_AJOUTER_CATEG_VENTE);
 				}
 			} else {
@@ -125,23 +121,17 @@ public class ServletCategVente extends ServletBase {
         if (url.equals(URL_MODIFIER_CATEG_VENTE)) {
 			if(user instanceof DirecteurGeneral) {
 				/* Préparation de l'objet formulaire */
-				CategorieForm form = new CategorieForm();
+				CategorieForm formCategorie = new CategorieForm();
 
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
-				CategVente uneCategVente = form.getCategVente(request);
+				CategVente uneCategVente = formCategorie.getCategVente(request);
 
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pCategVente", uneCategVente);
-
-				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
-					CategVenteDAO.modifierCategVente(connection, uneCategVente, form.getCategVenteOrigin(request));
+				if (formCategorie.getErreurs().isEmpty()) {
+					CategVenteDAO.modifierCategVente(connection, uneCategVente, formCategorie.getCategVenteOrigin(request));
 					response.sendRedirect(URL_LISTER_CATEG_VENTE);
-
 				} else {
-					response.sendRedirect(URL_MODIFIER_CATEG_VENTE+"?code="+uneCategVente.getCode());
+					request.getSession().setAttribute("form", formCategorie);
+					response.sendRedirect(URL_MODIFIER_CATEG_VENTE+"?code="+formCategorie.getCategVenteOrigin(request));
 				}
 			} else {
 				redirigerVersAcceuil(response);

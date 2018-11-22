@@ -70,10 +70,10 @@ public class CourrielForm extends Form {
 				fileContent.close();
 			}
 		} catch(IOException e) {
-			this.setErreur("file", "Erreur lors du téléchargement des fichiers");
+			ajouterErreur("file", "Erreur lors du téléchargement des fichiers");
 			e.printStackTrace();
 		} catch (ServletException e) {
-			this.setErreur("file", "Erreur lors du téléchargement des fichiers");
+			ajouterErreur("file", "Erreur lors du téléchargement des fichiers");
 		}
 		
 		Vente v = new Vente();

@@ -4,6 +4,7 @@
 	Author     : MartinJ
 --%>
 
+<%@page import="servlets.ServletLot"%>
 <%@page import="servlets.ServletCourriel"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -15,6 +16,7 @@
 <li><a class="dropdown-button" href="#!" data-target="dropdownLieu">Lieu<i class="material-icons right">arrow_drop_down</i></a></li>
 <li><a class="dropdown-button" href="#!" data-target="dropdownCourses">Courses<i class="material-icons right">arrow_drop_down</i></a></li>
 <li><a href="<%= ServletCourriel.URL_AJOUTER_COURIEL %>">Envoyer un mail</a></li>
+<li><a href="<%= ServletLot.URL_LISTER_NONVALIDER%>">Validation nécessaire</a></li>
 
 
 <!-- Dropdown Structure -->

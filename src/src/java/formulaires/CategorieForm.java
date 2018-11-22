@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package formulaires;
 
 import static formulaires.Form.getDataForm;
@@ -18,9 +13,28 @@ public class CategorieForm extends Form {
 	public CategVente getCategVente(HttpServletRequest request) {
 		CategVente uneCategVente = new CategVente();
 
-		String code = getDataForm(request, "code");
-		String libelle = getDataForm(request, "libelle");
+		String nomChampCode = "code";
+		String nomChampLibelle = "libelle";
+		
+		String code = getDataForm(request, nomChampCode);
+		String libelle = getDataForm(request, nomChampLibelle);
 
+		if(code == null) {
+			ajouterErreur(nomChampCode, "Le champ code est obligatoire");
+		} else {
+			if(code.length() == 0 || code.length() > 5) {
+				ajouterErreur(nomChampCode, "La longueur du code doit être compris entre 1 et 5 charactères");
+			}
+		}
+		
+		if(libelle == null) {
+			ajouterErreur(nomChampLibelle, "Le champ libellé est obligatoire");
+		} else {
+			if(libelle.length() < 3 || libelle.length() > 30){
+				ajouterErreur(nomChampLibelle, "La longueur du libellé doit être compris entre 3 et 30 charactères");
+			}
+		}
+		
 		uneCategVente.setCode(code);
 		uneCategVente.setLibelle(libelle);
 

@@ -24,8 +24,9 @@
         <meta charset="UTF-8" />
 		<title>Equida <%= title%></title>
 		<link rel="stylesheet" href="<%= request.getContextPath()%>/css/materialize.min.css">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="<%= request.getContextPath()%>/css/google_font.css" rel="stylesheet">
 		<link href="<%= request.getContextPath()%>/css/equida.css" rel="stylesheet">
+        <link rel="icon" href="<%= request.getContextPath()%>/img/favicon.ico">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	</head>    
 
@@ -33,7 +34,8 @@
 		<header>
 			<nav class="nav-extended">
 				<div class="nav-wrapper light-green darken-4">
-					<a href="<%=request.getContextPath()%>/" class="brand-logo">Accueil</a>
+                    <a href="<%=request.getContextPath()%>/" class="brand-logo"><img class="brand-logo" src="<%= request.getContextPath()%>/img/logo_blanc.png"/></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
 					<a href="#" data-target="mobileNav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down nav-mobile">
 						<%
