@@ -84,7 +84,7 @@ public class ClientForm extends Form {
 			ajouterErreur(nomChampVille, "Le champ ville est obligatoire");
 		} else {
 			if (ville.length() < 3 || ville.length() > 40) {
-				ajouterErreur(nomChampVille, "La longueur de la ville doit être compris entre 3 et 50 charactères");
+				ajouterErreur(nomChampVille, "La longueur de la ville doit être compris entre 3 et 40 charactères");
 			}
 		}
 

@@ -30,7 +30,7 @@ public abstract class Form {
 		this.erreurs = erreurs;
 	}
 
-	protected void ajouterErreur(String champ, String message) {
+	public void ajouterErreur(String champ, String message) {
 		if(!erreurs.containsKey(champ)) {
 			erreurs.put(champ, new ArrayList<>());
 		}
