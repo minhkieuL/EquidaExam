@@ -48,12 +48,13 @@
 				out.println("Archiver");
 				out.println("</a></p>");
 
-				if (lot.getValidation() == null) {
-					//TODO Verifier que le cheval n'est pas deja ajouté
-					out.println("Voulez-vous valider le cheval afin de l'ajouter à la vente ?");
-					out.println("<p><a href='" + ServletCheval.URL_VALIDER_CHEVAL + "?id=" + lot.getId() + "'>");
-					out.println("Valider");
-					out.println("</a></p>");
+				if (lot != null) {
+					if (lot.getValidation() == null && lot.getVente() != null) {
+						out.println("Voulez-vous valider le cheval afin de l'ajouter à la vente ?");
+						out.println("<p><a href='" + ServletCheval.URL_VALIDER_CHEVAL + "?id=" + lot.getId() + "'>");
+						out.println("Valider");
+						out.println("</a></p>");
+					}
 				}
 			}
 
@@ -93,13 +94,12 @@
 									out.println("<td>");
 									out.println(uneParticipation.getPlace());
 									out.println("</td>");
-									
+
 									/* if (user instanceof Client || user instanceof DirecteurGeneral) {
                                         out.println("<td><a href ='../ServletClient/clientModifier?id=" + uneParticipation.getCheval() + "'>");
                                         out.println("Modifier");
                                         out.println("</td>");
                                     }*/
-
 									if (user instanceof Client || user instanceof DirecteurGeneral) {
 										out.println("<td><a href ='" + ServletCourse.URL_SUPPRIMER_CLASSEMENT_CHEVAL + "?idCheval=" + uneParticipation.getCheval().getId() + "&idCourse=" + uneParticipation.getCourse().getId() + "'>");
 										out.println("Supprimer");
