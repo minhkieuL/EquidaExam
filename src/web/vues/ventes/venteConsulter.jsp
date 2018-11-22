@@ -46,7 +46,7 @@
 
 	<div class="row">
 		<div class="col s12">
-			<h3>Chevaux en ventes</h3>
+			<h3>Chevaux en vente</h3>
 			<%
 				if (user instanceof Client) {
 					if (chevauxClient.size() != 0) {
@@ -84,7 +84,7 @@
 			} else {
 
 			%>
-			<p>Vous n'avez plus de chevaux à vendre, vous ne pourrez donc pas en ajouter à cette vente.</p>
+			<p>Vous n'avez plus de chevaux à vendre, vous ne pouvez donc pas en ajouter à cette vente.</p>
 			<%					}
 				}
 				for (Lot lot : uneVente.getLots()) {
@@ -96,7 +96,7 @@
 
 				if (uneVente.getLots().size() == 0) {
 			%>
-			<p>Aucun cheval n'est actuellement en vente</p>		
+			<p>Aucun cheval n'est actuellement en vente.</p>		
 			<%
 				}
 			%>

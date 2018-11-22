@@ -22,7 +22,7 @@ public class CourseDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Course avec les résultats de la requête
 			while (rs.next()) {
 				Course uneCourse = new Course();
 				uneCourse.setId(rs.getInt("id"));

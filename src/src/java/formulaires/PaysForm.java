@@ -20,18 +20,18 @@ public class PaysForm extends Form {
 		String nom = getDataForm(request, nomChampNom);
 
 		if(code == null) {
-			ajouterErreur(nomChampCode, "Le champ code est obligatoire");
+			ajouterErreur(nomChampCode, "Le champ code est obligatoire.");
 		} else {
-			if(code.length() == 0 || code.length() > 3) {
-				ajouterErreur(nomChampCode, "La longueur du code doit être compris entre 1 et 3 charactères");
+			if(code.length() != 3) {
+				ajouterErreur(nomChampCode, "La longueur du code doit être de 3 charactères.");
 			}
 		}
 		
 		if(nom == null) {
-			ajouterErreur(nomChampNom, "Le champ nom est obligatoire");
+			ajouterErreur(nomChampNom, "Le champ nom est obligatoire.");
 		} else {
 			if(nom.length() < 3 || nom.length() > 30) {
-				ajouterErreur(nomChampNom, "La longueur du nom doit être compris entre 3 et 30 charactères");
+				ajouterErreur(nomChampNom, "La longueur du nom doit être compris entre 3 et 30 charactères.");
 			}
 		}
 		

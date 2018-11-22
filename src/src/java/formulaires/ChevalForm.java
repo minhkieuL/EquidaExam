@@ -44,30 +44,30 @@ public class ChevalForm extends Form {
 		}
 
 		if (nom == null) {
-			ajouterErreur(nomChampNom, "Le champ nom est obligatoire");
+			ajouterErreur(nomChampNom, "Le champ nom est obligatoire.");
 		} else {
 			if (nom.length() < 3 || nom.length() > 50) {
-				ajouterErreur(nomChampNom, "La longueur du nom doit être compris entre 3 et 50 charactères");
+				ajouterErreur(nomChampNom, "La longueur du nom doit être comprise entre 3 et 50 caractères.");
 			}
 		}
 
 		if (sire == null) {
-			ajouterErreur(nomChampNom, "Le champ sire est obligatoire");
+			ajouterErreur(nomChampNom, "Le champ SIRE est obligatoire.");
 		} else {
 			if (sire.length() < 3 || sire.length() > 100) {
-				ajouterErreur(nomChampNom, "Le numéro de sire semble invalide");
+				ajouterErreur(nomChampNom, "Le numéro de SIRE semble invalide.");
 			}
 		}
 
 		if (pereSire != null) {
 			if (pereSire.length() < 3 || pereSire.length() > 100) {
-				ajouterErreur(nomChampNom, "Le numéro de sire du père semble invalide");
+				ajouterErreur(nomChampNom, "Le numéro de SIRE du père semble invalide.");
 			}
 		}
 
 		if (mereSire != null) {
 			if (mereSire.length() < 3 || mereSire.length() > 100) {
-				ajouterErreur(nomChampNom, "Le numéro de sire de la mère semble invalide");
+				ajouterErreur(nomChampNom, "Le numéro de SIRE de la mère semble invalide.");
 			}
 		}
 

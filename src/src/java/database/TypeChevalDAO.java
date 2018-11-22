@@ -22,7 +22,7 @@ public class TypeChevalDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier TypeCheval avec les résultats de la requête
 			while (rs.next()) {
 				TypeCheval unTypeCheval = new TypeCheval();
 				unTypeCheval.setId(rs.getInt("id"));
@@ -65,7 +65,7 @@ public class TypeChevalDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier TypeCheval avec les résultats de la requête
 			while (rs.next()) {
 				unTypeCheval.setId(idTypeCheval);
 				unTypeCheval.setLibelle(rs.getString("libelle"));

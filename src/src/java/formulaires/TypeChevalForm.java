@@ -20,18 +20,18 @@ public class TypeChevalForm extends Form {
 		String desc = getDataForm(request, nomChampDesc);
 
 		if (libelle == null) {
-			ajouterErreur(nomChampLibelle, "Le champ libellé est obligatoire");
+			ajouterErreur(nomChampLibelle, "Le champ libellé est obligatoire.");
 		} else {
 			if (libelle.length() < 3 || libelle.length() > 50) {
-				ajouterErreur(nomChampLibelle, "La longueur du libellé doit être compris entre 3 et 50 charactères");
+				ajouterErreur(nomChampLibelle, "La longueur du libellé doit être comprise entre 3 et 50 caractères.");
 			}
 		}
 
 		if (desc == null) {
-			ajouterErreur(nomChampDesc, "Le champ description est obligatoire");
+			ajouterErreur(nomChampDesc, "Le champ description est obligatoire.");
 		} else {
 			if (desc.length() < 3 || desc.length() > 255) {
-				ajouterErreur(nomChampDesc, "La longueur du description doit être compris entre 3 et 255 charactères");
+				ajouterErreur(nomChampDesc, "La longueur du description doit être compris entre 3 et 255 charactères.");
 			}
 		}
 

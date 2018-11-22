@@ -25,19 +25,26 @@
 
         <div class="row">
             <div class="input-field col s12 l6">
-                <input id="nom" type="text" name="nom" size="30" maxlength="30" value="<%= unClient.getNom()%>" class="validate">
+                <input id="nom" type="text" name="nom" size="30" minlength="3" maxlength="40" value="<%= unClient.getNom()%>" class="validate">
                 <label for="nom">Nom : </label>
             </div>
 
             <div class="input-field col s12 l6">
-                <input id="prenom"  type="text"  name="prenom" size="30" maxlength="30" value="<%= unClient.getPrenom()%>" class="validate">      
+                <input id="prenom"  type="text"  name="prenom" size="30" minlength="2" maxlength="40" value="<%= unClient.getPrenom()%>" class="validate">      
                 <label for="prenom">Prénom : </label>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="mail"  type="email"  name="mail" size="60" minlength="3" maxlength="60" value="<%= unClient.getMail()%>" class="validate">
+                <label for="mail">Mail : </label>
             </div>
         </div>
 
         <div class="row">
             <div class="input-field col s12">
-                <input id="rue"  type="text"  name="rue" size="30" maxlength="50" value="<%= unClient.getRue()%>" class="validate">
+                <input id="rue"  type="text"  name="rue" size="30" minlength="5" maxlength="60" value="<%= unClient.getRue()%>" class="validate">
                 <label for="rue">Adresse : </label>
             </div>
         </div>
@@ -45,20 +52,14 @@
         <div class="row">
             <div class="input-field col s12 l6">
                 <label for="copos">Code postal : </label>
-                <input id="copos"  type="text"  name="copos" size="5" maxlength="5" value="<%= unClient.getCopos()%>" class="validate">
+                <input id="copos"  type="text"  name="copos" size="5" minlength="5" maxlength="5" value="<%= unClient.getCopos()%>" class="validate">
             </div>
 
             <div class="input-field col s12 l6">
-                <input id="ville"  type="text"  name="ville" size="40" maxlength="40" value="<%= unClient.getVille()%>" class="validate">
+                <input id="ville"  type="text"  name="ville" size="40" minlength="3" maxlength="40" value="<%= unClient.getVille()%>" class="validate">
                 <label for="ville">Ville : </label>
             </div>
         </div>
-		 <div class="row">
-            <div class="input-field col s12 l6">
-                <label for="copos">Mail : </label>
-                <input id="mail"  type="text"  name="mail" size="40" maxlength="50" value="<%= unClient.getMail()%>" class="validate">
-            </div>
-		 </div>
 
         <div class="row">
             <div class="input-field col s12 l6">
@@ -92,7 +93,7 @@
                                                 }
                     %>
                 </select>
-                <label for="categVente">Categorie Vente : </label>
+                <label for="categVente">Catégorie de vente : </label>
             </div>
 
         </div>

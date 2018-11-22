@@ -20,7 +20,7 @@ public class LotDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Lot avec les résultats de la requête
 			while (rs.next()) {
 				Lot lot = new Lot();
 				lot.setId(rs.getInt("lotId"));
@@ -61,7 +61,7 @@ public class LotDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Lot avec les résultats de la requête
 			while (rs.next()) {
 				Lot unLot = new Lot();
 				unLot.setId(rs.getInt("id"));
@@ -87,7 +87,7 @@ public class LotDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Lot avec les résultats de la requête
 			while (rs.next()) {
 				Lot unLot = new Lot();
 				unLot.setId(rs.getInt("id"));

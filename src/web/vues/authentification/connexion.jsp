@@ -11,20 +11,20 @@
 
 <div class="row">
     <form action="connexion" method="POST" class="col s10 push-s1 l8 push-l2 center-align">
-		<div class="row">
-			<div class="input-field col s12">
-				<input type="text" id="login" name="login" class="validate"/>
-				<label for="login">Nom d'utilisateur</label>
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="input-field col s12">
-				<input type="password" id="passwd" name="passwd" class="validate"/>
-				<label for="passwd">Mot de passe</label>
-			</div>
-		</div>
-		
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" id="login" name="login" class="validate"/>
+                <label for="login">Nom d'utilisateur</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="password" id="passwd" name="passwd" class="validate"/>
+                <label for="passwd">Mot de passe</label>
+            </div>
+        </div>
+
         <input type="submit" value="Valider"/>
     </form>
 </div>
