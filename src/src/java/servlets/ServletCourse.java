@@ -144,16 +144,10 @@ public class ServletCourse extends ServletBase {
 				Course uneCourse = formCourse.getCourse(request);
 
 				if (formCourse.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 					CourseDAO.ajouterCourse(connection, uneCourse);
-
-					/* Stockage du formulaire et de l'objet dans l'objet request */
-					request.setAttribute("form", formCourse);
-					request.setAttribute("pCourse", uneCourse);
-
 					response.sendRedirect(URL_LISTER_COURSES);
-
 				} else {
+					request.getSession().setAttribute("form", formCourse);
 					response.sendRedirect(URL_AJOUTER_COURSE);
 				}
 			} else {
@@ -169,17 +163,12 @@ public class ServletCourse extends ServletBase {
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 				Course uneCourse = form.getCourse(request);
 
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pCourse", uneCourse);
-
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
 					CourseDAO.modifierCourse(connection, uneCourse, form.getCourseOrigin(request));
 					response.sendRedirect(URL_LISTER_COURSES);
 				} else {
-					response.sendRedirect(URL_MODIFIER_COURSE+"?code="+uneCourse.getId());
+					request.getSession().setAttribute("form", form);
+					response.sendRedirect(URL_MODIFIER_COURSE+"?code="+form.getCourseOrigin(request));
 				}
 			} else {
 				redirigerVersAcceuil(response);
