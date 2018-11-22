@@ -187,11 +187,10 @@ public class ServletCourse extends ServletBase {
 				request.setAttribute("form", form);
 				
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
 					ParticiperDAO.renseignerCourseCheval(connection, uneParticipation);
 					response.sendRedirect(ServletCheval.URL_CONSULTER_CHEVAL+"?id="+uneParticipation.getCheval().getId());
 				} else {
+					request.getSession().setAttribute("form", form);
 					response.sendRedirect(URL_RENSEIGNER_COURSE_POUR_CHEVAL+"?id="+uneParticipation.getCheval().getId());
 				}
 			} else {
