@@ -4,15 +4,26 @@
     Author     : Maxence
 --%>
 
+<%@page import="servlets.ServletBase"%>
 <%@page import="formulaires.LieuForm"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%
+	LieuForm form = null;
+	try {
+		form = (LieuForm) ServletBase.getForm(request);
+	} catch (ClassCastException e) {
+
+	}
+
+	request.setAttribute("form", form);
+%>
+
 <jsp:include page="/vues/include/header.jsp" />
+
 <h1 class="center-align">Nouveau Lieu</h1>
 
-<%
-	LieuForm form = (LieuForm) request.getAttribute("form");
-%>
+<jsp:include page="/vues/include/erreurs_form.jsp" />
 
 <div class="row">
 	<form class="col s10 push-s1 l8 push-l2 center-align" action="ajouterLieu" method="POST">
@@ -30,8 +41,8 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-			<input id="commentaire"  type="text"  name="commentaire" size="30" maxlength="30" class="validate">      
-			<label for="commentaire">Commentaire : </label>
+				<input id="commentaire"  type="text"  name="commentaire" size="30" maxlength="30" class="validate">      
+				<label for="commentaire">Commentaire : </label>
 			</div>
 		</div>
 		<input type="submit" name="valider" id="valider" value="Valider"/>

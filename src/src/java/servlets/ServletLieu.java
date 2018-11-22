@@ -100,17 +100,11 @@ public class ServletLieu extends ServletBase {
 				Lieu unLieu = formLieu.getLieu(request);
 
 				if (formLieu.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 					LieuDAO.ajouterLieu(connection, unLieu);
-
-					/* Stockage du formulaire et de l'objet dans l'objet request */
-					request.setAttribute("form", formLieu);
-					request.setAttribute("pLieu", unLieu);
-
 					response.sendRedirect(URL_LISTER_LIEU);
 
 				} else {
-
+					request.getSession().setAttribute("form", formLieu);
 					response.sendRedirect(URL_AJOUTER_LIEU);
 				}
 			} else {
@@ -127,18 +121,12 @@ public class ServletLieu extends ServletBase {
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 				Lieu unLieu = form.getLieu(request);
 
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pLieu", unLieu);
-
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
 					LieuDAO.modifierLieu(connection, unLieu, form.getLieuOrigin(request));
 					response.sendRedirect(URL_LISTER_LIEU);
-
 				} else {
-					response.sendRedirect(URL_MODIFIER_LIEU);
+					request.getSession().setAttribute("form", form);
+					response.sendRedirect(URL_MODIFIER_LIEU+"?id="+unLieu.getId());
 				}
 			} else {
 				redirigerVersAcceuil(response);

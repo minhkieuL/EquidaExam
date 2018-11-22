@@ -3,18 +3,30 @@
     Created on : 9 nov. 2018, 07:33:01
     Author     : MartinJ
 --%>
+<%@page import="servlets.ServletBase"%>
 <%@page import="modele.Lieu"%>
 <%@page import="formulaires.LieuForm"%>
 
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="/vues/include/header.jsp" />
-<h1 class="center-align">Modifier Lieu</h1>
 
 <%
-	LieuForm form = (LieuForm) request.getAttribute("form");
+	LieuForm form = null;
+	try {
+		form = (LieuForm) ServletBase.getForm(request);
+	} catch (ClassCastException e) {
+		
+	}
+	
+	request.setAttribute("form", form);
     Lieu unLieu = (Lieu)request.getAttribute("pLieu"); 
 %>
+
+<jsp:include page="/vues/include/header.jsp" />
+
+<h1 class="center-align">Modifier Lieu</h1>
+
+<jsp:include page="/vues/include/erreurs_form.jsp" />
 
 <div class="row">
 	<form class="col s10 push-s1 l8 push-l2 center-align" action="lieuModifier" method="POST">
