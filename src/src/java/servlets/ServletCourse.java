@@ -27,10 +27,10 @@ import modele.Utilisateur;
  */
 public class ServletCourse extends ServletBase {
 
-	private static final String URL_AJOUTER_COURSE = "/EquidaWebG2/ServletCourse/courseAjouter";
-	private static final String URL_RENSEIGNER_COURSE_POUR_CHEVAL = "/EquidaWebG2/ServletCourse/courseChevalRenseigner";
-	private static final String URL_MODIFIER_COURSE = "/EquidaWebG2/ServletCourse/courseModifier";
-	private static final String URL_LISTER_COURSES = "/EquidaWebG2/ServletCourse/listerLesCourses";
+	public static final String URL_AJOUTER_COURSE = "/EquidaWebG2/ServletCourse/courseAjouter";
+	public static final String URL_RENSEIGNER_COURSE_POUR_CHEVAL = "/EquidaWebG2/ServletCourse/courseChevalRenseigner";
+	public static final String URL_MODIFIER_COURSE = "/EquidaWebG2/ServletCourse/courseModifier";
+	public static final String URL_LISTER_COURSES = "/EquidaWebG2/ServletCourse/listerLesCourses";
 	public static final String URL_SUPPRIMER_CLASSEMENT_CHEVAL = "/EquidaWebG2/ServletCourse/courseSupprimer";
 	
 	Connection connection;
