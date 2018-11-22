@@ -4,11 +4,27 @@
     Author     : BottonL
 --%>
 
+<%@page import="servlets.ServletBase"%>
+<%@page import="formulaires.ParticipationForm"%>
 <%@page import="modele.Course"%>
 <%@page import="java.util.ArrayList"%>
+
+<%
+	ParticipationForm form = null;
+	try {
+		form = (ParticipationForm) ServletBase.getForm(request);
+	} catch (ClassCastException e) {
+		
+	}
+	
+	request.setAttribute("form", form);
+%>
+
 <jsp:include page="/vues/include/header.jsp" />
 
 <h1 class="center-align">Classement à une course</h1>
+
+<jsp:include page="/vues/include/erreurs_form.jsp" />
 
 <div class="row">
     <form class="col s10 push-s1 l8 push-l2 center-align" action="courseChevalRenseigner" method="POST">

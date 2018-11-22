@@ -4,20 +4,29 @@
     Author     : Zakina
 --%>
 
+<%@page import="servlets.ServletBase"%>
 <%@page import="modele.CategVente"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modele.Pays"%>
 <%@page import="formulaires.ClientForm"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="/vues/include/header.jsp" />
-
-<h2 class="center-align">Nouveau client</h2>
-
 <%
-        //Client client=(Client)request.getAttribute("client");
-        ClientForm form = (ClientForm) request.getAttribute("form");
+	ClientForm form = null;
+	try {
+		form = (ClientForm) ServletBase.getForm(request);
+	} catch (ClassCastException e) {
+		
+	}
+	
+	request.setAttribute("form", form);
 %>
+
+<jsp:include page="/vues/include/header.jsp" />
+<jsp:include page="/vues/include/erreurs_form.jsp" />
+
+<h2 class="center-align">Ajout d'un nouveau client</h2>
+
 <div class="row">
     <form class="col s10 push-s1 l8 push-l2 center-align" action="ajouterClient" method="POST">
         <div class="row">

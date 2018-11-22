@@ -10,13 +10,26 @@ import modele.Participer;
  * @author slam
  */
 public class ParticipationForm extends Form {
-	
+
 	public Participer getParticipation(HttpServletRequest request) {
 		Participer uneParticipation = new Participer();
 
+		String nomChampClassement = "classement";
+
 		int idCheval = Integer.valueOf(getDataForm(request, "idCheval"));
 		int idCourse = Integer.valueOf(getDataForm(request, "idCourse"));
-		int classement = Integer.valueOf(getDataForm(request, "classement"));
+		String classementStr = getDataForm(request, nomChampClassement);
+		int classement = 0;
+
+		if (classementStr == null) {
+			ajouterErreur(nomChampClassement, "Le champ classement est obligatoire");
+		} else {
+			try {
+				classement = Integer.valueOf(classementStr);
+			} catch (NumberFormatException e) {
+				ajouterErreur(nomChampClassement, "Le classement doit être un nombre entier");
+			}
+		}
 
 		Cheval unCheval = new Cheval();
 		unCheval.setId(idCheval);

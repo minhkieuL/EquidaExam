@@ -4,15 +4,25 @@
     Author     : Maxence
 --%>
 
+<%@page import="servlets.ServletBase"%>
 <%@page import="formulaires.LieuForm"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<jsp:include page="/vues/include/header.jsp" />
-<h1 class="center-align">Ajout d'un nouveau lieu</h1>
-
 <%
-        LieuForm form = (LieuForm) request.getAttribute("form");
+        LieuForm form = null;
+        try {
+                form = (LieuForm) ServletBase.getForm(request);
+        } catch (ClassCastException e) {
+
+        }
+
+        request.setAttribute("form", form);
 %>
+
+<jsp:include page="/vues/include/header.jsp" />
+<jsp:include page="/vues/include/erreurs_form.jsp" />
+
+<h1 class="center-align">Ajout d'un nouveau lieu</h1>
 
 <div class="row">
     <form class="col s10 push-s1 l8 push-l2 center-align" action="ajouterLieu" method="POST">
@@ -26,7 +36,6 @@
                 <input id="nbBoxes" type="number" name="nbBoxes" size="2" maxlength="2" class="validate">
                 <label for="nbBoxes">Nombre de boxes : </label>
             </div>
-
         </div>
         <div class="row">
             <div class="input-field col s12">

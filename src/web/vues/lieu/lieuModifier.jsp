@@ -3,18 +3,27 @@
     Created on : 9 nov. 2018, 07:33:01
     Author     : MartinJ
 --%>
+<%@page import="servlets.ServletBase"%>
 <%@page import="modele.Lieu"%>
 <%@page import="formulaires.LieuForm"%>
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:include page="/vues/include/header.jsp" />
-<h1 class="center-align">Modifier un lieu</h1>
 
 <%
-        LieuForm form = (LieuForm) request.getAttribute("form");
+        LieuForm form = null;
+        try {
+                form = (LieuForm) ServletBase.getForm(request);
+        } catch (ClassCastException e) {
+
+        }
+
+        request.setAttribute("form", form);
         Lieu unLieu = (Lieu) request.getAttribute("pLieu");
 %>
+
+<jsp:include page="/vues/include/header.jsp" />
+<jsp:include page="/vues/include/erreurs_form.jsp" />
+
+<h1 class="center-align">Modifier un lieu</h1>
 
 <div class="row">
     <form class="col s10 push-s1 l8 push-l2 center-align" action="lieuModifier" method="POST">
@@ -30,8 +39,8 @@
                 <input id="nbBoxes" type="number" name="nbBoxes" size="2" maxlength="2" class="validate" value="<%= unLieu.getNbBoxes()%>">
                 <label for="nbBoxes">Nombre de Boxes : </label>
             </div>
-
         </div>
+                
         <div class="row">
             <div class="input-field col s12">
                 <input id="commentaire" type="text" name="commentaire" size="200" minlength="5" maxlength="200" class="validate" value="<%= unLieu.getCommentaire()%>">

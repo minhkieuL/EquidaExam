@@ -157,6 +157,7 @@ public class LotDAO {
 				lot.setId(rs.getInt("id"));
 				lot.setPrixDepart(rs.getFloat("prixDepart"));
 				lot.setValidation(rs.getString("validation"));
+				lot.setVente(VenteDAO.getUneVente(connection, rs.getInt("idVente")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

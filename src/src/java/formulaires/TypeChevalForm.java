@@ -35,7 +35,7 @@ public class TypeChevalForm extends Form {
 			}
 		}
 
-		unTypeCheval.setId(Integer.valueOf(getDataForm(request, "codeOrigin")));
+		//unTypeCheval.setId(Integer.valueOf(getDataForm(request, "codeOrigin")));
 		unTypeCheval.setLibelle(libelle);
 		unTypeCheval.setDesc(desc);
 

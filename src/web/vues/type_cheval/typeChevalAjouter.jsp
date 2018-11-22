@@ -21,10 +21,9 @@
 %>
 
 <jsp:include page="/vues/include/header.jsp" />
+<jsp:include page="/vues/include/erreurs_form.jsp" />
 
 <h1 class="center-align">Ajouter un type de cheval</h1>
-
-<jsp:include page="/vues/include/erreurs_form.jsp" />
 
 <div class="row">
     <form class="col s10 push-s1 l8 push-l2 center-align" action="typeChevalAjouter" method="POST">
