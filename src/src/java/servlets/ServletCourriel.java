@@ -90,7 +90,7 @@ public class ServletCourriel extends ServletBase {
 				CourrielForm form = new CourrielForm();
 				Courriel courriel = form.getCourriel(request);
 				if(form.getErreurs().isEmpty()) {
-					EnvoieMail.envoyerMail(connection, courriel);
+					EnvoieMail.envoyerMail(connection, request, courriel);
 					response.sendRedirect(URL_LISTER_COURIELS+"?codeVente="+courriel.getVente().getId());
 				} else {
 					response.sendRedirect(URL_AJOUTER_COURIEL);

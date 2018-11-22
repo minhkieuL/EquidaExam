@@ -50,7 +50,7 @@ public class CourrielDAO {
 		}
 		return lesCourriels;
 	}
-	
+
 	public static int ajouterCourriel(Connection pConnection, Courriel pCourriel) {
 		int idCourriel = -1;
 		try {
@@ -63,8 +63,9 @@ public class CourrielDAO {
 			requete.setString(1, pCourriel.getDate());
 			requete.setString(2, pCourriel.getObjet());
 			requete.setString(3, pCourriel.getCorps());
-			if(pCourriel.getVente() != null)
+			if (pCourriel.getVente() != null) {
 				requete.setInt(4, pCourriel.getVente().getId());
+			}
 
 			/* Exécution de la requête */
 			requete.executeUpdate();
@@ -74,36 +75,39 @@ public class CourrielDAO {
 			while (rs.next()) {
 				idCourriel = rs.getInt(1);
 			}
-
-			ArrayList<Integer> idsPj = new ArrayList<>();
-			for(PieceJointe pj : pCourriel.getPiecesJointes()) {
-				PreparedStatement requetePj = pConnection.prepareStatement("INSERT INTO piecejointe (chemin, description)\n"
-					+ "VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				requete.setString(1, pj.getChemin());
-				requete.setString(2, pj.getDescription());
-				requete.executeUpdate();
-
-				// Récupération de id auto-généré par la bdd dans la table utilisateur
-				ResultSet rsPj = requetePj.getGeneratedKeys();
-				rsPj.next();
-				idsPj.add(rs.getInt(1));
-			}
-			
-			for(int idPj : idsPj) {
-				PreparedStatement requeteJoint = pConnection.prepareStatement("INSERT INTO joint (courriel, pieceJointe)\n"
-					+ "VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
-				
-				requeteJoint.setInt(1, idCourriel);
-				requeteJoint.setInt(2, idPj);
-				requete.executeUpdate();
-			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 		return idCourriel;
 	}
-	
+
+	public static int ajouterPieceJointe(Connection pConnection, PieceJointe pPieceJointe, int pIdCourriel) {
+		int idPieceJointe = -1;
+		try {
+			PreparedStatement requetePj = pConnection.prepareStatement("INSERT INTO piecejointe (chemin, description)\n"
+					+ "VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			requetePj.setString(1, pPieceJointe.getChemin());
+			requetePj.setString(2, pPieceJointe.getDescription());
+			requetePj.executeUpdate();
+
+			// Récupération de id auto-généré par la bdd dans la table utilisateur
+			ResultSet rsPj = requetePj.getGeneratedKeys();
+			rsPj.next();
+			idPieceJointe = rsPj.getInt(1);
+
+			PreparedStatement requeteJoint = pConnection.prepareStatement("INSERT INTO joint (courriel, pieceJointe)\n"
+					+ "VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+
+			requeteJoint.setInt(1, pIdCourriel);
+			requeteJoint.setInt(2, idPieceJointe);
+			requeteJoint.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+		return idPieceJointe;
+	}
 
 }
