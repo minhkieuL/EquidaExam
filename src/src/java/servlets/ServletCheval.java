@@ -1,6 +1,9 @@
 package servlets;
 
 import database.ChevalDAO;
+import database.ClientDAO;
+import database.EnchereDAO;
+import database.LotDAO;
 import database.ParticiperDAO;
 import database.TypeChevalDAO;
 import formulaires.ChevalForm;
@@ -14,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import modele.Cheval;
 import modele.Client;
 import modele.DirecteurGeneral;
+import modele.Enchere;
+import modele.Lot;
 import modele.Participer;
 import modele.TypeCheval;
 import modele.Utilisateur;
@@ -76,7 +81,13 @@ public class ServletCheval extends ServletBase {
 			
 			Cheval cheval = ChevalDAO.getCheval(connection, idCheval);
 			ArrayList<Participer> lesParticipations = ParticiperDAO.getLesParticipationsCoursesCheval(connection, idCheval);
+			ArrayList<Enchere> lesEncheres = EnchereDAO.getLesEncheres(connection, idCheval);
+			Lot lot = LotDAO.getLotCheval(connection, idCheval);
+			ArrayList<Client> lesClients = ClientDAO.getLesClientsPrDirGen(connection);
 			
+			request.setAttribute("pClients", lesClients);
+			request.setAttribute("pLot", lot);
+			request.setAttribute("pEncheres", lesEncheres);
 			request.setAttribute("pParticipations", lesParticipations);
 			request.setAttribute("pCheval", cheval);
 			changerTitrePage("Cheval " + cheval.getNom(), request);

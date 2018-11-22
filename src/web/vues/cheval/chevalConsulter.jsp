@@ -4,6 +4,9 @@
     Author     : slam
 --%>
 
+<%@page import="modele.Lot"%>
+<%@page import="modele.Enchere"%>
+<%@page import="servlets.ServletEnchere"%>
 <%@page import="modele.DirecteurGeneral"%>
 <%@page import="modele.Participer"%>
 <%@page import="java.util.ArrayList"%>
@@ -21,6 +24,9 @@
         Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
         Cheval unCheval = (Cheval) request.getAttribute("pCheval");
         ArrayList<Participer> lesParticipations = (ArrayList<Participer>) request.getAttribute("pParticipations");
+        ArrayList<Enchere> lesEncheres = (ArrayList<Enchere>) request.getAttribute("pEncheres");
+        ArrayList<Client> encherisseur = (ArrayList<Client>) request.getAttribute("pClients");
+        Lot lot = (Lot) request.getAttribute("pLot");
 %>
 
 <div class="row">
@@ -102,8 +108,81 @@
 
     <div class="row">
         <div class="col s12">
-            <h3>Infos Vente</h3>
-            <p>Ce cheval n'est pas encore en vente</p>
+            <h3>Infos vente</h3>
+            <%
+                                if (user instanceof DirecteurGeneral) {
+                                        if (lot != null) {
+                                                if (lot.getValidation() != null) {
+            %>
+            <a href="#ajouterEnchere" onclick="$('#ajouterEnchere').show(); $(this).hide();">Ajouter une enchère</a>
+            <div class="row">
+                <form class="col s12" id="ajouterEnchere" style="display: none;" action="<%= ServletEnchere.URL_AJOUTER_ENCHERE%>" method="POST">                    <div class="row">
+                        <input name="idCheval" type="hidden" value="<%= request.getParameter("id")%>"/>
+                        <input name="idLot" type="hidden" value="<%= lot.getId()%>"/>
+                        <div class="input-field col s12 l6">
+                            <select name="encherisseur" class="validate">
+                                <%
+                                                                        for (Client client : encherisseur) {
+                                %>
+                                <option value="<%=client.getId()%>"><%= client.getNom() + " - " + client.getPrenom()%></option>
+                                <%
+                                                                        }
+                                %>
+                            </select>
+                            <label for="encherisseur">Enchérisseur</label>
+                        </div>
+
+                        <div class="input-field col s12 l4">
+                            <input type="text" class="validate" name="montantEnchere"/>
+                            <label for="montantEnchere">Montant</label>
+                        </div>
+
+                        <div class="input-field col s12 l2">
+                            <input type="submit" value="Ajouter"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <%
+                                                }
+                                        }
+                                }
+
+                                if (lesEncheres.size() != 0) {
+            %>
+            <table><table class="col s12 table table-bordered table-striped table-condensed">  
+                    <thead>
+                        <tr>             
+                            <th>Encherisseur</th>
+                            <th>Montant</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <%
+                                                                for (int i = 0; i < lesEncheres.size(); i++) {
+
+                                                                        Enchere uneEnchere = lesEncheres.get(i);
+
+                                                                        out.println("<tr><td>");
+                                                                        out.println(uneEnchere.getClient().getNom());
+                                                                        out.println("</td>");
+
+                                                                        out.println("<td>");
+                                                                        out.println(uneEnchere.getMontant());
+                                                                        out.println("</td>");
+                                                                }
+                            %>
+                        </tr>
+                    </tbody>
+                </table>
+                <%
+				} else { %>
+                <p>Ce cheval n'a pas été vendu.</p>
+                <%
+
+                                        }
+                %>            
         </div>
     </div>
 </div>
