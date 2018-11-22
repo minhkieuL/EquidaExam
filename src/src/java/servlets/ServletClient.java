@@ -33,6 +33,7 @@ public class ServletClient extends ServletBase {
 	public static final String URL_MODIFIER_CLIENT = "/EquidaWebG2/ServletClient/clientModifier";
 	public static final String URL_ARCHIVER_CLIENT = "/EquidaWebG2/ServletClient/clientArchiver";
 	
+	
 	Connection connection;
 
 	@Override
@@ -119,15 +120,23 @@ public class ServletClient extends ServletBase {
 		}
 		
 		if (url.equals(URL_MODIFIER_CLIENT)) {
-			if(user instanceof DirecteurGeneral) {
-				int idClient = Integer.valueOf(request.getParameter("id"));
+			if(user instanceof DirecteurGeneral || user instanceof Client) {
+				String idStr = request.getParameter("id");
+				int idClient = -1;
+				
+				if(user instanceof Client) {
+					idClient = user.getId();
+				} else {
+					idClient= Integer.valueOf(request.getParameter("id"));
+				}
+				
+				
 				Client unClient = ClientDAO.getClient(connection, idClient);
 				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
 				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
 
 				request.setAttribute("pLesPays", lesPays);
 				request.setAttribute("pLesCategVente", lesCategVentes);
-
 				request.setAttribute("pClient", unClient);
 				changerTitrePage("Modifier un client", request);
 
@@ -152,6 +161,8 @@ public class ServletClient extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
+		
+	
  
 	}
 
@@ -195,13 +206,19 @@ public class ServletClient extends ServletBase {
         }
 		
 		 if (url.equals(URL_MODIFIER_CLIENT)) {
-			if(user instanceof DirecteurGeneral) {
+			if(user instanceof DirecteurGeneral || user instanceof Client) {				
 				/* Préparation de l'objet formulaire */
 				ClientForm form = new ClientForm();
 
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 				Client unClient = form.getClient(request);
-
+				if(user instanceof Client) {
+					if(unClient.getId() != user.getId()) {
+						redirigerVersAcceuil(response);
+						return;
+					}
+				}
+				
 				/* Stockage du formulaire et de l'objet dans l'objet request */
 				request.setAttribute("form", form);
 				request.setAttribute("pClient", unClient);

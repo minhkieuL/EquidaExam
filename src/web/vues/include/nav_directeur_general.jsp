@@ -14,6 +14,7 @@
 <li><a class="dropdown-button" href="#!" data-target="dropdownPays">Pays<i class="material-icons right">arrow_drop_down</i></a></li>
 <li><a class="dropdown-button" href="#!" data-target="dropdownLieu">Lieu<i class="material-icons right">arrow_drop_down</i></a></li>
 <li><a class="dropdown-button" href="#!" data-target="dropdownCourses">Courses<i class="material-icons right">arrow_drop_down</i></a></li>
+<li><a class="dropdown-button" href="#!" data-target="dropdownLotsNonValides">Validation nécessaire<i class="material-icons right">arrow_drop_down</i></a></li>
 
 
 
@@ -54,4 +55,8 @@
 	<li><a href="/EquidaWebG2/ServletCourse/courseAjouter">Ajouter une course</a></li>
 	<li class="divider"></li>
 	<li><a href="/EquidaWebG2/ServletCourse/listerLesCourses">Lister les courses</a></li>
+</ul>
+
+<ul id="dropdownLotsNonValides" class="dropdown-content">
+	<li><a href="/EquidaWebG2/ServletLot/listerLesNonValides">Lots nécessitant une validation</a></li>
 </ul>

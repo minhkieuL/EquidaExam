@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package database;
 
 import java.sql.Connection;
@@ -129,6 +124,9 @@ public class ClientDAO {
 				client.setVille(rs.getString("ville"));
 				client.setMail(rs.getString("mail"));
 				
+				client.setPays(new Pays());
+				client.setLesCategVentes(new ArrayList<>());
+				
 				PreparedStatement requeteCategvente = connection.prepareStatement("SELECT * FROM utilisateur, categvente, clientcategvente WHERE utilisateur.id=codeClient AND codeCategVente=categvente.code AND utilisateur.id=?");
 				requeteCategvente.setInt(1, idClient);
 				ResultSet rsCategVente = requeteCategvente.executeQuery();
@@ -219,5 +217,7 @@ public class ClientDAO {
         }
         return unClient ; 
     }
+	
+	
 
 }

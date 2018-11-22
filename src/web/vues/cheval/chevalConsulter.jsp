@@ -7,6 +7,7 @@
 <%@page import="modele.Lot"%>
 <%@page import="modele.Enchere"%>
 <%@page import="servlets.ServletEnchere"%>
+<%@page import="servlets.ServletCourse"%>
 <%@page import="modele.DirecteurGeneral"%>
 <%@page import="modele.Participer"%>
 <%@page import="java.util.ArrayList"%>
@@ -42,12 +43,23 @@
         <p>Mère : <%= (unCheval.getMere() != null) ? "<a href=?id=" + unCheval.getMere().getId() + ">" + unCheval.getMere().getSire() + "</a>" : "Non renseignée"%></p>
         <p>Père : <%= (unCheval.getPere() != null) ? "<a href=?id=" + unCheval.getPere().getId() + ">" + unCheval.getPere().getSire() + "</a>" : "Non renseigné"%></p>
         <%
-                        if (user instanceof DirecteurGeneral) {
-                                out.println("<p><a href='" + ServletCheval.URL_ARCHIVER_CHEVAL + "?id=" + unCheval.getId() + "'>");
-                                out.println("Archiver");
-                                out.println("</a></p>");
-                        }
+            if (user instanceof DirecteurGeneral) {
+                out.println("<p><a href='" + ServletCheval.URL_ARCHIVER_CHEVAL + "?id=" + unCheval.getId() + "'>");
+                out.println("Archiver");
+                out.println("</a></p>");
+
+                if (lot.getValidation() == null) {
+                    //TODO Verifier que le cheval n'est pas deja ajouté
+                    out.println("Voulez-vous valider le cheval afin de l'ajouter à la vente ?");
+                    out.println("<p><a href='" + ServletCheval.URL_VALIDER_CHEVAL + "?id=" + lot.getId() + "'>");
+                    out.println("Valider");
+                    out.println("</a></p>");
+                }
+            }
+
         %>
+
+
     </div>
 
     <div class="row">
@@ -66,28 +78,34 @@
                     <tbody>
                         <tr>
                             <%
-                                                                for (int i = 0; i < lesParticipations.size(); i++) {
+                                for (int i = 0; i < lesParticipations.size(); i++) {
 
-                                                                        Participer uneParticipation = lesParticipations.get(i);
+                                    Participer uneParticipation = lesParticipations.get(i);
 
-                                                                        out.println("<tr><td>");
-                                                                        out.println(uneParticipation.getCourse().getNom());
-                                                                        out.println("</td>");
+                                    out.println("<tr><td>");
+                                    out.println(uneParticipation.getCourse().getNom());
+                                    out.println("</td>");
 
-                                                                        out.println("<td>");
-                                                                        out.println(uneParticipation.getCourse().getDate());
-                                                                        out.println("</td>");
+                                    out.println("<td>");
+                                    out.println(uneParticipation.getCourse().getDate());
+                                    out.println("</td>");
 
-                                                                        out.println("<td>");
-                                                                        out.println(uneParticipation.getPlace());
-                                                                        out.println("</td>");
+                                    out.println("<td>");
+                                    out.println(uneParticipation.getPlace());
+                                    out.println("</td>");
 
-                                                                        if (user instanceof Client || user instanceof DirecteurGeneral) {
-                                                                                out.println("<td><a href ='../ServletClient/clientModifier?id=" + uneParticipation.getCheval() + "'>");
-                                                                                out.println("Modifier");
-                                                                                out.println("</td>");
-                                                                        }
-                                                                }
+                                    if (user instanceof Client || user instanceof DirecteurGeneral) {
+                                        out.println("<td><a href ='../ServletClient/clientModifier?id=" + uneParticipation.getCheval() + "'>");
+                                        out.println("Modifier");
+                                        out.println("</td>");
+                                    }
+
+                                    if (user instanceof Client) {
+                                        out.println("<td><a href ='" + ServletCourse.URL_SUPPRIMER_CLASSEMENT_CHEVAL + "?idCheval=" + uneParticipation.getCheval().getId() + "&idCourse=" + uneParticipation.getCourse().getId() + "'>");
+                                        out.println("Supprimer");
+                                        out.println("</td>");
+                                    }
+                                }
                             %>
                         </tr>
                     </tbody>
@@ -96,12 +114,12 @@
 				} else { %>
                 <p>Aucune course n'a été enregistrée pour ce cheval</p>
                 <%
-                                        }
-                                        if (user instanceof Client || user instanceof DirecteurGeneral) {
+                    }
+                    if (user instanceof Client || user instanceof DirecteurGeneral) {
                 %>
                 <a href ='../ServletCourse/courseChevalRenseigner?id=<%= unCheval.getId()%>'>Ajouter une course</a>
                 <%
-                                        }
+                    }
                 %>
         </div>
     </div>

@@ -12,7 +12,8 @@ public class Cheval {
 	private ArrayList<Lot> lots;
 	private Cheval pere;
 	private Cheval mere;
-
+	private Client client;
+	
 	public Cheval() {
 		this(0, "", false, "", null, null, null, null);
 	}
@@ -99,4 +100,13 @@ public class Cheval {
 	public void setMere(Cheval mere) {
 		this.mere = mere;
 	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
 }

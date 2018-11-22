@@ -1,5 +1,6 @@
 package formulaires;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 public abstract class Form {
 
 	private String resultat;
-	private Map<String, String> erreurs = new HashMap<String, String>();
+	private Map<String, ArrayList<String>> erreurs = new HashMap<String, ArrayList<String>>();
 
 	public String getResultat() {
 		return resultat;
@@ -21,16 +22,24 @@ public abstract class Form {
 		this.resultat = resultat;
 	}
 
-	public Map<String, String> getErreurs() {
+	public Map<String, ArrayList<String>> getErreurs() {
 		return erreurs;
 	}
 
-	public void setErreurs(Map<String, String> erreurs) {
+	public void setErreurs(Map<String, ArrayList<String>> erreurs) {
 		this.erreurs = erreurs;
 	}
 
-	protected void setErreur(String champ, String message) {
-		erreurs.put(champ, message);
+	protected void ajouterErreur(String champ, String message) {
+		if(!erreurs.containsKey(champ)) {
+			erreurs.put(champ, new ArrayList<>());
+		}
+		
+		erreurs.get(champ).add(message);
+	}
+	
+	protected ArrayList<String> getErreurChamp(String champ) {
+		return erreurs.get(champ);
 	}
 
 	protected static String getDataForm(HttpServletRequest request, String nomChamp) {
@@ -41,4 +50,5 @@ public abstract class Form {
 			return valeur.trim();
 		}
 	}
+	
 }

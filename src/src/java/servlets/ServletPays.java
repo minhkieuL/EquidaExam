@@ -106,17 +106,10 @@ public class ServletPays extends ServletBase {
 				Pays unPays = formPays.getPays(request);
 
 				if (formPays.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 					PaysDAO.ajouterPays(connection, unPays);
-
-					/* Stockage du formulaire et de l'objet dans l'objet request */
-					request.setAttribute("form", formPays);
-					request.setAttribute("pPays", unPays);
-
 					response.sendRedirect(URL_LISTER_PAYS);
-
 				} else {
-
+					request.getSession().setAttribute("form", formPays);
 					response.sendRedirect(URL_AJOUTER_PAYS);
 				}
 			} else {
@@ -132,18 +125,12 @@ public class ServletPays extends ServletBase {
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 				Pays unPays = form.getPays(request);
 
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pPays", unPays);
-
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
 					PaysDAO.modifierPays(connection, unPays, form.getPaysOrigin(request));
 					response.sendRedirect(URL_LISTER_PAYS);
-
 				} else {
-					response.sendRedirect(URL_MODIFIER_PAYS+"?code="+unPays.getCode());
+					request.getSession().setAttribute("form", form);
+					response.sendRedirect(URL_MODIFIER_PAYS+"?code="+form.getPaysOrigin(request));
 				}
 			} else {
 				redirigerVersAcceuil(response);

@@ -16,7 +16,7 @@ public class LotDAO {
 		ArrayList<Lot> lesLots = new ArrayList<Lot>();
 		try {
 			//preparation de la requete     
-			PreparedStatement requete = connection.prepareStatement("SELECT lot.id AS lotId, lot.idCheval, lot.idVente, lot.prixDepart, vente.nom AS nomVente, vente.dateDebut, cheval.nom AS nomCheval, cheval.sexe, cheval.sire, typecheval.libelle AS libelleTypeCheval, typecheval.description AS descTypeCheval FROM lot, vente, cheval, typecheval WHERE lot.idVente=vente.id AND lot.idCheval=cheval.id AND typecheval.id = cheval.typeCheval AND lot.idVente = '" + idVente + "';");
+			PreparedStatement requete = connection.prepareStatement("SELECT lot.id AS lotId, lot.idCheval, lot.idVente, lot.prixDepart, vente.nom AS nomVente, vente.dateDebut, cheval.nom AS nomCheval, cheval.sexe, cheval.sire, typecheval.libelle AS libelleTypeCheval, typecheval.description AS descTypeCheval FROM lot, vente, cheval, typecheval WHERE lot.idVente=vente.id AND lot.idCheval=cheval.id AND typecheval.id = cheval.typeCheval AND lot.validation IS NOT NULL AND lot.idVente = '" + idVente + "';");
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
@@ -56,7 +56,7 @@ public class LotDAO {
 		ArrayList<Lot> lesLots = new ArrayList<Lot>();
 		try {
 			//preparation de la requete     
-			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lot, cheval WHERE lot.idCheval = cheval.id AND lot.id NOT IN (SELECT lot FROM enchere WHERE montant != 0) AND cheval.archiver = 0 AND lot.validation IS NOT NULL ORDER BY prixDepart DESC");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM lot, cheval WHERE lot.idCheval = cheval.id AND lot.id NOT IN (SELECT lot FROM enchere) AND cheval.archiver = 0 AND lot.validation IS NOT NULL ORDER BY prixDepart DESC");
 
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
@@ -104,6 +104,31 @@ public class LotDAO {
 		return lesLots;
 	}
 	
+	public static ArrayList<Lot> getlesLotsNonValides(Connection connection) {
+		ArrayList<Lot> lesLots = new ArrayList<>();
+		try {
+			//preparation de la requete     
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval,lot WHERE lot.idcheval = cheval.id AND lot.validation IS NULL");
+
+			//executer la requete
+			ResultSet rs = requete.executeQuery();
+			
+			while (rs.next()) {
+				Lot unLot = new Lot();
+				unLot.setId(rs.getInt("id"));
+				unLot.setCheval(ChevalDAO.getCheval(connection, rs.getInt("idCheval")));
+				unLot.setVente(VenteDAO.getVente(connection, rs.getInt("idVente")));
+				unLot.setPrixDepart(rs.getFloat("prixDepart"));
+
+				lesLots.add(unLot);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return lesLots;
+	}
+			
 	public static void ajouterLot(Connection connection, Lot lot) {
 		try {
 			PreparedStatement requete = connection.prepareStatement("INSERT INTO lot(idVente, idCheval, prixDepart) VALUES (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);

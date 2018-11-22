@@ -4,17 +4,29 @@
     Author     : slam
 --%>
 
+<%@page import="servlets.ServletBase"%>
 <%@page import="formulaires.TypeChevalForm"%>
 <%@page import="modele.TypeCheval"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%
+	
+        TypeCheval unTypeCheval = (TypeCheval)request.getAttribute("pTypeCheval"); 
+	TypeChevalForm form = null;
+	try {
+		form = (TypeChevalForm) ServletBase.getForm(request);
+	} catch (ClassCastException e) {
+		
+	}
+	
+	request.setAttribute("form", form);
+%>
+
 <jsp:include page="/vues/include/header.jsp" />
+
 <h1 class="center-align">Modifier un Type de Cheval</h1>
 
-<%
-	TypeChevalForm form = (TypeChevalForm) request.getAttribute("form");
-        TypeCheval unTypeCheval = (TypeCheval)request.getAttribute("pTypeCheval"); 
-%>
+<jsp:include page="/vues/include/erreurs_form.jsp" />
 
 <div class="row">
 	<form class="col s10 push-s1 l8 push-l2 center-align" action="typeChevalModifier" method="POST">

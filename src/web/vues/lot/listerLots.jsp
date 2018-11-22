@@ -21,7 +21,7 @@
 
 <div class="row">
 	<div class="col s12">
-		<%
+		<%                          
 			for (Lot lot : lots) {
 				request.setAttribute("lot", lot);
 		%>

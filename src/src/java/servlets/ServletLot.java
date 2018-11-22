@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Client;
+import modele.DirecteurGeneral;
 import modele.Lot;
 import modele.Utilisateur;
 
@@ -20,6 +21,7 @@ import modele.Utilisateur;
 public class ServletLot extends ServletBase {
 
 	public static final String URL_LISTER_LOTS = "/EquidaWebG2/ServletLot/listerLesLots";
+	public static final String URL_LISTER_NONVALIDER = "/EquidaWebG2/ServletLot/listerLesNonValides";
 	public static final String URL_AJOUTER_LOTS = "/EquidaWebG2/ServletLot/ajouterLot";
 	
 	Connection connection;
@@ -42,6 +44,7 @@ public class ServletLot extends ServletBase {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		super.doGet(request, response);
 
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 		String url = request.getRequestURI();
 		if (url.equals(URL_LISTER_LOTS)) {
 			ArrayList<Lot> lesLots = LotDAO.getLesLotsNonVendu(connection);
@@ -51,6 +54,20 @@ public class ServletLot extends ServletBase {
 
 			getServletContext().getRequestDispatcher("/vues/lot/listerLots.jsp").forward(request, response);
 
+		}
+		
+		
+		if (url.equals(URL_LISTER_NONVALIDER)) {
+			if(user instanceof DirecteurGeneral) {
+				ArrayList<Lot> lesLots = LotDAO.getlesLotsNonValides(connection);
+
+				request.setAttribute("pLots", lesLots);
+				changerTitrePage("Lister les ventes non validés", request);
+
+				getServletContext().getRequestDispatcher("/vues/lot/lotsNonValides.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
 		}
 	}
 

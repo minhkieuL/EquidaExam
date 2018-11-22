@@ -4,17 +4,29 @@
     Author     : slam
 --%>
 
+<%@page import="servlets.ServletBase"%>
 <%@page import="modele.Pays"%>
 <%@page import="formulaires.PaysForm"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%
+    Pays unPays = (Pays)request.getAttribute("pPays"); 
+	PaysForm form = null;
+	try {
+		form = (PaysForm) ServletBase.getForm(request);
+	} catch (ClassCastException e) {
+		
+	}
+	
+	request.setAttribute("form", form);
+%>
+
 <jsp:include page="/vues/include/header.jsp" />
+
 <h1 class="center-align">Modifier un Pays</h1>
 
-<%
-	PaysForm form = (PaysForm) request.getAttribute("form");
-    Pays unPays = (Pays)request.getAttribute("pPays"); 
-%>
+<jsp:include page="/vues/include/erreurs_form.jsp" />
+
 <div class="row">
 	<form class="col s10 push-s1 l8 push-l2 center-align" action="paysModifier" method="POST">
 		<input id="codeOrigin" type="hidden" name="codeOrigin" size="30" maxlength="30" value="<%= unPays.getCode() %>">

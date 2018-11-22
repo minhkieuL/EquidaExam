@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package database;
 
 import java.sql.Connection;
@@ -12,9 +7,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
-import jdk.nashorn.internal.ir.RuntimeNode;
 import modele.Cheval;
-import modele.Participer;
 import modele.Utilisateur;
 
 /**
@@ -111,6 +104,8 @@ public class ChevalDAO {
 				if(idMere != 0) {	
 					unCheval.setMere(getCheval(connection, idMere));
 				}
+				
+				unCheval.setClient(ClientDAO.getClient(connection, rs.getInt("client")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -235,6 +230,19 @@ public class ChevalDAO {
 	public static void archiverCheval(Connection connection, int idCheval) {
 		try {
 			PreparedStatement requete = connection.prepareStatement("UPDATE cheval SET archiver = 1 WHERE id =?;");
+			requete.setInt(1, idCheval);
+
+			requete.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
+	}
+	
+	public static void validerCheval(Connection connection, int idCheval) {
+		try {
+			PreparedStatement requete = connection.prepareStatement("UPDATE lot SET validation = (NOW()) WHERE id = ?;");
 			requete.setInt(1, idCheval);
 
 			requete.executeUpdate();
