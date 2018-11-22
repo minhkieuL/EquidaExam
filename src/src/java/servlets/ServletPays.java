@@ -77,7 +77,7 @@ public class ServletPays extends ServletBase {
 				request.setAttribute("pLesPays", lesPays);
 				changerTitrePage("Lister les pays", request);
 
-				getServletContext().getRequestDispatcher("/vues/ventes/listerLesPays.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/pays/listerLesPays.jsp").forward(request, response);
 			} else {
 				redirigerVersAcceuil(response);
 			}

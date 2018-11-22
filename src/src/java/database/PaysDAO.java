@@ -22,7 +22,7 @@ public class PaysDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Pays avec les résultats de la requête
 			while (rs.next()) {
 				Pays unPays = new Pays();
 				unPays.setCode(rs.getString("code"));
@@ -40,7 +40,7 @@ public class PaysDAO {
 
 		try {
 			PreparedStatement requete = connection.prepareStatement("INSERT INTO pays (code, nom)\n"
-					+ "VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				+ "VALUES (?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			requete.setString(1, unPays.getCode());
 			requete.setString(2, unPays.getNom());
 
@@ -63,7 +63,7 @@ public class PaysDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Pays avec les résultats de la requête
 			while (rs.next()) {
 				unPays.setCode(rs.getString("code"));
 				unPays.setNom(rs.getString("nom"));

@@ -57,10 +57,7 @@
 					}
 				}
 			}
-
         %>
-
-
     </div>
 
     <div class="row">
@@ -79,33 +76,34 @@
                     <tbody>
                         <tr>
                             <%
-								for (int i = 0; i < lesParticipations.size(); i++) {
+                                                                for (int i = 0; i < lesParticipations.size(); i++) {
 
-									Participer uneParticipation = lesParticipations.get(i);
+                                                                        Participer uneParticipation = lesParticipations.get(i);
 
-									out.println("<tr><td>");
-									out.println(uneParticipation.getCourse().getNom());
-									out.println("</td>");
+                                                                        out.println("<tr><td>");
+                                                                        out.println(uneParticipation.getCourse().getNom());
+                                                                        out.println("</td>");
 
-									out.println("<td>");
-									out.println(uneParticipation.getCourse().getDate());
-									out.println("</td>");
+                                                                        out.println("<td>");
+                                                                        out.println(uneParticipation.getCourse().getDate());
+                                                                        out.println("</td>");
 
-									out.println("<td>");
-									out.println(uneParticipation.getPlace());
-									out.println("</td>");
+                                                                        out.println("<td>");
+                                                                        out.println(uneParticipation.getPlace());
+                                                                        out.println("</td>");
 
-									/* if (user instanceof Client || user instanceof DirecteurGeneral) {
-                                        out.println("<td><a href ='../ServletClient/clientModifier?id=" + uneParticipation.getCheval() + "'>");
-                                        out.println("Modifier");
-                                        out.println("</td>");
-                                    }*/
-									if (user instanceof Client || user instanceof DirecteurGeneral) {
-										out.println("<td><a href ='" + ServletCourse.URL_SUPPRIMER_CLASSEMENT_CHEVAL + "?idCheval=" + uneParticipation.getCheval().getId() + "&idCourse=" + uneParticipation.getCourse().getId() + "'>");
-										out.println("Supprimer");
-										out.println("</td>");
-									}
-								}
+                                                                        if (user instanceof Client || user instanceof DirecteurGeneral) {
+                                                                                out.println("<td><a href ='../ServletClient/clientModifier?id=" + uneParticipation.getCheval() + "'>");
+                                                                                out.println("Modifier");
+                                                                                out.println("</td>");
+                                                                        }
+
+                                                                        if (user instanceof Client || user instanceof DirecteurGeneral) {
+                                                                                out.println("<td><a href ='" + ServletCourse.URL_SUPPRIMER_CLASSEMENT_CHEVAL + "?idCheval=" + uneParticipation.getCheval().getId() + "&idCourse=" + uneParticipation.getCourse().getId() + "'>");
+                                                                                out.println("Supprimer");
+                                                                                out.println("</td>");
+                                                                        }
+                                                                }
                             %>
                         </tr>
                     </tbody>
@@ -126,7 +124,7 @@
 
     <div class="row">
         <div class="col s12">
-            <h3>Infos vente</h3>
+            <h3>Informations sur la vente</h3>
             <%
 				if (user instanceof DirecteurGeneral) {
 					if (lot != null) {

@@ -62,7 +62,7 @@ public class ServletCategVente extends ServletBase {
 				request.setAttribute("pLesCategVentes", lesCategVentes);
 				changerTitrePage("Lister les catégories de vente", request);
 
-				getServletContext().getRequestDispatcher("/vues/ventes/listerLesCategVentes.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/categorie_vente/listerLesCategVentes.jsp").forward(request, response);
 			} else {
 				redirigerVersAcceuil(response);
 			}

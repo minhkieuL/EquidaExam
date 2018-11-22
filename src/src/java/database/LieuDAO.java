@@ -92,7 +92,7 @@ public class LieuDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Lieu avec les résultats de la requête
 			while (rs.next()) {
 				unLieu = new Lieu();
 				unLieu.setId(rs.getInt("id"));

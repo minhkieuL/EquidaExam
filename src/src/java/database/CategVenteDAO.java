@@ -22,7 +22,7 @@ public class CategVenteDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier CategVente avec les résultats de la requête
 			while (rs.next()) {
 				CategVente uneCategVente = new CategVente();
 				uneCategVente.setCode(rs.getString("code"));
@@ -37,7 +37,6 @@ public class CategVenteDAO {
 	}
 
 	public static CategVente ajouterCategVente(Connection connection, CategVente uneCategVente) {
-		int idGenere = -1;
 		try {
 			//preparation de la requete
 
@@ -67,7 +66,7 @@ public class CategVenteDAO {
             //executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier CategVente avec les résultats de la requête
 			while (rs.next()) {
 				uneCategVente.setCode(rs.getString("code"));
 				uneCategVente.setLibelle(rs.getString("libelle"));

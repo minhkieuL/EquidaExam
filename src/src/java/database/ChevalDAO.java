@@ -26,7 +26,7 @@ public class ChevalDAO {
 			// la paramètre RETURN_GENERATED_KEYS est ajouté à la requête afin de pouvoir récupérer l'id généré par la bdd (voir ci-dessous)
 			// supprimer ce paramètre en cas de requête sans auto_increment.
 			PreparedStatement requete = connection.prepareStatement("INSERT INTO cheval ( nom, sexe, sire, typeCheval, pere, mere, client)\n"
-					+ "VALUES (?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				+ "VALUES (?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			requete.setString(1, unCheval.getNom());
 			requete.setInt(2, unCheval.getMale() ? 1 : 0);
 			requete.setString(3, unCheval.getSire());
@@ -70,7 +70,7 @@ public class ChevalDAO {
 		}
 		return idGenere;
 	}
-	
+
 	public static Cheval getCheval(Connection connection, int idCheval) {
 		Cheval unCheval = null;
 
@@ -89,22 +89,22 @@ public class ChevalDAO {
 				unCheval.setNom(rs.getString("nom"));
 				unCheval.setSire(rs.getString("sire"));
 				unCheval.setMale(rs.getBoolean("sexe"));
-				
+
 				int typeCheval = rs.getInt("typeCheval");
-				if(typeCheval != 0) {
+				if (typeCheval != 0) {
 					unCheval.setTypeCheval(TypeChevalDAO.getTypeCheval(connection, typeCheval));
 				}
-				
-				int idPere = rs.getInt("pere");	
-				if(idPere != 0) {
+
+				int idPere = rs.getInt("pere");
+				if (idPere != 0) {
 					unCheval.setPere(getCheval(connection, idPere));
 				}
-				
+
 				int idMere = rs.getInt("mere");
-				if(idMere != 0) {	
+				if (idMere != 0) {
 					unCheval.setMere(getCheval(connection, idMere));
 				}
-				
+
 				unCheval.setClient(ClientDAO.getClient(connection, rs.getInt("client")));
 			}
 		} catch (SQLException e) {
@@ -113,7 +113,7 @@ public class ChevalDAO {
 		}
 		return unCheval;
 	}
-	
+
 	public static Cheval getChevalParSire(Connection connection, String sireCheval) {
 		Cheval unCheval = null;
 
@@ -132,19 +132,19 @@ public class ChevalDAO {
 				unCheval.setNom(rs.getString("nom"));
 				unCheval.setSire(rs.getString("sire"));
 				unCheval.setMale(rs.getBoolean("sexe"));
-				
+
 				int typeCheval = rs.getInt("typeCheval");
-				if(typeCheval != 0) {
+				if (typeCheval != 0) {
 					unCheval.setTypeCheval(TypeChevalDAO.getTypeCheval(connection, typeCheval));
 				}
-				
-				int idPere = rs.getInt("pere");	
-				if(idPere != 0) {
+
+				int idPere = rs.getInt("pere");
+				if (idPere != 0) {
 					unCheval.setPere(getCheval(connection, idPere));
 				}
-				
+
 				int idMere = rs.getInt("mere");
-				if(idMere != 0) {	
+				if (idMere != 0) {
 					unCheval.setMere(getCheval(connection, idMere));
 				}
 			}
@@ -164,14 +164,16 @@ public class ChevalDAO {
 			requete.setBoolean(2, unCheval.getMale());
 			requete.setString(3, unCheval.getSire());
 			requete.setInt(4, unCheval.getTypeCheval().getId());
-			if(unCheval.getMere() != null)
+			if (unCheval.getMere() != null) {
 				requete.setInt(5, unCheval.getMere().getId());
-			else
+			} else {
 				requete.setNull(5, Types.INTEGER);
-			if(unCheval.getPere() != null)
+			}
+			if (unCheval.getPere() != null) {
 				requete.setInt(6, unCheval.getPere().getId());
-			else
+			} else {
 				requete.setNull(6, Types.INTEGER);
+			}
 			requete.setInt(7, unCheval.getId());
 
 			/* Exécution de la requête */
@@ -190,43 +192,43 @@ public class ChevalDAO {
 		try {
 			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE client = ?");
 			requete.setInt(1, idClient);
-			
+
 			ResultSet rs = requete.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Cheval cheval = new Cheval();
 				cheval.setId(rs.getInt("id"));
 				cheval.setSire(rs.getString("sire"));
 				cheval.setNom(rs.getString("nom"));
 				chevaux.add(cheval);
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return chevaux;
 	}
-	
+
 	public static ArrayList<Cheval> getChevauxClientDispoVente(Connection connection, int idClient) {
 		ArrayList<Cheval> chevaux = new ArrayList<>();
 		try {
 			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE cheval.id NOT IN (SELECT lot.idCheval FROM lot WHERE lot.id NOT IN (SELECT enchere.lot FROM enchere) UNION SELECT lot.idCheval FROM lot, enchere WHERE lot.id = enchere.lot AND enchere.montant <> 0) AND client = ?");
 			requete.setInt(1, idClient);
-			
+
 			ResultSet rs = requete.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				Cheval cheval = new Cheval();
 				cheval.setId(rs.getInt("id"));
 				cheval.setSire(rs.getString("sire"));
 				cheval.setNom(rs.getString("nom"));
 				chevaux.add(cheval);
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return chevaux;
 	}
-	
+
 	public static void archiverCheval(Connection connection, int idCheval) {
 		try {
 			PreparedStatement requete = connection.prepareStatement("UPDATE cheval SET archiver = 1 WHERE id =?;");
@@ -239,7 +241,7 @@ public class ChevalDAO {
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 	}
-	
+
 	public static void validerCheval(Connection connection, int idCheval) {
 		try {
 			PreparedStatement requete = connection.prepareStatement("UPDATE lot SET validation = (NOW()) WHERE id = ?;");

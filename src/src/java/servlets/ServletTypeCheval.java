@@ -66,7 +66,7 @@ public class ServletTypeCheval extends ServletBase {
 				request.setAttribute("pLesTypeCheval", lesTypeCheval);
 				changerTitrePage("Lister les types de chevaux", request);
 
-				getServletContext().getRequestDispatcher("/vues/ventes/listerLesTypeCheval.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/type_cheval/listerLesTypeCheval.jsp").forward(request, response);
 		   } else {
 			   redirigerVersAcceuil(response);
 		   }

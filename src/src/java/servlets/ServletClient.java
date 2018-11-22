@@ -79,7 +79,7 @@ public class ServletClient extends ServletBase {
 				request.setAttribute("pLesClients", lesClients);
 				changerTitrePage("Lister les clients", request);
 
-				getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/categorie_vente/listerLesClients.jsp").forward(request, response);
 			} else {
 				redirigerVersAcceuil(response);
 			}
