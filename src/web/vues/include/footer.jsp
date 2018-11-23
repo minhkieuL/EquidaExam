@@ -33,7 +33,7 @@
     </div>
 </footer>   
 
-<script type = "text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="<%= request.getContextPath()%>/js/jquery-2.1.1.min.js"></script>
 <script src="<%= request.getContextPath()%>/js/materialize.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -44,10 +44,10 @@
         $('.datepicker').datepicker({format: "yyyy-m-d"});
         $('.sidenav').sidenav();
 
-        setTimeout(autoplayCaroussel, 15000);
+        setTimeout(autoplayCaroussel, 10000);
         function autoplayCaroussel() {
             $('.carousel').carousel('next');
-            setTimeout(autoplayCaroussel, 15000);
+            setTimeout(autoplayCaroussel, 10000);
         }
     });
 </script>
