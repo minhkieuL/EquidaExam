@@ -94,7 +94,6 @@ public class ServletCheval extends ServletBase {
 			request.setAttribute("pClients", lesClients);
 			request.setAttribute("pLot", lot);
 			request.setAttribute("pEncheres", lesEncheres);
-
 			request.setAttribute("pParticipations", lesParticipations);
 			request.setAttribute("pCheval", cheval);
 			changerTitrePage("Cheval " + cheval.getNom(), request);
