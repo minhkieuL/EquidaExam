@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package database;
 
 import java.sql.Connection;
@@ -30,14 +25,15 @@ public class ClientDAO {
 			// id (clé primaire de la table client) est en auto_increment,donc on ne renseigne pas cette valeur
 			// la paramètre RETURN_GENERATED_KEYS est ajouté à la requête afin de pouvoir récupérer l'id généré par la bdd (voir ci-dessous)
 			// supprimer ce paramètre en cas de requête sans auto_increment.
-			PreparedStatement requete = connection.prepareStatement("INSERT INTO utilisateur ( nom, prenom, rue, copos, ville, codePays)\n"
-					+ "VALUES (?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement requete = connection.prepareStatement("INSERT INTO utilisateur ( nom, prenom, rue, copos, ville, codePays, mail)\n"
+					+ "VALUES (?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			requete.setString(1, unClient.getNom());
 			requete.setString(2, unClient.getPrenom());
 			requete.setString(3, unClient.getRue());
 			requete.setString(4, unClient.getCopos());
 			requete.setString(5, unClient.getVille());
 			requete.setString(6, unClient.getPays().getCode());
+			requete.setString(7, unClient.getMail());
 
 			/* Exécution de la requête */
 			requete.executeUpdate();
@@ -197,6 +193,7 @@ public class ClientDAO {
 			requete.setString(5, unClient.getVille());
 			requete.setString(6, unClient.getVille());
 			requete.setString(7, unClient.getPays().getCode());
+			requete.setString(6, unClient.getMail());
 			requete.setInt(8, unClient.getId());
             /* Exécution de la requête */
             requete.executeUpdate();

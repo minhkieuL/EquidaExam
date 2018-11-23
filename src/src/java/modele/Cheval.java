@@ -13,7 +13,7 @@ public class Cheval {
 	private Cheval pere;
 	private Cheval mere;
 	private Client client;
-
+	
 	public Cheval() {
 		this(0, "", false, "", null, null, null, null);
 	}
@@ -108,6 +108,5 @@ public class Cheval {
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	
 	
 }

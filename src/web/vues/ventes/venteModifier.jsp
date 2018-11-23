@@ -12,7 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <jsp:include page="/vues/include/header.jsp" />
-<h1 class="center-align">Modifier une Vente</h1>
+<h1 class="center-align">Modifier une vente</h1>
 
 <%
 	VenteForm form = (VenteForm) request.getAttribute("form");
@@ -25,7 +25,7 @@
 	<form class="col s10 push-s1 l8 push-l2 center-align" action="venteAjouter" method="POST">
 		<div class="row">
 			<div class="input-field col s12">
-				<input id="nom" type="text" name="nom" value="<% out.println(uneVente.getNom()); %>" size="30" maxlength="30" class="validate">
+				<input id="nom" type="text" name="nom" value="<% out.println(uneVente.getNom()); %>" size="40" minlength="3" maxlength="40" class="validate">
 				<label for="nom">Nom : </label>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 												}
 					%>
 				</select>
-				<label for="categVente">Categorie Vente : </label>
+				<label for="categVente">Catégorie de la vente : </label>
 			</div>
 			<div class="input-field col s12 l6">
 				<select name="lieu" size="5" >
@@ -63,13 +63,13 @@
 		<div class="row">
 			<div class="input-field col s12">
 				<input id="dateDebut" type="text"  name="dateDebut" value="<% out.println(uneVente.getDateDebut()); %>" class="datepicker validate">
-				<label for="dateDebut">Date début : </label>
+				<label for="dateDebut">Date de début : </label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
 				<input id="dateFin" type="text"  name="dateFin" value="<% out.println(uneVente.getDateFin()); %>" class="datepicker validate">
-				<label for="dateFin">Date fin : </label>
+				<label for="dateFin">Date de fin : </label>
 			</div>
 		</div>
 		<div class="row">
@@ -77,7 +77,7 @@
 				<input id="dateVente" type="text"  name="dateVente" value="<% out.println(uneVente.getDateVente()); %>" class="datepicker validate">
 				<label for="dateVente">Date de la vente : </label>
 			</div>
-		</div>
+                </div>
 		<input type="submit" name="valider" id="valider" value="Valider"/>
 	</form>
 </div>

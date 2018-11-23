@@ -62,6 +62,11 @@
 		<servlet-class>servlets.ServletCourse</servlet-class>
 	</servlet>
 	
+        <servlet>
+		<servlet-name>ServletEnchere</servlet-name>
+		<servlet-class>servlets.ServletEnchere</servlet-class>
+	</servlet>
+        
 	<servlet>
 		<servlet-name>ServletFooter</servlet-name>
 		<servlet-class>servlets.ServletFooter</servlet-class>
@@ -178,6 +183,11 @@
 		<servlet-name>ServletCourriel</servlet-name>
 		<url-pattern>/ServletCourriel/listerLesCourriels</url-pattern>
 	</servlet-mapping>
+		
+	<servlet-mapping>
+		<servlet-name>ServletCourriel</servlet-name>
+		<url-pattern>/ServletCourriel/ajouterCourriel</url-pattern>
+	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>ServletCourse</servlet-name>
@@ -193,7 +203,7 @@
 		<servlet-name>ServletCourse</servlet-name>
 		<url-pattern>/ServletCourse/courseModifier</url-pattern>
 	</servlet-mapping>
-        
+
 	<servlet-mapping>
 		<servlet-name>ServletCourse</servlet-name>
 		<url-pattern>/ServletCourse/courseSupprimer</url-pattern>
@@ -204,6 +214,11 @@
 		<url-pattern>/ServletCourse/listerLesCourses</url-pattern>
 	</servlet-mapping>
 	
+        <servlet-mapping>
+		<servlet-name>ServletEnchere</servlet-name>
+		<url-pattern>/ServletEnchere/ajouterEnchere</url-pattern>
+	</servlet-mapping>
+        
 	<servlet-mapping>
 		<servlet-name>ServletFooter</servlet-name>
 		<url-pattern>/ServletFooter/contact</url-pattern>
@@ -237,7 +252,7 @@
 	<servlet-mapping>
 		<servlet-name>ServletLot</servlet-name>
 		<url-pattern>/ServletLot/ajouterLot</url-pattern>
-	</servlet-mapping> ServletLot/
+	</servlet-mapping> 
 	
 	<servlet-mapping>
 		<servlet-name>ServletLot</servlet-name>

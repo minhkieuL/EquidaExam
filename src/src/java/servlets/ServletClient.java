@@ -79,7 +79,7 @@ public class ServletClient extends ServletBase {
 				request.setAttribute("pLesClients", lesClients);
 				changerTitrePage("Lister les clients", request);
 
-				getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/vues/categorie_vente/listerLesClients.jsp").forward(request, response);
 			} else {
 				redirigerVersAcceuil(response);
 			}
@@ -121,14 +121,15 @@ public class ServletClient extends ServletBase {
 		
 		if (url.equals(URL_MODIFIER_CLIENT)) {
 			if(user instanceof DirecteurGeneral || user instanceof Client) {
-				int idClient = Integer.valueOf(request.getParameter("id"));
+				String idStr = request.getParameter("id");
+				int idClient = -1;
 				
 				if(user instanceof Client) {
-					if(idClient != user.getId()) {
-						redirigerVersAcceuil(response);
-						return;
-					}
+					idClient = user.getId();
+				} else {
+					idClient= Integer.valueOf(request.getParameter("id"));
 				}
+				
 				
 				Client unClient = ClientDAO.getClient(connection, idClient);
 				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
@@ -188,15 +189,11 @@ public class ServletClient extends ServletBase {
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 				Client unClient = form.getClient(request);
 
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pClient", unClient);
-
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 					int idClient = ClientDAO.ajouterClient(connection, unClient);
 					response.sendRedirect(URL_CONSULTER_CLIENT+"?id="+idClient);
 				} else {
+					request.getSession().setAttribute("form", form);
 					response.sendRedirect(URL_AJOUTER_CLIENT);
 				}
 			} else {
@@ -205,24 +202,24 @@ public class ServletClient extends ServletBase {
         }
 		
 		 if (url.equals(URL_MODIFIER_CLIENT)) {
-			if(user instanceof DirecteurGeneral || user instanceof Client) {
+			if(user instanceof DirecteurGeneral || user instanceof Client) {				
 				/* Préparation de l'objet formulaire */
 				ClientForm form = new ClientForm();
 
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 				Client unClient = form.getClient(request);
-
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pClient", unClient);
+				if(user instanceof Client) {
+					if(unClient.getId() != user.getId()) {
+						redirigerVersAcceuil(response);
+						return;
+					}
+				}
 
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
 					ClientDAO.modifierClient(connection, unClient);
 					response.sendRedirect(URL_LISTER_CLIENTS_DIR_GEN);
-
 				} else {
+					request.getSession().setAttribute("form", form);
 					response.sendRedirect(URL_MODIFIER_CLIENT+"?id="+unClient.getId());
 				}
 			} else {

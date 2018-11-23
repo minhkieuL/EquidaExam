@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlets;
 
 import database.CategVenteDAO;
 import database.ChevalDAO;
+import database.ClientDAO;
 import database.LieuDAO;
 import database.Utilitaire;
 import database.VenteDAO;
@@ -20,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
 import modele.Cheval;
+import modele.Client;
 import modele.DirecteurGeneral;
 import modele.Lieu;
 import modele.Utilisateur;
@@ -84,7 +81,9 @@ public class ServletVentes extends ServletBase {
 			Vente vente = VenteDAO.getVente(connection, idVente);
 			int idClient = (user != null) ? user.getId() : 0;
 			ArrayList<Cheval> chevauxClient = ChevalDAO.getChevauxClientDispoVente(connection, idClient);
+			ArrayList<Client> lesClients = ClientDAO.getLesClientsPrDirGen(connection);
 
+			request.setAttribute("pClients", lesClients);
 			request.setAttribute("pChevauxClient", chevauxClient);
 			request.setAttribute("pVente", vente);
 			changerTitrePage("Vente "+vente.getNom(), request);
