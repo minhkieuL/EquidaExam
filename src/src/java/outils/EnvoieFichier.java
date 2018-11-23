@@ -27,7 +27,7 @@ public class EnvoieFichier {
 
 			//Création du dossier et du fichier
 			//On selectionne le fichier là où se trouve le projet
-			File outputFile = new File(request.getServletContext().getRealPath(File.separator) + path + File.separator + fileName);
+			File outputFile = new File(request.getServletContext().getRealPath(File.separator) + File.separator + path + File.separator + fileName);
 			outputFile.getParentFile().mkdirs();
 			outputFile.createNewFile();
 			

@@ -32,7 +32,7 @@ public abstract class Form {
 
 	public void ajouterErreur(String champ, String message) {
 		if(!erreurs.containsKey(champ)) {
-			erreurs.put(champ, new ArrayList<>());
+			erreurs.put(champ, new ArrayList<String>());
 		}
 		
 		erreurs.get(champ).add(message);
