@@ -104,7 +104,7 @@ public class ChevalDAO {
 				if (idMere != 0) {
 					unCheval.setMere(getCheval(connection, idMere));
 				}
-
+				
 				unCheval.setClient(ClientDAO.getClient(connection, rs.getInt("client")));
 			}
 		} catch (SQLException e) {
@@ -199,6 +199,7 @@ public class ChevalDAO {
 				cheval.setId(rs.getInt("id"));
 				cheval.setSire(rs.getString("sire"));
 				cheval.setNom(rs.getString("nom"));
+				cheval.setMale(rs.getBoolean("sexe"));
 				chevaux.add(cheval);
 			}
 		} catch (Exception e) {

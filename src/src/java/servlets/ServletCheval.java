@@ -1,11 +1,13 @@
 package servlets;
 
+import database.CategVenteDAO;
 import database.ChevalDAO;
 import database.ClientDAO;
 import database.EnchereDAO;
 import database.LotDAO;
 import database.ParticiperDAO;
 import database.TypeChevalDAO;
+import database.VenteDAO;
 import formulaires.ChevalForm;
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,6 +16,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modele.CategVente;
 import modele.Cheval;
 import modele.Client;
 import modele.DirecteurGeneral;
@@ -22,6 +25,7 @@ import modele.Lot;
 import modele.Participer;
 import modele.TypeCheval;
 import modele.Utilisateur;
+import modele.Vente;
 
 /**
  *
@@ -34,8 +38,9 @@ public class ServletCheval extends ServletBase {
 	public static final String URL_MODIFIER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalModifier";
 	public static final String URL_ARCHIVER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalArchiver";
 	public static final String URL_LISTER_LOTS = "/EquidaWebG2/ServletLot/listerLesLots";
+	public static final String URL_LISTER_MES_CHEVAUX = "/EquidaWebG2/ServletCheval/listerMesChevaux";
 	public static final String URL_VALIDER_CHEVAL = "/EquidaWebG2/ServletCheval/chevalValider";
-
+	
 	Connection connection;
 
 	@Override
@@ -89,12 +94,20 @@ public class ServletCheval extends ServletBase {
 			request.setAttribute("pClients", lesClients);
 			request.setAttribute("pLot", lot);
 			request.setAttribute("pEncheres", lesEncheres);
-
 			request.setAttribute("pParticipations", lesParticipations);
 			request.setAttribute("pCheval", cheval);
 			changerTitrePage("Cheval " + cheval.getNom(), request);
 
 			getServletContext().getRequestDispatcher("/vues/cheval/chevalConsulter.jsp").forward(request, response);
+		}
+		
+		if (url.equals(URL_LISTER_MES_CHEVAUX)) {
+			ArrayList<Cheval> mesChevaux = ChevalDAO.getChevauxClient(connection, user.getId());
+
+			request.setAttribute("pMesChevaux", mesChevaux);
+			changerTitrePage("Lister Mes Chevaux", request);
+
+			getServletContext().getRequestDispatcher("/vues/cheval/listerMesChevaux.jsp").forward(request, response);
 		}
 
 		if (url.equals(URL_MODIFIER_CHEVAL)) {
@@ -159,7 +172,6 @@ public class ServletCheval extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
-
 	}
 
 	/**

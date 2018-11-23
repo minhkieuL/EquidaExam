@@ -11,4 +11,5 @@
         Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
 %>
 <li><a href="/EquidaWebG2/ServletCheval/ajouterCheval">Ajouter un cheval</a></li>
-<li><a href="/EquidaWebG2/ServletClient/clientModifier">Modifier mes informations</a></li>
+<li><a href="/EquidaWebG2/ServletCheval/listerMesChevaux">Mes chevaux</a></li>
+<li><a href="/EquidaWebG2/ServletClient/clientModifier">Mes informations</a></li>

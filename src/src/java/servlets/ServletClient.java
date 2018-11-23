@@ -130,7 +130,6 @@ public class ServletClient extends ServletBase {
 					idClient= Integer.valueOf(request.getParameter("id"));
 				}
 				
-				
 				Client unClient = ClientDAO.getClient(connection, idClient);
 				ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
 				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
