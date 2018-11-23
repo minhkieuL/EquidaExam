@@ -26,7 +26,7 @@
 %>
 <div class="row">
 	<div class="col s12">
-		<h3>Mes chevaux</h3>
+		<h1 class="center-align">Mes chevaux</h1>
 		<%				
 			if (user instanceof Client) {
 				if (mesChevaux.size() != 0) {

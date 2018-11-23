@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package database;
 
 import java.sql.Connection;
@@ -38,7 +33,7 @@ public class VenteDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Vente avec les résultats de la requête
 			while (rs.next()) {
 				Vente uneVente = new Vente();
 				uneVente.setId(rs.getInt("id"));
@@ -67,7 +62,7 @@ public class VenteDAO {
 			//executer la requete
 			ResultSet rs = requete.executeQuery();
 
-			//On hydrate l'objet métier Client avec les résultats de la requête
+			//On hydrate l'objet métier Vente avec les résultats de la requête
 			while (rs.next()) {
 				Vente uneVente = new Vente();
 				uneVente.setId(rs.getInt("id"));

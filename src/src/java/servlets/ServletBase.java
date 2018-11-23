@@ -1,5 +1,6 @@
 package servlets;
 
+import formulaires.Form;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,5 +39,11 @@ public abstract class ServletBase extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static Form getForm(HttpServletRequest request) {
+		Form form = (Form) request.getSession().getAttribute("form");
+		request.getSession().removeAttribute("form");
+		return form;
 	}
 }

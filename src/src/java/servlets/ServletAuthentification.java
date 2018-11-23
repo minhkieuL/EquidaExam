@@ -17,7 +17,7 @@ public class ServletAuthentification extends ServletBase {
 
 	public static final String URL_CONNEXION = "/EquidaWebG2/ServletAuthentification/connexion";
 	public static final String URL_DECONNEXION = "/EquidaWebG2/ServletAuthentification/deconnexion";
-	
+
 	Connection connection;
 
 	@Override
@@ -81,6 +81,9 @@ public class ServletAuthentification extends ServletBase {
 			}
 
 			if (showError) {
+				if(compteForm.getErreurs().values().isEmpty())
+					compteForm.ajouterErreur("a", "La combinaison nom d'utilisateur et mot de passe n'existe pas");
+				request.getSession().setAttribute("form", compteForm);
 				response.sendRedirect(URL_CONNEXION);
 			}
 

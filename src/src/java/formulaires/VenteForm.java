@@ -1,13 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package formulaires;
 
-import database.LieuDAO;
 import static formulaires.Form.getDataForm;
-import java.sql.Connection;
 import javax.servlet.http.HttpServletRequest;
 import modele.CategVente;
 import modele.Lieu;

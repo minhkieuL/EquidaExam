@@ -1,6 +1,7 @@
 package servlets;
 
 
+import formulaires.ParticipationForm;
 import database.ChevalDAO;
 import database.CourseDAO;
 import database.ParticiperDAO;
@@ -19,16 +20,18 @@ import modele.DirecteurGeneral;
 import modele.Participer;
 import modele.Utilisateur;
 
+
 /**
  *
  * @author slam
  */
 public class ServletCourse extends ServletBase {
 
-	private static final String URL_AJOUTER_COURSE = "/EquidaWebG2/ServletCourse/courseAjouter";
-	private static final String URL_RENSEIGNER_COURSE_POUR_CHEVAL = "/EquidaWebG2/ServletCourse/courseChevalRenseigner";
-	private static final String URL_MODIFIER_COURSE = "/EquidaWebG2/ServletCourse/courseModifier";
-	private static final String URL_LISTER_COURSES = "/EquidaWebG2/ServletCourse/listerLesCourses";
+	public static final String URL_AJOUTER_COURSE = "/EquidaWebG2/ServletCourse/courseAjouter";
+	public static final String URL_RENSEIGNER_COURSE_POUR_CHEVAL = "/EquidaWebG2/ServletCourse/courseChevalRenseigner";
+	public static final String URL_MODIFIER_COURSE = "/EquidaWebG2/ServletCourse/courseModifier";
+	public static final String URL_LISTER_COURSES = "/EquidaWebG2/ServletCourse/listerLesCourses";
+	public static final String URL_SUPPRIMER_CLASSEMENT_CHEVAL = "/EquidaWebG2/ServletCourse/courseSupprimer";
 	
 	Connection connection;
 
@@ -104,6 +107,19 @@ public class ServletCourse extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
+		if (url.equals(URL_SUPPRIMER_CLASSEMENT_CHEVAL)) {
+			if(user instanceof Client) {
+				int idCheval = Integer.valueOf(request.getParameter("idCheval"));
+				int idCourse = Integer.valueOf(request.getParameter("idCourse"));
+				
+				ParticiperDAO.supprimerChevalVente(connection, idCheval, idCourse);
+			
+				response.sendRedirect(ServletCheval.URL_CONSULTER_CHEVAL+"?id="+idCheval);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+			
+		}
 	}
 
 	/**
@@ -128,16 +144,10 @@ public class ServletCourse extends ServletBase {
 				Course uneCourse = formCourse.getCourse(request);
 
 				if (formCourse.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
 					CourseDAO.ajouterCourse(connection, uneCourse);
-
-					/* Stockage du formulaire et de l'objet dans l'objet request */
-					request.setAttribute("form", formCourse);
-					request.setAttribute("pCourse", uneCourse);
-
 					response.sendRedirect(URL_LISTER_COURSES);
-
 				} else {
+					request.getSession().setAttribute("form", formCourse);
 					response.sendRedirect(URL_AJOUTER_COURSE);
 				}
 			} else {
@@ -153,17 +163,12 @@ public class ServletCourse extends ServletBase {
 				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
 				Course uneCourse = form.getCourse(request);
 
-				/* Stockage du formulaire et de l'objet dans l'objet request */
-				request.setAttribute("form", form);
-				request.setAttribute("pCourse", uneCourse);
-
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
 					CourseDAO.modifierCourse(connection, uneCourse, form.getCourseOrigin(request));
 					response.sendRedirect(URL_LISTER_COURSES);
 				} else {
-					response.sendRedirect(URL_MODIFIER_COURSE+"?code="+uneCourse.getId());
+					request.getSession().setAttribute("form", form);
+					response.sendRedirect(URL_MODIFIER_COURSE+"?code="+form.getCourseOrigin(request));
 				}
 			} else {
 				redirigerVersAcceuil(response);
@@ -182,11 +187,10 @@ public class ServletCourse extends ServletBase {
 				request.setAttribute("form", form);
 				
 				if (form.getErreurs().isEmpty()) {
-					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
-
 					ParticiperDAO.renseignerCourseCheval(connection, uneParticipation);
 					response.sendRedirect(ServletCheval.URL_CONSULTER_CHEVAL+"?id="+uneParticipation.getCheval().getId());
 				} else {
+					request.getSession().setAttribute("form", form);
 					response.sendRedirect(URL_RENSEIGNER_COURSE_POUR_CHEVAL+"?id="+uneParticipation.getCheval().getId());
 				}
 			} else {

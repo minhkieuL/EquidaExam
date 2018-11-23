@@ -1,32 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
-import javax.servlet.http.HttpServletRequest;
-import modele.CategVente;
-import modele.Cheval;
 import modele.Participer;
-import modele.Utilisateur;
 
 /**
  *
  * @author slam
  */
-
-
 public class ParticiperDAO {
-	
-	public static void renseignerCourseCheval(Connection connection, Participer uneParticipation) {
 
+	public static void renseignerCourseCheval(Connection connection, Participer uneParticipation) {
 		try {
 			PreparedStatement requete = connection.prepareStatement("INSERT INTO participer (idCheval, idCourse, classement)\n"
 					+ "VALUES (?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
@@ -57,12 +44,27 @@ public class ParticiperDAO {
 				Participer uneParticipation = new Participer();
 				uneParticipation.setCourse(CourseDAO.getCourse(connection, rs.getInt("idCourse")));
 				uneParticipation.setPlace(rs.getInt("classement"));
+				uneParticipation.setCheval(ChevalDAO.getCheval(connection, rs.getInt("idCheval")));
 				lesParticipations.add(uneParticipation);
-				}
-			} catch (SQLException e) {
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 			//out.println("Erreur lors de l’établissement de la connexion");
 		}
 		return lesParticipations;
+	}
+	
+	public static void supprimerChevalVente(Connection connection, int idCheval, int idCourse) {
+		try {
+			PreparedStatement requete = connection.prepareStatement("DELETE FROM participer WHERE participer.idCheval = ? AND participer.idCourse = ?;");
+			requete.setInt(1, idCheval);
+			requete.setInt(2, idCourse);
+			
+			requete.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			//out.println("Erreur lors de l’établissement de la connexion");
+		}
 	}
 }

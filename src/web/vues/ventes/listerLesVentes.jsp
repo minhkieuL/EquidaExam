@@ -17,69 +17,55 @@
 <h1 class="center-align">Liste des ventes</h1>
 
 <%
-	ArrayList<Vente> lesVentes = (ArrayList) request.getAttribute("pLesVentes");
-	ArrayList<CategVente> lesCatVentes = (ArrayList) request.getAttribute("pLesCatVentes");
+        ArrayList<Vente> lesVentes = (ArrayList) request.getAttribute("pLesVentes");
+        ArrayList<CategVente> lesCatVentes = (ArrayList) request.getAttribute("pLesCatVentes");
 
-	Utilisateur user = (Utilisateur) session.getAttribute("user");
+        Utilisateur user = (Utilisateur) session.getAttribute("user");
 %>
-<form method="GET">
-    <select
-        name="catVente">
+<div class="row">
+    <div class="col s12">
+        <form method="GET">
+            <select
+                name="catVente">
+                <%
+                                        for (CategVente catVente : lesCatVentes) {
+                                                String catCode = catVente.getCode();
+                                                String catLib = catVente.getLibelle();
+
+                                                String catVenteSelect = "";
+                                                if (request.getParameter("catVente") != null) {
+                                                        catVenteSelect = (request.getParameter("catVente").equals(catCode)) ? "selected" : "";
+                                                }
+
+                                                out.println("<option value=\"" + catCode + "\"" + catVenteSelect + ">" + catLib + "</option>)");
+                                        }
+                %>
+            </select>
+
+            <input type="submit"/>
+        </form>
+
+        <a href="<%= ServletVentes.URL_LISTER_VENTES%>"><button>Toutes les ventes</button></a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12">
         <%
-			for (CategVente catVente : lesCatVentes) {
-				String catCode = catVente.getCode();
-				String catLib = catVente.getLibelle();
+                        for (int i = 0; i < lesVentes.size(); i++) {
 
-				String catVenteSelect = "";
-				if (request.getParameter("catVente") != null) {
-					catVenteSelect = (request.getParameter("catVente").equals(catCode)) ? "selected" : "";
-				}
-
-				out.println("<option value=\"" + catCode + "\"" + catVenteSelect + ">" + catLib + "</option>)");
-			}
+                                Vente uneVente = lesVentes.get(i);
         %>
-    </select>
+        <h2><%= uneVente.getNom()%></h2>
+        <p><%= uneVente.getUneCategVente().getLibelle()%></a></p>
+        <p><%= "Date de la vente : " + uneVente.getDateDebut()%></p>
+        <p><a href="<%= ServletVentes.URL_CONSULTER_VENTE%>?id=<%=uneVente.getId()%>">Plus d'informations</a></p>
+        <hr/>
+        <% }
+        %>
+    </div>
+</div>
 
-    <input type="submit"/>
-</form>
 
-<a href="listerLesVentes"><button>Reset</button></a>
-<table  class="table table-bordered table-striped table-condensed">  
-    <thead>
-        <tr>             
-            <th>Nom</th>
-            <th>Date début</th>
-            <th>Catégorie</th>  
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <%
-				for (int i = 0; i < lesVentes.size(); i++) {
-
-					Vente uneVente = lesVentes.get(i);
-					out.println("<tr>");
-					out.println("<td>");
-					out.println(uneVente.getNom());
-					out.println("</td>");
-
-					out.println("<td>");
-					out.println(uneVente.getDateVente());
-					out.println("</td>");
-
-					out.println("<td>");
-					out.println(uneVente.getUneCategVente().getLibelle());
-					out.println("</td>");
-
-					out.println("<td><a href='"+ServletVentes.URL_CONSULTER_VENTE+"?id=" + uneVente.getId() + "'>");
-					out.println("Voir plus");
-					out.println("</td>");
-					out.println("</tr>");
-
-				}
-            %>
-        </tr>
-    </tbody>
-</table>
 
 <jsp:include page="/vues/include/footer.jsp" />
