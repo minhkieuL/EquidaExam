@@ -43,7 +43,7 @@
                 <label for="course">Course : </label>
             </div>
             <div class="input-field col s12 l6">
-                <input id="classement" type="number" name="classement" min="1" max="3" class="validate">
+                <input id="classement" type="number" name="classement" min="1" max="999" class="validate">
                 <label for="classement">Classement : </label>
             </div>
 

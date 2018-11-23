@@ -190,7 +190,7 @@ public class ChevalDAO {
 	public static ArrayList<Cheval> getChevauxClient(Connection connection, int idClient) {
 		ArrayList<Cheval> chevaux = new ArrayList<>();
 		try {
-			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE client = ?");
+			PreparedStatement requete = connection.prepareStatement("SELECT * FROM cheval WHERE client = ? AND archiver = 0");
 			requete.setInt(1, idClient);
 
 			ResultSet rs = requete.executeQuery();

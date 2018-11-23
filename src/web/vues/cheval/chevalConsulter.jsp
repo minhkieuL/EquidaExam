@@ -109,12 +109,6 @@
 									out.println("</td>");
 
 									if (user instanceof Client || user instanceof DirecteurGeneral) {
-										out.println("<td><a href ='../ServletClient/clientModifier?id=" + uneParticipation.getCheval() + "'>");
-										out.println("Modifier");
-										out.println("</td>");
-									}
-
-									if (user instanceof Client || user instanceof DirecteurGeneral) {
 										out.println("<td><a href ='" + ServletCourse.URL_SUPPRIMER_CLASSEMENT_CHEVAL + "?idCheval=" + uneParticipation.getCheval().getId() + "&idCourse=" + uneParticipation.getCourse().getId() + "'>");
 										out.println("Supprimer");
 										out.println("</td>");
