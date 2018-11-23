@@ -40,7 +40,7 @@ public class EnchereDAO {
 				Enchere uneEnchere = new Enchere();
 				uneEnchere.setId(rs.getInt("id"));
 				uneEnchere.setMontant(rs.getFloat("montant"));
-				uneEnchere.setClient(ClientDAO.getClient(connection,rs.getInt("id")));
+				uneEnchere.setClient(ClientDAO.getClient(connection,rs.getInt("client")));
 				
 				lesEncheres.add(uneEnchere);
 			}
