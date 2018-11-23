@@ -36,8 +36,34 @@
 %>
 
 <div class="row">
-	<div class="col s12 l6 right valign-wrapper">
-		<img src="<%= request.getContextPath()%>/img/1.jpg" class="responsive-img "/>
+	<div class="col s12 l6 right">
+		<div class="row">
+			<div class="col s12">
+				<p><img src="<%= request.getContextPath()%>/img/1.jpg" class="responsive-img "/></p>
+			</div>
+		</div>
+		<%
+			boolean canModify = false;
+			if (user instanceof DirecteurGeneral) {
+				canModify = true;
+			}
+
+			if (user instanceof Client) {
+				if (unCheval.getClient().getId() == user.getId()) {
+					canModify = true;
+				}
+			}
+
+			if (canModify) {
+		%>
+		<div class="row">
+			<div class="col s12">
+				<p><a href ="<%= ServletCheval.URL_MODIFIER_CHEVAL%>?id=<%=unCheval.getId()%>">Modifier le cheval</a></p>
+			</div>
+		</div>
+		<%
+			}
+		%>
 	</div>
 
 	<div class="col s12 l6 left">

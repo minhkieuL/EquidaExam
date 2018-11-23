@@ -1,7 +1,7 @@
 <%-- 
-    Document   : consulterClient
-    Created on : 23 juin 2017, 10:33:23
-    Author     : MartinJ
+Document   : consulterClient
+Created on : 23 juin 2017, 10:33:23
+Author     : MartinJ
 --%>
 
 <%@page import="servlets.ServletEnchere"%>
@@ -20,10 +20,10 @@
 <jsp:include page="/vues/include/header.jsp" />
 
 <%
-        Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
-        Vente uneVente = (Vente) request.getAttribute("pVente");
-        ArrayList<Cheval> chevauxClient = (ArrayList<Cheval>) request.getAttribute("pChevauxClient");
-        ArrayList<Client> encherisseur = (ArrayList<Client>) request.getAttribute("pClients");
+	Utilisateur user = (Utilisateur) request.getSession().getAttribute("user");
+	Vente uneVente = (Vente) request.getAttribute("pVente");
+	ArrayList<Cheval> chevauxClient = (ArrayList<Cheval>) request.getAttribute("pChevauxClient");
+	ArrayList<Client> encherisseur = (ArrayList<Client>) request.getAttribute("pClients");
 
 %>
 
@@ -34,7 +34,7 @@
         <p><a href="../ServletCourriel/listerLesCourriels?codeVente=<%=uneVente.getId()%>">Lister les courriels</a></p>
         <p><a href="<%= ServletVentes.URL_MODIFIER_VENTE%>?id=<%=uneVente.getId()%>">Modifier la vente</a></p>
         <%
-                        }
+			}
         %>
     </div>
 
@@ -50,8 +50,8 @@
         <div class="col s12">
             <h3>Chevaux en vente</h3>
             <%
-                                if (user instanceof Client) {
-                                        if (chevauxClient.size() != 0) {
+				if (user instanceof Client) {
+					if (chevauxClient.size() != 0) {
             %>
             <a href="#ajouterCheval" onclick="$('#ajouterChevalVente').show(); $(this).hide();">Ajouter un cheval à la vente</a>
             <div class="row">
@@ -61,11 +61,11 @@
                         <div class="input-field col s12 l6">
                             <select name="chevalClient" class="validate">
                                 <%
-                                                                        for (Cheval cheval : chevauxClient) {
+									for (Cheval cheval : chevauxClient) {
                                 %>
                                 <option value="<%=cheval.getId()%>"><%= cheval.getNom() + " - " + cheval.getSire()%></option>
                                 <%
-                                                                        }
+									}
                                 %>
                             </select>
                             <label for="chevalClient">Cheval</label>
@@ -83,23 +83,23 @@
                 </form>
             </div>
             <%
-                        } else {
+			} else {
             %>
             <p>Vous n'avez plus de chevaux à vendre, vous ne pouvez donc pas en ajouter à cette vente.</p>
             <%					}
-                                }
-                                for (Lot lot : uneVente.getLots()) {
-                                        request.setAttribute("lot", lot);
+				}
+				for (Lot lot : uneVente.getLots()) {
+					request.setAttribute("lot", lot);
             %>
             <jsp:include page="/vues/cheval/chevalEmbed.jsp"/>
             <%
-                                }
+				}
 
-                                if (uneVente.getLots().size() == 0) {
+				if (uneVente.getLots().size() == 0) {
             %>
             <p>Aucun cheval n'est actuellement en vente.</p>		
             <%
-                                }
+				}
             %>
         </div>
     </div>
