@@ -4,6 +4,7 @@
     Author     : BottonL
 --%>
 
+<%@page import="servlets.ServletClient"%>
 <%@page import="modele.Client"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="modele.Utilisateur"%>
@@ -15,7 +16,6 @@
 
 <%
 	ArrayList<Client> lesClients = (ArrayList) request.getAttribute("pLesClients");
-        
 	Utilisateur user = (Utilisateur) session.getAttribute("user");
 %>
 
@@ -24,7 +24,7 @@
 		<thead>
 			<tr>             
 				<th>Nom</th>
-				<th>Prenomt</th>
+				<th>Prenom</th>
 				<th>Pays</th>  
 				<th>Rue</th>
 				<th>Ville</th>
@@ -39,7 +39,7 @@
 
 						Client unClient = lesClients.get(i);
 
-						out.println("<tr><td>");
+						out.println("<tr><td><a href='"+ ServletClient.URL_CONSULTER_CLIENT +"?id=" + unClient.getId() + "'>");
 						out.println(unClient.getNom());
 						out.println("</td>");
 
@@ -67,9 +67,13 @@
 						out.println(unClient.getMail());
 						out.println("</td>");
                                                 
-                                                out.println("<td><a href ='../ServletClient/clientModifier?id=" + unClient.getId() + "'>");
-                                                out.println("Modifier");
-                                                out.println("</td>");
+						out.println("<td><a href ='../ServletClient/clientModifier?id=" + unClient.getId() + "'>");
+						out.println("Modifier");
+						out.println("</td>");
+						
+						out.println("<td><a href='"+ ServletClient.URL_ARCHIVER_CLIENT +"?id=" + unClient.getId() + "'>");
+						out.println("Archiver");
+						out.println("</td>");
 					}
 				%>
 			</tr>

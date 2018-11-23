@@ -1,7 +1,9 @@
 package servlets;
 
 
+import database.ChevalDAO;
 import database.CourseDAO;
+import database.ParticiperDAO;
 import formulaires.CourseForm;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,9 +12,13 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modele.Cheval;
+import modele.Client;
 import modele.Course;
 import modele.DirecteurGeneral;
+import modele.Participer;
 import modele.Utilisateur;
+
 
 /**
  *
@@ -21,8 +27,10 @@ import modele.Utilisateur;
 public class ServletCourse extends ServletBase {
 
 	private static final String URL_AJOUTER_COURSE = "/EquidaWebG2/ServletCourse/courseAjouter";
+	private static final String URL_RENSEIGNER_COURSE_POUR_CHEVAL = "/EquidaWebG2/ServletCourse/courseChevalRenseigner";
 	private static final String URL_MODIFIER_COURSE = "/EquidaWebG2/ServletCourse/courseModifier";
 	private static final String URL_LISTER_COURSES = "/EquidaWebG2/ServletCourse/listerLesCourses";
+	public static final String URL_SUPPRIMER_CLASSEMENT_CHEVAL = "/EquidaWebG2/ServletCourse/courseSupprimer";
 	
 	Connection connection;
 
@@ -81,6 +89,35 @@ public class ServletCourse extends ServletBase {
 			} else {
 				redirigerVersAcceuil(response);
 			}
+		}
+		
+		if (url.equals(URL_RENSEIGNER_COURSE_POUR_CHEVAL)) {
+			if(user instanceof Client || user instanceof DirecteurGeneral) {
+				int idCheval = Integer.valueOf(request.getParameter("id"));
+				Cheval unCheval = ChevalDAO.getCheval(connection, idCheval);
+				ArrayList <Course> lesCourses = CourseDAO.getLesCourses(connection);
+
+				request.setAttribute("pCheval", unCheval);
+				request.setAttribute("pLesCourses", lesCourses);
+				changerTitrePage("Ajouter le classement de votre cheval à une course", request);
+
+				getServletContext().getRequestDispatcher("/vues/course/courseChevalRenseigner.jsp").forward(request, response);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
+		if (url.equals(URL_SUPPRIMER_CLASSEMENT_CHEVAL)) {
+			if(user instanceof Client) {
+				int idCheval = Integer.valueOf(request.getParameter("idCheval"));
+				int idCourse = Integer.valueOf(request.getParameter("idCourse"));
+				
+				ParticiperDAO.supprimerChevalVente(connection, idCheval, idCourse);
+			
+				response.sendRedirect(ServletCheval.URL_CONSULTER_CHEVAL+"?id="+idCheval);
+			} else {
+				redirigerVersAcceuil(response);
+			}
+			
 		}
 	}
 
@@ -142,6 +179,30 @@ public class ServletCourse extends ServletBase {
 					response.sendRedirect(URL_LISTER_COURSES);
 				} else {
 					response.sendRedirect(URL_MODIFIER_COURSE+"?code="+uneCourse.getId());
+				}
+			} else {
+				redirigerVersAcceuil(response);
+			}
+		}
+		
+		if (url.equals(URL_RENSEIGNER_COURSE_POUR_CHEVAL )) {
+			if(user instanceof Client || user instanceof DirecteurGeneral) {
+				/* Préparation de l'objet formulaire */
+				ParticipationForm form = new ParticipationForm();
+
+				/* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+				Participer uneParticipation = form.getParticipation(request);
+
+				/* Stockage du formulaire et de l'objet dans l'objet request */
+				request.setAttribute("form", form);
+				
+				if (form.getErreurs().isEmpty()) {
+					// Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+
+					ParticiperDAO.renseignerCourseCheval(connection, uneParticipation);
+					response.sendRedirect(ServletCheval.URL_CONSULTER_CHEVAL+"?id="+uneParticipation.getCheval().getId());
+				} else {
+					response.sendRedirect(URL_RENSEIGNER_COURSE_POUR_CHEVAL+"?id="+uneParticipation.getCheval().getId());
 				}
 			} else {
 				redirigerVersAcceuil(response);

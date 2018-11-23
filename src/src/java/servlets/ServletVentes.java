@@ -6,6 +6,7 @@
 package servlets;
 
 import database.CategVenteDAO;
+import database.ChevalDAO;
 import database.LieuDAO;
 import database.Utilitaire;
 import database.VenteDAO;
@@ -18,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.CategVente;
+import modele.Cheval;
 import modele.DirecteurGeneral;
 import modele.Lieu;
 import modele.Utilisateur;
@@ -34,6 +36,8 @@ public class ServletVentes extends ServletBase {
 	public static final String URL_LISTER_VENTES = "/EquidaWebG2/ServletVentes/listerLesVentes";
 	public static final String URL_AJOUTER_VENTE = "/EquidaWebG2/ServletVentes/venteAjouter";
 	public static final String URL_CONSULTER_VENTE = "/EquidaWebG2/ServletVentes/venteConsulter";
+	public static final String URL_MODIFIER_VENTE = "/EquidaWebG2/ServletVentes/venteModifier";
+	
 	
 	Connection connection;
 
@@ -78,7 +82,10 @@ public class ServletVentes extends ServletBase {
 				return;
 			}
 			Vente vente = VenteDAO.getVente(connection, idVente);
+			int idClient = (user != null) ? user.getId() : 0;
+			ArrayList<Cheval> chevauxClient = ChevalDAO.getChevauxClientDispoVente(connection, idClient);
 
+			request.setAttribute("pChevauxClient", chevauxClient);
 			request.setAttribute("pVente", vente);
 			changerTitrePage("Vente "+vente.getNom(), request);
 
@@ -99,6 +106,26 @@ public class ServletVentes extends ServletBase {
 				redirigerVersAcceuil(response);
 			}
 		}
+		
+		if (url.equals(URL_MODIFIER_VENTE)){
+			if(user instanceof DirecteurGeneral) {
+				
+				ArrayList<Lieu> lesLieux = LieuDAO.getLesLieux(connection);
+				ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
+				
+				int idVente = Integer.valueOf(request.getParameter("id"));
+				Vente uneVente = VenteDAO.getUneVente(connection, idVente);
+				
+				request.setAttribute("pVente", uneVente);
+				request.setAttribute("pLesLieux", lesLieux);
+				request.setAttribute("pLesCategVente", lesCategVentes);
+				changerTitrePage("Modification d'un vente", request);
+				
+				this.getServletContext().getRequestDispatcher("/vues/ventes/venteModifier.jsp").forward(request, response);	
+		} else {
+				redirigerVersAcceuil(response);
+			}
+		}	
 	}
 	
 	/**
